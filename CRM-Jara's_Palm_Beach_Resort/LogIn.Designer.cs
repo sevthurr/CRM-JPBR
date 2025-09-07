@@ -52,7 +52,7 @@
             loginPanel.Controls.Add(usernameLbl);
             loginPanel.Location = new Point(70, 334);
             loginPanel.Name = "loginPanel";
-            loginPanel.Size = new Size(480, 328);
+            loginPanel.Size = new Size(472, 326);
             loginPanel.TabIndex = 1;
             // 
             // linkLabel1
@@ -73,7 +73,7 @@
             loginBtn.BackColor = Color.FromArgb(235, 197, 149);
             loginBtn.Font = new Font("Poppins Medium", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             loginBtn.ForeColor = SystemColors.ActiveCaptionText;
-            loginBtn.Location = new Point(172, 263);
+            loginBtn.Location = new Point(172, 253);
             loginBtn.Name = "loginBtn";
             loginBtn.Size = new Size(119, 37);
             loginBtn.TabIndex = 5;
@@ -152,7 +152,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(620, 721);
+            ClientSize = new Size(620, 717);
             Controls.Add(crmLbl);
             Controls.Add(logo);
             Controls.Add(loginPanel);
@@ -170,12 +170,12 @@
 
         private Panel loginPanel;
         private PictureBox logo;
-        private Label crmLbl;
         private Label usernameLbl;
         private Label passwordLbl;
         private TextBox passwordTb;
         private TextBox usernameTb;
         private Button loginBtn;
         private LinkLabel linkLabel1;
+        private Label crmLbl;
     }
 }

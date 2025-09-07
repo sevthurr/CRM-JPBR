@@ -63,10 +63,40 @@ namespace CRM_Jara_s_Palm_Beach_Resort.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _464643879_122123191316493608_5108633697996930672_n_removebg_preview__1_ {
+            get {
+                object obj = ResourceManager.GetObject("464643879_122123191316493608_5108633697996930672_n-removebg-preview (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _464643879_122123191316493608_5108633697996930672_n_removebg_preview_removebg_preview {
             get {
                 object obj = ResourceManager.GetObject("464643879_122123191316493608_5108633697996930672_n-removebg-preview-removebg-prev" +
                         "iew", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Screenshot_2025_09_04_134526 {
+            get {
+                object obj = ResourceManager.GetObject("Screenshot 2025-09-04 134526", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Screenshot_2025_09_04_134749 {
+            get {
+                object obj = ResourceManager.GetObject("Screenshot 2025-09-04 134749", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
