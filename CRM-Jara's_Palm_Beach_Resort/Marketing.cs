@@ -7,81 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms.Integration; 
-using Jpbr.WpfWidgets;                  
 
 namespace CRM_Jara_s_Palm_Beach_Resort
 {
-    public partial class Dashboard : Form
+    public partial class Marketing : Form
     {
-        public Dashboard()
+        public Marketing()
         {
             InitializeComponent();
-
-            panelCalendarHost.Size = new Size(1772, 589);
-
-            var host = new ElementHost
-            {
-                Size = new Size(773, 493),
-                Location = new Point(40, (panelCalendarHost.Height - 493) / 2),
-                Anchor = AnchorStyles.None
-            };
-
-            // WPF UserControl
-            var bookingCalendar = new BookingCalendar();
-            host.Child = bookingCalendar;
-            panelCalendarHost.Controls.Add(host);
-
-            bookingsBtn.Click += bookingsBtn_Click;
             dashboardBtn.Click += dashboardBtn_Click;
+            bookingsBtn.Click += bookingsBtn_Click;
             guestsBtn.Click += guestsBtn_Click;
             marketingBtn.Click += marketingBtn_Click;
             supportBtn.Click += supportBtn_Click;
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void crmLbl_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void iconPictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void userLbl_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void dashboardBtn_Click(object sender, EventArgs e)
@@ -122,21 +60,6 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             supportForm.WindowState = FormWindowState.Maximized;
             supportForm.Show();
             this.Hide();
-        }
-
-        private void Dashboard_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void kryptonMonthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
-        {
-
-        }
-
-        private void panel4_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

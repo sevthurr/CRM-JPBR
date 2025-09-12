@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="Jpbr.WpfWidgets.BookingCalendar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             MinWidth="500" MinHeight="350">
+    <Grid Background="White">
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Calendar x:Name="Cal" FontFamily="Poppins" FontSize="18" Height="320" Width="480" Background="White" Foreground="Black">
+                <Calendar.Resources>
+                    <!-- Day Button Style -->
+                    <Style TargetType="CalendarDayButton">
+                        <Setter Property="Margin" Value="12,6"/>
+                        <Setter Property="Padding" Value="10,10"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="BorderBrush" Value="#1A237E"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <!-- Calendar Button Style (Month/Year navigation) -->
+                    <Style TargetType="CalendarButton">
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="Margin" Value="8,4"/>
+                        <Setter Property="Padding" Value="8,8"/>
+                    </Style>
+                </Calendar.Resources>
+            </Calendar>
+        </Grid>
+    </Grid>
+</UserControl>

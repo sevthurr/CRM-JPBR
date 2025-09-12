@@ -29,16 +29,6 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            panel1 = new Panel();
-            chevronDownBtn = new FontAwesome.Sharp.IconPictureBox();
-            supportBtn = new Label();
-            marketingBtn = new Label();
-            guestsBtn = new Label();
-            bookingsBtn = new Label();
-            dashboardBtn = new Label();
-            label1 = new Label();
-            crmLbl = new Label();
-            pictureBox1 = new PictureBox();
             bindingSource1 = new BindingSource(components);
             welcomeLbl = new Label();
             userLbl = new Label();
@@ -56,15 +46,23 @@
             activeCampaignsVal = new Label();
             activeCampaignsLbl = new Label();
             checkInsPanel = new Panel();
-            checkInsTable = new TableLayoutPanel();
+            tableLayoutPanel1 = new TableLayoutPanel();
             checkInsLbl = new Label();
             panel3 = new Panel();
             checkOutsTable = new TableLayoutPanel();
             checkOutsLbl = new Label();
-            panel2 = new Panel();
-            panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)chevronDownBtn).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            kryptonCustomPaletteBase1 = new Krypton.Toolkit.KryptonCustomPaletteBase(components);
+            panelCalendarHost = new Panel();
+            panel1 = new Panel();
+            chevronDownBtn = new FontAwesome.Sharp.IconPictureBox();
+            supportBtn = new Label();
+            marketingBtn = new Label();
+            guestsBtn = new Label();
+            bookingsBtn = new Label();
+            dashboardBtn = new Label();
+            label1 = new Label();
+            crmLbl = new Label();
+            pictureBox1 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             bookingsPanel.SuspendLayout();
             repeatGuestsPanel.SuspendLayout();
@@ -72,135 +70,16 @@
             activeCampaignsPanel.SuspendLayout();
             checkInsPanel.SuspendLayout();
             panel3.SuspendLayout();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)chevronDownBtn).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
-            // 
-            // panel1
-            // 
-            panel1.BackColor = Color.FromArgb(40, 75, 83);
-            panel1.Controls.Add(chevronDownBtn);
-            panel1.Controls.Add(supportBtn);
-            panel1.Controls.Add(marketingBtn);
-            panel1.Controls.Add(guestsBtn);
-            panel1.Controls.Add(bookingsBtn);
-            panel1.Controls.Add(dashboardBtn);
-            panel1.Controls.Add(label1);
-            panel1.Controls.Add(crmLbl);
-            panel1.Controls.Add(pictureBox1);
-            panel1.ForeColor = Color.Coral;
-            panel1.Location = new Point(0, -1);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1908, 63);
-            panel1.TabIndex = 0;
-            // 
-            // chevronDownBtn
-            // 
-            chevronDownBtn.BackColor = Color.FromArgb(40, 75, 83);
-            chevronDownBtn.IconChar = FontAwesome.Sharp.IconChar.ChevronDown;
-            chevronDownBtn.IconColor = Color.White;
-            chevronDownBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            chevronDownBtn.IconSize = 27;
-            chevronDownBtn.Location = new Point(1805, 19);
-            chevronDownBtn.Name = "chevronDownBtn";
-            chevronDownBtn.Size = new Size(27, 33);
-            chevronDownBtn.TabIndex = 2;
-            chevronDownBtn.TabStop = false;
-            chevronDownBtn.Click += iconPictureBox1_Click;
-            // 
-            // supportBtn
-            // 
-            supportBtn.AutoSize = true;
-            supportBtn.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            supportBtn.ForeColor = Color.White;
-            supportBtn.Location = new Point(1673, 19);
-            supportBtn.Name = "supportBtn";
-            supportBtn.Size = new Size(79, 30);
-            supportBtn.TabIndex = 10;
-            supportBtn.Text = "Support";
-            // 
-            // marketingBtn
-            // 
-            marketingBtn.AutoSize = true;
-            marketingBtn.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            marketingBtn.ForeColor = Color.White;
-            marketingBtn.Location = new Point(1524, 19);
-            marketingBtn.Name = "marketingBtn";
-            marketingBtn.Size = new Size(97, 30);
-            marketingBtn.TabIndex = 9;
-            marketingBtn.Text = "Marketing";
-            // 
-            // guestsBtn
-            // 
-            guestsBtn.AutoSize = true;
-            guestsBtn.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            guestsBtn.ForeColor = Color.White;
-            guestsBtn.Location = new Point(1395, 19);
-            guestsBtn.Name = "guestsBtn";
-            guestsBtn.Size = new Size(72, 30);
-            guestsBtn.TabIndex = 8;
-            guestsBtn.Text = "Guests";
-            // 
-            // bookingsBtn
-            // 
-            bookingsBtn.AutoSize = true;
-            bookingsBtn.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            bookingsBtn.ForeColor = Color.White;
-            bookingsBtn.Location = new Point(1245, 20);
-            bookingsBtn.Name = "bookingsBtn";
-            bookingsBtn.Size = new Size(89, 30);
-            bookingsBtn.TabIndex = 7;
-            bookingsBtn.Text = "Bookings";
-            // 
-            // dashboardBtn
-            // 
-            dashboardBtn.AutoSize = true;
-            dashboardBtn.Font = new Font("Poppins", 10.2F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
-            dashboardBtn.ForeColor = Color.White;
-            dashboardBtn.Location = new Point(1079, 22);
-            dashboardBtn.Name = "dashboardBtn";
-            dashboardBtn.Size = new Size(111, 30);
-            dashboardBtn.TabIndex = 6;
-            dashboardBtn.Text = "Dashboard";
-            dashboardBtn.Click += dashboardBtn_Click;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Crimson Pro", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(106, 35);
-            label1.Name = "label1";
-            label1.Size = new Size(134, 17);
-            label1.TabIndex = 5;
-            label1.Text = "PALM BEACH RESORT";
-            // 
-            // crmLbl
-            // 
-            crmLbl.AutoSize = true;
-            crmLbl.Font = new Font("Crimson Pro", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            crmLbl.ForeColor = Color.White;
-            crmLbl.Location = new Point(116, 3);
-            crmLbl.Name = "crmLbl";
-            crmLbl.Size = new Size(70, 26);
-            crmLbl.TabIndex = 4;
-            crmLbl.Text = "JARA'S";
-            crmLbl.Click += crmLbl_Click;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = Properties.Resources._464643879_122123191316493608_5108633697996930672_n_removebg_preview__1_;
-            pictureBox1.Location = new Point(31, 3);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(63, 51);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 1;
-            pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
             // 
             // welcomeLbl
             // 
             welcomeLbl.AutoSize = true;
             welcomeLbl.Font = new Font("Poppins", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            welcomeLbl.Location = new Point(111, 88);
+            welcomeLbl.Location = new Point(39, 97);
             welcomeLbl.Name = "welcomeLbl";
             welcomeLbl.Size = new Size(209, 60);
             welcomeLbl.TabIndex = 2;
@@ -210,7 +89,7 @@
             // 
             userLbl.AutoSize = true;
             userLbl.Font = new Font("Poppins", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            userLbl.Location = new Point(301, 88);
+            userLbl.Location = new Point(236, 97);
             userLbl.Name = "userLbl";
             userLbl.Size = new Size(155, 60);
             userLbl.TabIndex = 3;
@@ -223,9 +102,9 @@
             bookingsPanel.Controls.Add(bookingsVal);
             bookingsPanel.Controls.Add(monthLbl);
             bookingsPanel.Controls.Add(TotalBookingsLbl);
-            bookingsPanel.Location = new Point(111, 161);
+            bookingsPanel.Location = new Point(75, 171);
             bookingsPanel.Name = "bookingsPanel";
-            bookingsPanel.Size = new Size(395, 86);
+            bookingsPanel.Size = new Size(405, 101);
             bookingsPanel.TabIndex = 4;
             // 
             // bookingsVal
@@ -266,9 +145,9 @@
             repeatGuestsPanel.BackColor = Color.White;
             repeatGuestsPanel.Controls.Add(repeatGuestsVal);
             repeatGuestsPanel.Controls.Add(repeatGuestsLbl);
-            repeatGuestsPanel.Location = new Point(540, 161);
+            repeatGuestsPanel.Location = new Point(540, 171);
             repeatGuestsPanel.Name = "repeatGuestsPanel";
-            repeatGuestsPanel.Size = new Size(395, 86);
+            repeatGuestsPanel.Size = new Size(405, 101);
             repeatGuestsPanel.TabIndex = 5;
             // 
             // repeatGuestsVal
@@ -297,9 +176,9 @@
             openTicketsPanel.BackColor = Color.White;
             openTicketsPanel.Controls.Add(openTicketsVal);
             openTicketsPanel.Controls.Add(openTicketsLbl);
-            openTicketsPanel.Location = new Point(976, 161);
+            openTicketsPanel.Location = new Point(992, 171);
             openTicketsPanel.Name = "openTicketsPanel";
-            openTicketsPanel.Size = new Size(395, 86);
+            openTicketsPanel.Size = new Size(405, 101);
             openTicketsPanel.TabIndex = 6;
             // 
             // openTicketsVal
@@ -329,9 +208,9 @@
             activeCampaignsPanel.BackColor = Color.White;
             activeCampaignsPanel.Controls.Add(activeCampaignsVal);
             activeCampaignsPanel.Controls.Add(activeCampaignsLbl);
-            activeCampaignsPanel.Location = new Point(1411, 161);
+            activeCampaignsPanel.Location = new Point(1442, 171);
             activeCampaignsPanel.Name = "activeCampaignsPanel";
-            activeCampaignsPanel.Size = new Size(395, 86);
+            activeCampaignsPanel.Size = new Size(405, 101);
             activeCampaignsPanel.TabIndex = 7;
             // 
             // activeCampaignsVal
@@ -359,37 +238,36 @@
             // checkInsPanel
             // 
             checkInsPanel.BackColor = Color.White;
-            checkInsPanel.Controls.Add(checkInsTable);
+            checkInsPanel.Controls.Add(tableLayoutPanel1);
             checkInsPanel.Controls.Add(checkInsLbl);
-            checkInsPanel.Location = new Point(111, 291);
+            checkInsPanel.Location = new Point(75, 306);
             checkInsPanel.Name = "checkInsPanel";
-            checkInsPanel.Size = new Size(824, 389);
+            checkInsPanel.Size = new Size(870, 412);
             checkInsPanel.TabIndex = 8;
             checkInsPanel.Paint += panel2_Paint;
             // 
-            // checkInsTable
+            // tableLayoutPanel1
             // 
-            checkInsTable.AutoScroll = true;
-            checkInsTable.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
-            checkInsTable.ColumnCount = 5;
-            checkInsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 53.87454F));
-            checkInsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 46.12546F));
-            checkInsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 115F));
-            checkInsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 116F));
-            checkInsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
-            checkInsTable.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkInsTable.Location = new Point(29, 54);
-            checkInsTable.Name = "checkInsTable";
-            checkInsTable.RowCount = 6;
-            checkInsTable.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            checkInsTable.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            checkInsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 46F));
-            checkInsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 46F));
-            checkInsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
-            checkInsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 47F));
-            checkInsTable.Size = new Size(756, 298);
-            checkInsTable.TabIndex = 11;
-            checkInsTable.Paint += tableLayoutPanel2_Paint;
+            tableLayoutPanel1.AutoScroll = true;
+            tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
+            tableLayoutPanel1.ColumnCount = 5;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 48.3076935F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 51.6923065F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 154F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 153F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 134F));
+            tableLayoutPanel1.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tableLayoutPanel1.Location = new Point(36, 64);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 6;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 45.16129F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 54.83871F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 54F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 57F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 55F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 47F));
+            tableLayoutPanel1.Size = new Size(781, 319);
+            tableLayoutPanel1.TabIndex = 13;
             // 
             // checkInsLbl
             // 
@@ -406,9 +284,9 @@
             panel3.BackColor = Color.White;
             panel3.Controls.Add(checkOutsTable);
             panel3.Controls.Add(checkOutsLbl);
-            panel3.Location = new Point(976, 291);
+            panel3.Location = new Point(992, 306);
             panel3.Name = "panel3";
-            panel3.Size = new Size(830, 389);
+            panel3.Size = new Size(855, 412);
             panel3.TabIndex = 9;
             // 
             // checkOutsTable
@@ -416,22 +294,22 @@
             checkOutsTable.AutoScroll = true;
             checkOutsTable.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
             checkOutsTable.ColumnCount = 5;
-            checkOutsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 53.87454F));
-            checkOutsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 46.12546F));
-            checkOutsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 115F));
-            checkOutsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 116F));
-            checkOutsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
+            checkOutsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 53.23077F));
+            checkOutsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 46.76923F));
+            checkOutsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 164F));
+            checkOutsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 153F));
+            checkOutsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 134F));
             checkOutsTable.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkOutsTable.Location = new Point(33, 54);
+            checkOutsTable.Location = new Point(33, 64);
             checkOutsTable.Name = "checkOutsTable";
             checkOutsTable.RowCount = 6;
-            checkOutsTable.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            checkOutsTable.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            checkOutsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 46F));
-            checkOutsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 46F));
-            checkOutsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
+            checkOutsTable.RowStyles.Add(new RowStyle(SizeType.Percent, 45.16129F));
+            checkOutsTable.RowStyles.Add(new RowStyle(SizeType.Percent, 54.83871F));
+            checkOutsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 54F));
+            checkOutsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 57F));
+            checkOutsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 55F));
             checkOutsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 47F));
-            checkOutsTable.Size = new Size(762, 298);
+            checkOutsTable.Size = new Size(781, 319);
             checkOutsTable.TabIndex = 12;
             // 
             // checkOutsLbl
@@ -444,13 +322,135 @@
             checkOutsLbl.TabIndex = 12;
             checkOutsLbl.Text = "Check-Outs";
             // 
-            // panel2
+            // kryptonCustomPaletteBase1
             // 
-            panel2.BackColor = SystemColors.ButtonHighlight;
-            panel2.Location = new Point(111, 723);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(1678, 1000);
-            panel2.TabIndex = 10;
+            kryptonCustomPaletteBase1.UseThemeFormChromeBorderWidth = Krypton.Toolkit.InheritBool.True;
+            // 
+            // panelCalendarHost
+            // 
+            panelCalendarHost.BackColor = SystemColors.ButtonHighlight;
+            panelCalendarHost.Location = new Point(75, 756);
+            panelCalendarHost.Name = "panelCalendarHost";
+            panelCalendarHost.Size = new Size(1772, 443);
+            panelCalendarHost.TabIndex = 11;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(40, 75, 83);
+            panel1.Controls.Add(chevronDownBtn);
+            panel1.Controls.Add(supportBtn);
+            panel1.Controls.Add(marketingBtn);
+            panel1.Controls.Add(guestsBtn);
+            panel1.Controls.Add(bookingsBtn);
+            panel1.Controls.Add(dashboardBtn);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(crmLbl);
+            panel1.Controls.Add(pictureBox1);
+            panel1.ForeColor = Color.Coral;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1908, 70);
+            panel1.TabIndex = 2;
+            // 
+            // chevronDownBtn
+            // 
+            chevronDownBtn.BackColor = Color.FromArgb(40, 75, 83);
+            chevronDownBtn.IconChar = FontAwesome.Sharp.IconChar.ChevronDown;
+            chevronDownBtn.IconColor = Color.White;
+            chevronDownBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            chevronDownBtn.IconSize = 27;
+            chevronDownBtn.Location = new Point(1825, 22);
+            chevronDownBtn.Name = "chevronDownBtn";
+            chevronDownBtn.Size = new Size(27, 33);
+            chevronDownBtn.TabIndex = 2;
+            chevronDownBtn.TabStop = false;
+            // 
+            // supportBtn
+            // 
+            supportBtn.AutoSize = true;
+            supportBtn.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            supportBtn.ForeColor = Color.White;
+            supportBtn.Location = new Point(1672, 20);
+            supportBtn.Name = "supportBtn";
+            supportBtn.Size = new Size(95, 36);
+            supportBtn.TabIndex = 10;
+            supportBtn.Text = "Support";
+            // 
+            // marketingBtn
+            // 
+            marketingBtn.AutoSize = true;
+            marketingBtn.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            marketingBtn.ForeColor = Color.White;
+            marketingBtn.Location = new Point(1503, 19);
+            marketingBtn.Name = "marketingBtn";
+            marketingBtn.Size = new Size(114, 36);
+            marketingBtn.TabIndex = 9;
+            marketingBtn.Text = "Marketing";
+            // 
+            // guestsBtn
+            // 
+            guestsBtn.AutoSize = true;
+            guestsBtn.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            guestsBtn.ForeColor = Color.White;
+            guestsBtn.Location = new Point(1358, 19);
+            guestsBtn.Name = "guestsBtn";
+            guestsBtn.Size = new Size(83, 36);
+            guestsBtn.TabIndex = 8;
+            guestsBtn.Text = "Guests";
+            // 
+            // bookingsBtn
+            // 
+            bookingsBtn.AutoSize = true;
+            bookingsBtn.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            bookingsBtn.ForeColor = Color.White;
+            bookingsBtn.Location = new Point(1188, 19);
+            bookingsBtn.Name = "bookingsBtn";
+            bookingsBtn.Size = new Size(105, 36);
+            bookingsBtn.TabIndex = 7;
+            bookingsBtn.Text = "Bookings";
+            // 
+            // dashboardBtn
+            // 
+            dashboardBtn.AutoSize = true;
+            dashboardBtn.Font = new Font("Poppins", 12F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
+            dashboardBtn.ForeColor = Color.White;
+            dashboardBtn.Location = new Point(996, 19);
+            dashboardBtn.Name = "dashboardBtn";
+            dashboardBtn.Size = new Size(132, 36);
+            dashboardBtn.TabIndex = 6;
+            dashboardBtn.Text = "Dashboard";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Crimson Pro", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(114, 39);
+            label1.Name = "label1";
+            label1.Size = new Size(134, 17);
+            label1.TabIndex = 5;
+            label1.Text = "PALM BEACH RESORT";
+            // 
+            // crmLbl
+            // 
+            crmLbl.AutoSize = true;
+            crmLbl.Font = new Font("Crimson Pro", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            crmLbl.ForeColor = Color.White;
+            crmLbl.Location = new Point(125, 10);
+            crmLbl.Name = "crmLbl";
+            crmLbl.Size = new Size(70, 26);
+            crmLbl.TabIndex = 4;
+            crmLbl.Text = "JARA'S";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources._464643879_122123191316493608_5108633697996930672_n_removebg_preview__1_;
+            pictureBox1.Location = new Point(36, 6);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(61, 53);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 1;
+            pictureBox1.TabStop = false;
             // 
             // Dashboard
             // 
@@ -459,7 +459,8 @@
             AutoScroll = true;
             AutoSize = true;
             ClientSize = new Size(1924, 1055);
-            Controls.Add(panel2);
+            Controls.Add(panel1);
+            Controls.Add(panelCalendarHost);
             Controls.Add(panel3);
             Controls.Add(checkInsPanel);
             Controls.Add(activeCampaignsPanel);
@@ -468,14 +469,8 @@
             Controls.Add(bookingsPanel);
             Controls.Add(userLbl);
             Controls.Add(welcomeLbl);
-            Controls.Add(panel1);
             Name = "Dashboard";
             Text = "Dashboard";
-            Load += Dashboard_Load;
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)chevronDownBtn).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
             bookingsPanel.ResumeLayout(false);
             bookingsPanel.PerformLayout();
@@ -489,23 +484,16 @@
             checkInsPanel.PerformLayout();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)chevronDownBtn).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Panel panel1;
-        private PictureBox pictureBox1;
-        private Label crmLbl;
-        private Label label1;
-        private Label bookingsBtn;
-        private Label dashboardBtn;
-        private Label supportBtn;
-        private Label marketingBtn;
-        private Label guestsBtn;
         private BindingSource bindingSource1;
-        private FontAwesome.Sharp.IconPictureBox chevronDownBtn;
         private Label welcomeLbl;
         private Label userLbl;
         private Panel bookingsPanel;
@@ -522,11 +510,22 @@
         private Label openTicketsVal;
         private Label activeCampaignsVal;
         private Panel checkInsPanel;
-        private TableLayoutPanel checkInsTable;
         private Label checkInsLbl;
         private Panel panel3;
         private TableLayoutPanel checkOutsTable;
         private Label checkOutsLbl;
-        private Panel panel2;
+        private Krypton.Toolkit.KryptonCustomPaletteBase kryptonCustomPaletteBase1;
+        private Panel panelCalendarHost;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Panel panel1;
+        private FontAwesome.Sharp.IconPictureBox chevronDownBtn;
+        private Label supportBtn;
+        private Label marketingBtn;
+        private Label guestsBtn;
+        private Label bookingsBtn;
+        private Label dashboardBtn;
+        private Label label1;
+        private Label crmLbl;
+        private PictureBox pictureBox1;
     }
 }

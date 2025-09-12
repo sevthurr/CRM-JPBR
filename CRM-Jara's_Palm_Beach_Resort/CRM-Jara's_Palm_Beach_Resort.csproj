@@ -7,10 +7,17 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+	<UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="FontAwesome.Sharp" Version="6.6.0" />
+    <PackageReference Include="Krypton.Toolkit" Version="95.25.8.235" />
+    <PackageReference Include="MetroFramework" Version="1.2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Jpbr.WpfWidgets\Jpbr.WpfWidgets.csproj" />
   </ItemGroup>
 
   <ItemGroup>
