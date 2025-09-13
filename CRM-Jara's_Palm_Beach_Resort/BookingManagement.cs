@@ -74,14 +74,14 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             bookingsTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             bookingsTable.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
 
-            bookingsTable.DefaultCellStyle.Font = new Font("Poppins", 9F, FontStyle.Regular);
+            bookingsTable.DefaultCellStyle.Font = new Font("Poppins", 10F, FontStyle.Regular);
             bookingsTable.DefaultCellStyle.ForeColor = Color.Black;
 
             // SAMPLE DATA -- REMOVE THIS DURING BACKEND DEVELOPMENT GUYS
-            bookingsTable.Rows.Add("B001", "John Doe", "2024-06-01", "Booked", "Fully Paid");
-            bookingsTable.Rows.Add("B002", "Jane Smith", "2024-06-05", "Staying", "Partial");
-            bookingsTable.Rows.Add("B003", "Alice Brown", "2024-06-10", "Completed", "Fully Paid");
-            bookingsTable.Rows.Add("B004", "Bob Lee", "2024-06-15", "Cancelled", "Downpayment");
+            bookingsTable.Rows.Add("B001", "John Doe", "06-23-2025", "Booked", "Fully Paid");
+            bookingsTable.Rows.Add("B002", "Jane Smith", "05-06-2025", "Staying", "Partial");
+            bookingsTable.Rows.Add("B003", "Alice Brown", "05-01-2025", "Completed", "Fully Paid");
+            bookingsTable.Rows.Add("B004", "Bob Lee", "04-30-2025", "Cancelled", "Downpayment");
 
             // TODO: Add Krypton Icon Buttons to the Actions column once resources and correct usage are available.
         }

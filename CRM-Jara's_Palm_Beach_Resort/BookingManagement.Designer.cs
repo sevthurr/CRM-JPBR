@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             bookingListsPanel = new Panel();
             sortComboBox = new ComboBox();
             sortIcon = new FontAwesome.Sharp.IconPictureBox();
@@ -44,6 +44,10 @@
             newBookingBtn = new Button();
             bookingsTable = new DataGridView();
             bookingInformationPanel = new Panel();
+            moneyIcon = new FontAwesome.Sharp.IconPictureBox();
+            paymentHistoryBtn = new Button();
+            paymentAmountVal = new Label();
+            paymentLbl = new Label();
             checkOutDateVal = new Label();
             checkOutDateLbl = new Label();
             guestNameLnkLbl = new LinkLabel();
@@ -65,10 +69,6 @@
             bookinglistsLbl = new Label();
             iconDropDownButton1 = new FontAwesome.Sharp.IconDropDownButton();
             topNavBar1 = new TopNavBar();
-            paymentAmountVal = new Label();
-            paymentLbl = new Label();
-            moneyIcon = new FontAwesome.Sharp.IconPictureBox();
-            paymentHistoryBtn = new Button();
             bookingListsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)sortIcon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filterIcon).BeginInit();
@@ -76,9 +76,9 @@
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bookingsTable).BeginInit();
             bookingInformationPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)moneyIcon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)deleteButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)editButton).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)moneyIcon).BeginInit();
             SuspendLayout();
             // 
             // bookingListsPanel
@@ -249,19 +249,19 @@
             bookingsTable.AllowUserToDeleteRows = false;
             bookingsTable.AllowUserToResizeColumns = false;
             bookingsTable.AllowUserToResizeRows = false;
-            dataGridViewCellStyle5.BackColor = SystemColors.GradientInactiveCaption;
-            bookingsTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 197, 149);
+            bookingsTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             bookingsTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             bookingsTable.BackgroundColor = Color.White;
             bookingsTable.BorderStyle = BorderStyle.Fixed3D;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.Control;
-            dataGridViewCellStyle6.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            bookingsTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            bookingsTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             bookingsTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             bookingsTable.GridColor = Color.White;
             bookingsTable.Location = new Point(39, 96);
@@ -306,6 +306,51 @@
             bookingInformationPanel.Size = new Size(470, 775);
             bookingInformationPanel.TabIndex = 6;
             bookingInformationPanel.Paint += panel4_Paint;
+            // 
+            // moneyIcon
+            // 
+            moneyIcon.BackColor = Color.FromArgb(38, 176, 112);
+            moneyIcon.IconChar = FontAwesome.Sharp.IconChar.MoneyBill;
+            moneyIcon.IconColor = Color.White;
+            moneyIcon.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            moneyIcon.IconSize = 19;
+            moneyIcon.Location = new Point(299, 333);
+            moneyIcon.Name = "moneyIcon";
+            moneyIcon.Size = new Size(19, 20);
+            moneyIcon.TabIndex = 35;
+            moneyIcon.TabStop = false;
+            // 
+            // paymentHistoryBtn
+            // 
+            paymentHistoryBtn.BackColor = Color.FromArgb(38, 176, 112);
+            paymentHistoryBtn.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            paymentHistoryBtn.ForeColor = Color.White;
+            paymentHistoryBtn.Location = new Point(287, 326);
+            paymentHistoryBtn.Name = "paymentHistoryBtn";
+            paymentHistoryBtn.Size = new Size(124, 31);
+            paymentHistoryBtn.TabIndex = 36;
+            paymentHistoryBtn.Text = "      Payments";
+            paymentHistoryBtn.UseVisualStyleBackColor = false;
+            // 
+            // paymentAmountVal
+            // 
+            paymentAmountVal.AutoSize = true;
+            paymentAmountVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            paymentAmountVal.Location = new Point(215, 699);
+            paymentAmountVal.Name = "paymentAmountVal";
+            paymentAmountVal.Size = new Size(91, 30);
+            paymentAmountVal.TabIndex = 34;
+            paymentAmountVal.Text = "Php. 0.00";
+            // 
+            // paymentLbl
+            // 
+            paymentLbl.AutoSize = true;
+            paymentLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            paymentLbl.Location = new Point(78, 698);
+            paymentLbl.Name = "paymentLbl";
+            paymentLbl.Size = new Size(102, 30);
+            paymentLbl.TabIndex = 33;
+            paymentLbl.Text = "Payment: ";
             // 
             // checkOutDateVal
             // 
@@ -533,51 +578,6 @@
             topNavBar1.Size = new Size(1915, 70);
             topNavBar1.TabIndex = 7;
             // 
-            // paymentAmountVal
-            // 
-            paymentAmountVal.AutoSize = true;
-            paymentAmountVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            paymentAmountVal.Location = new Point(215, 699);
-            paymentAmountVal.Name = "paymentAmountVal";
-            paymentAmountVal.Size = new Size(91, 30);
-            paymentAmountVal.TabIndex = 34;
-            paymentAmountVal.Text = "Php. 0.00";
-            // 
-            // paymentLbl
-            // 
-            paymentLbl.AutoSize = true;
-            paymentLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            paymentLbl.Location = new Point(78, 698);
-            paymentLbl.Name = "paymentLbl";
-            paymentLbl.Size = new Size(102, 30);
-            paymentLbl.TabIndex = 33;
-            paymentLbl.Text = "Payment: ";
-            // 
-            // moneyIcon
-            // 
-            moneyIcon.BackColor = Color.FromArgb(38, 176, 112);
-            moneyIcon.IconChar = FontAwesome.Sharp.IconChar.MoneyBill;
-            moneyIcon.IconColor = Color.White;
-            moneyIcon.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            moneyIcon.IconSize = 19;
-            moneyIcon.Location = new Point(299, 333);
-            moneyIcon.Name = "moneyIcon";
-            moneyIcon.Size = new Size(19, 20);
-            moneyIcon.TabIndex = 35;
-            moneyIcon.TabStop = false;
-            // 
-            // paymentHistoryBtn
-            // 
-            paymentHistoryBtn.BackColor = Color.FromArgb(38, 176, 112);
-            paymentHistoryBtn.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            paymentHistoryBtn.ForeColor = Color.White;
-            paymentHistoryBtn.Location = new Point(287, 326);
-            paymentHistoryBtn.Name = "paymentHistoryBtn";
-            paymentHistoryBtn.Size = new Size(124, 31);
-            paymentHistoryBtn.TabIndex = 36;
-            paymentHistoryBtn.Text = "      Payments";
-            paymentHistoryBtn.UseVisualStyleBackColor = false;
-            // 
             // BookingManagement
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -599,9 +599,9 @@
             ((System.ComponentModel.ISupportInitialize)bookingsTable).EndInit();
             bookingInformationPanel.ResumeLayout(false);
             bookingInformationPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)moneyIcon).EndInit();
             ((System.ComponentModel.ISupportInitialize)deleteButton).EndInit();
             ((System.ComponentModel.ISupportInitialize)editButton).EndInit();
-            ((System.ComponentModel.ISupportInitialize)moneyIcon).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }

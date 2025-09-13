@@ -36,7 +36,6 @@
             passwordLbl = new Label();
             usernameLbl = new Label();
             logo = new PictureBox();
-            crmLbl = new Label();
             loginPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)logo).BeginInit();
             SuspendLayout();
@@ -71,7 +70,7 @@
             // loginBtn
             // 
             loginBtn.BackColor = Color.FromArgb(235, 197, 149);
-            loginBtn.Font = new Font("Poppins Medium", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            loginBtn.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             loginBtn.ForeColor = SystemColors.ActiveCaptionText;
             loginBtn.Location = new Point(172, 253);
             loginBtn.Name = "loginBtn";
@@ -130,30 +129,18 @@
             // logo
             // 
             logo.Image = Properties.Resources._464643879_122123191316493608_5108633697996930672_n_removebg_preview_removebg_preview;
-            logo.Location = new Point(177, 12);
+            logo.Location = new Point(167, 12);
             logo.Name = "logo";
-            logo.Size = new Size(270, 274);
+            logo.Size = new Size(273, 293);
             logo.SizeMode = PictureBoxSizeMode.StretchImage;
             logo.TabIndex = 2;
             logo.TabStop = false;
-            // 
-            // crmLbl
-            // 
-            crmLbl.AutoSize = true;
-            crmLbl.Font = new Font("Crimson Pro", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            crmLbl.ForeColor = Color.FromArgb(40, 75, 83);
-            crmLbl.Location = new Point(220, 277);
-            crmLbl.Name = "crmLbl";
-            crmLbl.Size = new Size(181, 30);
-            crmLbl.TabIndex = 3;
-            crmLbl.Text = "CRM SOFTWARE";
             // 
             // LogIn
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(620, 717);
-            Controls.Add(crmLbl);
             Controls.Add(logo);
             Controls.Add(loginPanel);
             Name = "LogIn";
@@ -163,7 +150,6 @@
             loginPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)logo).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -176,6 +162,5 @@
         private TextBox usernameTb;
         private Button loginBtn;
         private LinkLabel linkLabel1;
-        private Label crmLbl;
     }
 }
