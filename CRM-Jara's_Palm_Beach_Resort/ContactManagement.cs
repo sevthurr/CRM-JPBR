@@ -15,11 +15,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         public ContactManagement()
         {
             InitializeComponent();
-            dashboardBtn.Click += dashboardBtn_Click;
-            bookingsBtn.Click += bookingsBtn_Click;
-            guestsBtn.Click += guestsBtn_Click;
-            marketingBtn.Click += marketingBtn_Click;
-            supportBtn.Click += supportBtn_Click;
+            topNavBar1.SetActive("ContactManagement");
         }
 
         private void label2_Click(object sender, EventArgs e)

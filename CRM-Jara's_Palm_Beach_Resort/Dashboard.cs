@@ -17,6 +17,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         public Dashboard()
         {
             InitializeComponent();
+            topNavBar1.SetActive("Dashboard");
 
             panelCalendarHost.Size = new Size(1772, 589);
 
@@ -31,12 +32,6 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             var bookingCalendar = new BookingCalendar();
             host.Child = bookingCalendar;
             panelCalendarHost.Controls.Add(host);
-
-            bookingsBtn.Click += bookingsBtn_Click;
-            dashboardBtn.Click += dashboardBtn_Click;
-            guestsBtn.Click += guestsBtn_Click;
-            marketingBtn.Click += marketingBtn_Click;
-            supportBtn.Click += supportBtn_Click;
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -135,6 +130,11 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         }
 
         private void panel4_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Dashboard_Load_1(object sender, EventArgs e)
         {
 
         }

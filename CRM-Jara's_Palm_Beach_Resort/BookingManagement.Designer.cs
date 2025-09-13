@@ -30,16 +30,6 @@
         {
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            topnav = new Panel();
-            chevronDownBtn = new FontAwesome.Sharp.IconPictureBox();
-            supportBtn = new Label();
-            marketingBtn = new Label();
-            guestsBtn = new Label();
-            bookingsBtn = new Label();
-            dashboardBtn = new Label();
-            jaraTitle2 = new Label();
-            jaraTitle = new Label();
-            jaraLogo = new PictureBox();
             bookingListsPanel = new Panel();
             sortComboBox = new ComboBox();
             sortIcon = new FontAwesome.Sharp.IconPictureBox();
@@ -54,6 +44,13 @@
             newBookingBtn = new Button();
             bookingsTable = new DataGridView();
             bookingInformationPanel = new Panel();
+            itemsLinkVal = new LinkLabel();
+            packageVal = new LinkLabel();
+            socialsVal = new Label();
+            contactNumberVal = new Label();
+            paxVal = new Label();
+            dateVal = new Label();
+            guestNameVal = new Label();
             deleteButton = new FontAwesome.Sharp.IconPictureBox();
             editButton = new FontAwesome.Sharp.IconPictureBox();
             deleteBtn = new Button();
@@ -69,16 +66,7 @@
             bookingInformationLbl = new Label();
             bookinglistsLbl = new Label();
             iconDropDownButton1 = new FontAwesome.Sharp.IconDropDownButton();
-            guestNameVal = new Label();
-            dateVal = new Label();
-            paxVal = new Label();
-            contactNumberVal = new Label();
-            socialsVal = new Label();
-            packageVal = new LinkLabel();
-            itemsLinkVal = new LinkLabel();
-            topnav.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)chevronDownBtn).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)jaraLogo).BeginInit();
+            topNavBar1 = new TopNavBar();
             bookingListsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)sortIcon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filterIcon).BeginInit();
@@ -89,127 +77,6 @@
             ((System.ComponentModel.ISupportInitialize)deleteButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)editButton).BeginInit();
             SuspendLayout();
-            // 
-            // topnav
-            // 
-            topnav.BackColor = Color.FromArgb(40, 75, 83);
-            topnav.Controls.Add(chevronDownBtn);
-            topnav.Controls.Add(supportBtn);
-            topnav.Controls.Add(marketingBtn);
-            topnav.Controls.Add(guestsBtn);
-            topnav.Controls.Add(bookingsBtn);
-            topnav.Controls.Add(dashboardBtn);
-            topnav.Controls.Add(jaraTitle2);
-            topnav.Controls.Add(jaraTitle);
-            topnav.Controls.Add(jaraLogo);
-            topnav.ForeColor = Color.Coral;
-            topnav.Location = new Point(1, 0);
-            topnav.Name = "topnav";
-            topnav.Size = new Size(1908, 70);
-            topnav.TabIndex = 1;
-            topnav.Paint += panel1_Paint;
-            // 
-            // chevronDownBtn
-            // 
-            chevronDownBtn.BackColor = Color.FromArgb(40, 75, 83);
-            chevronDownBtn.IconChar = FontAwesome.Sharp.IconChar.ChevronDown;
-            chevronDownBtn.IconColor = Color.White;
-            chevronDownBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            chevronDownBtn.IconSize = 27;
-            chevronDownBtn.Location = new Point(1835, 22);
-            chevronDownBtn.Name = "chevronDownBtn";
-            chevronDownBtn.Size = new Size(27, 33);
-            chevronDownBtn.TabIndex = 2;
-            chevronDownBtn.TabStop = false;
-            // 
-            // supportBtn
-            // 
-            supportBtn.AutoSize = true;
-            supportBtn.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            supportBtn.ForeColor = Color.White;
-            supportBtn.Location = new Point(1672, 20);
-            supportBtn.Name = "supportBtn";
-            supportBtn.Size = new Size(95, 36);
-            supportBtn.TabIndex = 10;
-            supportBtn.Text = "Support";
-            supportBtn.Click += supportBtn_Click;
-            // 
-            // marketingBtn
-            // 
-            marketingBtn.AutoSize = true;
-            marketingBtn.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            marketingBtn.ForeColor = Color.White;
-            marketingBtn.Location = new Point(1503, 19);
-            marketingBtn.Name = "marketingBtn";
-            marketingBtn.Size = new Size(114, 36);
-            marketingBtn.TabIndex = 9;
-            marketingBtn.Text = "Marketing";
-            // 
-            // guestsBtn
-            // 
-            guestsBtn.AutoSize = true;
-            guestsBtn.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            guestsBtn.ForeColor = Color.White;
-            guestsBtn.Location = new Point(1358, 19);
-            guestsBtn.Name = "guestsBtn";
-            guestsBtn.Size = new Size(83, 36);
-            guestsBtn.TabIndex = 8;
-            guestsBtn.Text = "Guests";
-            // 
-            // bookingsBtn
-            // 
-            bookingsBtn.AutoSize = true;
-            bookingsBtn.Font = new Font("Poppins", 12F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
-            bookingsBtn.ForeColor = Color.White;
-            bookingsBtn.Location = new Point(1188, 19);
-            bookingsBtn.Name = "bookingsBtn";
-            bookingsBtn.Size = new Size(110, 36);
-            bookingsBtn.TabIndex = 7;
-            bookingsBtn.Text = "Bookings";
-            // 
-            // dashboardBtn
-            // 
-            dashboardBtn.AutoSize = true;
-            dashboardBtn.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dashboardBtn.ForeColor = Color.White;
-            dashboardBtn.Location = new Point(996, 19);
-            dashboardBtn.Name = "dashboardBtn";
-            dashboardBtn.Size = new Size(128, 36);
-            dashboardBtn.TabIndex = 6;
-            dashboardBtn.Text = "Dashboard";
-            dashboardBtn.Click += dashboardBtn_Click;
-            // 
-            // jaraTitle2
-            // 
-            jaraTitle2.AutoSize = true;
-            jaraTitle2.Font = new Font("Crimson Pro", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            jaraTitle2.ForeColor = Color.White;
-            jaraTitle2.Location = new Point(114, 39);
-            jaraTitle2.Name = "jaraTitle2";
-            jaraTitle2.Size = new Size(134, 17);
-            jaraTitle2.TabIndex = 5;
-            jaraTitle2.Text = "PALM BEACH RESORT";
-            // 
-            // jaraTitle
-            // 
-            jaraTitle.AutoSize = true;
-            jaraTitle.Font = new Font("Crimson Pro", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            jaraTitle.ForeColor = Color.White;
-            jaraTitle.Location = new Point(125, 10);
-            jaraTitle.Name = "jaraTitle";
-            jaraTitle.Size = new Size(70, 26);
-            jaraTitle.TabIndex = 4;
-            jaraTitle.Text = "JARA'S";
-            // 
-            // jaraLogo
-            // 
-            jaraLogo.Image = Properties.Resources._464643879_122123191316493608_5108633697996930672_n_removebg_preview__1_;
-            jaraLogo.Location = new Point(36, 6);
-            jaraLogo.Name = "jaraLogo";
-            jaraLogo.Size = new Size(61, 53);
-            jaraLogo.SizeMode = PictureBoxSizeMode.StretchImage;
-            jaraLogo.TabIndex = 1;
-            jaraLogo.TabStop = false;
             // 
             // bookingListsPanel
             // 
@@ -435,6 +302,82 @@
             bookingInformationPanel.TabIndex = 6;
             bookingInformationPanel.Paint += panel4_Paint;
             // 
+            // itemsLinkVal
+            // 
+            itemsLinkVal.AutoSize = true;
+            itemsLinkVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            itemsLinkVal.LinkColor = Color.FromArgb(40, 75, 83);
+            itemsLinkVal.Location = new Point(214, 595);
+            itemsLinkVal.Name = "itemsLinkVal";
+            itemsLinkVal.Size = new Size(77, 30);
+            itemsLinkVal.TabIndex = 29;
+            itemsLinkVal.TabStop = true;
+            itemsLinkVal.Text = "0 Items";
+            itemsLinkVal.VisitedLinkColor = Color.FromArgb(83, 169, 181);
+            // 
+            // packageVal
+            // 
+            packageVal.AutoSize = true;
+            packageVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            packageVal.LinkColor = Color.FromArgb(40, 75, 83);
+            packageVal.Location = new Point(214, 495);
+            packageVal.Name = "packageVal";
+            packageVal.Size = new Size(24, 30);
+            packageVal.TabIndex = 28;
+            packageVal.TabStop = true;
+            packageVal.Text = "A";
+            packageVal.VisitedLinkColor = Color.FromArgb(83, 169, 181);
+            // 
+            // socialsVal
+            // 
+            socialsVal.AutoSize = true;
+            socialsVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            socialsVal.Location = new Point(209, 695);
+            socialsVal.Name = "socialsVal";
+            socialsVal.Size = new Size(194, 30);
+            socialsVal.TabIndex = 27;
+            socialsVal.Text = "guest@platform.com";
+            // 
+            // contactNumberVal
+            // 
+            contactNumberVal.AutoSize = true;
+            contactNumberVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            contactNumberVal.Location = new Point(209, 645);
+            contactNumberVal.Name = "contactNumberVal";
+            contactNumberVal.Size = new Size(183, 30);
+            contactNumberVal.TabIndex = 26;
+            contactNumberVal.Text = "+63-000-000-0000";
+            // 
+            // paxVal
+            // 
+            paxVal.AutoSize = true;
+            paxVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            paxVal.Location = new Point(215, 545);
+            paxVal.Name = "paxVal";
+            paxVal.Size = new Size(24, 30);
+            paxVal.TabIndex = 24;
+            paxVal.Text = "0";
+            // 
+            // dateVal
+            // 
+            dateVal.AutoSize = true;
+            dateVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dateVal.Location = new Point(209, 445);
+            dateVal.Name = "dateVal";
+            dateVal.Size = new Size(107, 30);
+            dateVal.TabIndex = 22;
+            dateVal.Text = "mm/dd/yy";
+            // 
+            // guestNameVal
+            // 
+            guestNameVal.AutoSize = true;
+            guestNameVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            guestNameVal.Location = new Point(209, 395);
+            guestNameVal.Name = "guestNameVal";
+            guestNameVal.Size = new Size(120, 30);
+            guestNameVal.TabIndex = 21;
+            guestNameVal.Text = "Guest Name";
+            // 
             // deleteButton
             // 
             deleteButton.BackColor = Color.Red;
@@ -596,98 +539,25 @@
             iconDropDownButton1.Size = new Size(23, 23);
             iconDropDownButton1.Text = "iconDropDownButton1";
             // 
-            // guestNameVal
+            // topNavBar1
             // 
-            guestNameVal.AutoSize = true;
-            guestNameVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            guestNameVal.Location = new Point(209, 395);
-            guestNameVal.Name = "guestNameVal";
-            guestNameVal.Size = new Size(120, 30);
-            guestNameVal.TabIndex = 21;
-            guestNameVal.Text = "Guest Name";
-            // 
-            // dateVal
-            // 
-            dateVal.AutoSize = true;
-            dateVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateVal.Location = new Point(209, 445);
-            dateVal.Name = "dateVal";
-            dateVal.Size = new Size(107, 30);
-            dateVal.TabIndex = 22;
-            dateVal.Text = "mm/dd/yy";
-            // 
-            // paxVal
-            // 
-            paxVal.AutoSize = true;
-            paxVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            paxVal.Location = new Point(215, 545);
-            paxVal.Name = "paxVal";
-            paxVal.Size = new Size(24, 30);
-            paxVal.TabIndex = 24;
-            paxVal.Text = "0";
-            // 
-            // contactNumberVal
-            // 
-            contactNumberVal.AutoSize = true;
-            contactNumberVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            contactNumberVal.Location = new Point(209, 645);
-            contactNumberVal.Name = "contactNumberVal";
-            contactNumberVal.Size = new Size(183, 30);
-            contactNumberVal.TabIndex = 26;
-            contactNumberVal.Text = "+63-000-000-0000";
-            // 
-            // socialsVal
-            // 
-            socialsVal.AutoSize = true;
-            socialsVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            socialsVal.Location = new Point(209, 695);
-            socialsVal.Name = "socialsVal";
-            socialsVal.Size = new Size(194, 30);
-            socialsVal.TabIndex = 27;
-            socialsVal.Text = "guest@platform.com";
-            // 
-            // packageVal
-            // 
-            packageVal.AutoSize = true;
-            packageVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            packageVal.LinkColor = Color.FromArgb(40, 75, 83);
-            packageVal.Location = new Point(214, 495);
-            packageVal.Name = "packageVal";
-            packageVal.Size = new Size(24, 30);
-            packageVal.TabIndex = 28;
-            packageVal.TabStop = true;
-            packageVal.Text = "A";
-            packageVal.VisitedLinkColor = Color.FromArgb(83, 169, 181);
-            // 
-            // itemsLinkVal
-            // 
-            itemsLinkVal.AutoSize = true;
-            itemsLinkVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            itemsLinkVal.LinkColor = Color.FromArgb(40, 75, 83);
-            itemsLinkVal.Location = new Point(214, 595);
-            itemsLinkVal.Name = "itemsLinkVal";
-            itemsLinkVal.Size = new Size(77, 30);
-            itemsLinkVal.TabIndex = 29;
-            itemsLinkVal.TabStop = true;
-            itemsLinkVal.Text = "0 Items";
-            itemsLinkVal.VisitedLinkColor = Color.FromArgb(83, 169, 181);
+            topNavBar1.Location = new Point(0, 0);
+            topNavBar1.Name = "topNavBar1";
+            topNavBar1.Size = new Size(1915, 70);
+            topNavBar1.TabIndex = 7;
             // 
             // BookingManagement
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1924, 977);
+            Controls.Add(topNavBar1);
             Controls.Add(bookingInformationPanel);
             Controls.Add(bookinglistsLbl);
-            Controls.Add(topnav);
             Controls.Add(bookingListsPanel);
             Name = "BookingManagement";
             Text = "Booking Management";
             Load += BookingManagement_Load;
-            topnav.ResumeLayout(false);
-            topnav.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)chevronDownBtn).EndInit();
-            ((System.ComponentModel.ISupportInitialize)jaraLogo).EndInit();
             bookingListsPanel.ResumeLayout(false);
             bookingListsPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)sortIcon).EndInit();
@@ -705,16 +575,6 @@
 
         #endregion
 
-        private Panel topnav;
-        private FontAwesome.Sharp.IconPictureBox chevronDownBtn;
-        private Label supportBtn;
-        private Label marketingBtn;
-        private Label guestsBtn;
-        private Label bookingsBtn;
-        private Label dashboardBtn;
-        private Label jaraTitle2;
-        private Label jaraTitle;
-        private PictureBox jaraLogo;
         private Panel bookingListsPanel;
         private Panel bookingInformationPanel;
         private Panel guestImage;
@@ -751,5 +611,6 @@
         private Label dateVal;
         private Label guestNameVal;
         private LinkLabel itemsLinkVal;
+        private TopNavBar topNavBar1;
     }
 }    

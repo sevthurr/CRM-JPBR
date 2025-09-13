@@ -53,16 +53,16 @@
             checkOutsLbl = new Label();
             kryptonCustomPaletteBase1 = new Krypton.Toolkit.KryptonCustomPaletteBase(components);
             panelCalendarHost = new Panel();
-            panel1 = new Panel();
-            chevronDownBtn = new FontAwesome.Sharp.IconPictureBox();
-            supportBtn = new Label();
-            marketingBtn = new Label();
-            guestsBtn = new Label();
-            bookingsBtn = new Label();
-            dashboardBtn = new Label();
-            label1 = new Label();
-            crmLbl = new Label();
+            topNavBar1 = new TopNavBar();
             pictureBox1 = new PictureBox();
+            crmLbl = new Label();
+            label1 = new Label();
+            dashboardBtn = new Label();
+            bookingsBtn = new Label();
+            guestsBtn = new Label();
+            marketingBtn = new Label();
+            supportBtn = new Label();
+            chevronDownBtn = new FontAwesome.Sharp.IconPictureBox();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             bookingsPanel.SuspendLayout();
             repeatGuestsPanel.SuspendLayout();
@@ -70,9 +70,8 @@
             activeCampaignsPanel.SuspendLayout();
             checkInsPanel.SuspendLayout();
             panel3.SuspendLayout();
-            panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)chevronDownBtn).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)chevronDownBtn).BeginInit();
             SuspendLayout();
             // 
             // welcomeLbl
@@ -334,23 +333,99 @@
             panelCalendarHost.Size = new Size(1772, 443);
             panelCalendarHost.TabIndex = 11;
             // 
-            // panel1
+            // topNavBar1
             // 
-            panel1.BackColor = Color.FromArgb(40, 75, 83);
-            panel1.Controls.Add(chevronDownBtn);
-            panel1.Controls.Add(supportBtn);
-            panel1.Controls.Add(marketingBtn);
-            panel1.Controls.Add(guestsBtn);
-            panel1.Controls.Add(bookingsBtn);
-            panel1.Controls.Add(dashboardBtn);
-            panel1.Controls.Add(label1);
-            panel1.Controls.Add(crmLbl);
-            panel1.Controls.Add(pictureBox1);
-            panel1.ForeColor = Color.Coral;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1908, 70);
-            panel1.TabIndex = 2;
+            topNavBar1.Location = new Point(0, 0);
+            topNavBar1.Name = "topNavBar1";
+            topNavBar1.Size = new Size(1915, 70);
+            topNavBar1.TabIndex = 12;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources._464643879_122123191316493608_5108633697996930672_n_removebg_preview__1_;
+            pictureBox1.Location = new Point(36, 6);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(61, 53);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 1;
+            pictureBox1.TabStop = false;
+            // 
+            // crmLbl
+            // 
+            crmLbl.AutoSize = true;
+            crmLbl.Font = new Font("Crimson Pro", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            crmLbl.ForeColor = Color.White;
+            crmLbl.Location = new Point(125, 10);
+            crmLbl.Name = "crmLbl";
+            crmLbl.Size = new Size(70, 26);
+            crmLbl.TabIndex = 4;
+            crmLbl.Text = "JARA'S";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Crimson Pro", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(114, 39);
+            label1.Name = "label1";
+            label1.Size = new Size(134, 17);
+            label1.TabIndex = 5;
+            label1.Text = "PALM BEACH RESORT";
+            // 
+            // dashboardBtn
+            // 
+            dashboardBtn.AutoSize = true;
+            dashboardBtn.Font = new Font("Poppins", 12F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
+            dashboardBtn.ForeColor = Color.White;
+            dashboardBtn.Location = new Point(996, 19);
+            dashboardBtn.Name = "dashboardBtn";
+            dashboardBtn.Size = new Size(132, 36);
+            dashboardBtn.TabIndex = 6;
+            dashboardBtn.Text = "Dashboard";
+            // 
+            // bookingsBtn
+            // 
+            bookingsBtn.AutoSize = true;
+            bookingsBtn.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            bookingsBtn.ForeColor = Color.White;
+            bookingsBtn.Location = new Point(1188, 19);
+            bookingsBtn.Name = "bookingsBtn";
+            bookingsBtn.Size = new Size(105, 36);
+            bookingsBtn.TabIndex = 7;
+            bookingsBtn.Text = "Bookings";
+            // 
+            // guestsBtn
+            // 
+            guestsBtn.AutoSize = true;
+            guestsBtn.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            guestsBtn.ForeColor = Color.White;
+            guestsBtn.Location = new Point(1358, 19);
+            guestsBtn.Name = "guestsBtn";
+            guestsBtn.Size = new Size(83, 36);
+            guestsBtn.TabIndex = 8;
+            guestsBtn.Text = "Guests";
+            // 
+            // marketingBtn
+            // 
+            marketingBtn.AutoSize = true;
+            marketingBtn.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            marketingBtn.ForeColor = Color.White;
+            marketingBtn.Location = new Point(1503, 19);
+            marketingBtn.Name = "marketingBtn";
+            marketingBtn.Size = new Size(114, 36);
+            marketingBtn.TabIndex = 9;
+            marketingBtn.Text = "Marketing";
+            // 
+            // supportBtn
+            // 
+            supportBtn.AutoSize = true;
+            supportBtn.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            supportBtn.ForeColor = Color.White;
+            supportBtn.Location = new Point(1672, 20);
+            supportBtn.Name = "supportBtn";
+            supportBtn.Size = new Size(95, 36);
+            supportBtn.TabIndex = 10;
+            supportBtn.Text = "Support";
             // 
             // chevronDownBtn
             // 
@@ -365,93 +440,6 @@
             chevronDownBtn.TabIndex = 2;
             chevronDownBtn.TabStop = false;
             // 
-            // supportBtn
-            // 
-            supportBtn.AutoSize = true;
-            supportBtn.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            supportBtn.ForeColor = Color.White;
-            supportBtn.Location = new Point(1672, 20);
-            supportBtn.Name = "supportBtn";
-            supportBtn.Size = new Size(95, 36);
-            supportBtn.TabIndex = 10;
-            supportBtn.Text = "Support";
-            // 
-            // marketingBtn
-            // 
-            marketingBtn.AutoSize = true;
-            marketingBtn.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            marketingBtn.ForeColor = Color.White;
-            marketingBtn.Location = new Point(1503, 19);
-            marketingBtn.Name = "marketingBtn";
-            marketingBtn.Size = new Size(114, 36);
-            marketingBtn.TabIndex = 9;
-            marketingBtn.Text = "Marketing";
-            // 
-            // guestsBtn
-            // 
-            guestsBtn.AutoSize = true;
-            guestsBtn.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            guestsBtn.ForeColor = Color.White;
-            guestsBtn.Location = new Point(1358, 19);
-            guestsBtn.Name = "guestsBtn";
-            guestsBtn.Size = new Size(83, 36);
-            guestsBtn.TabIndex = 8;
-            guestsBtn.Text = "Guests";
-            // 
-            // bookingsBtn
-            // 
-            bookingsBtn.AutoSize = true;
-            bookingsBtn.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            bookingsBtn.ForeColor = Color.White;
-            bookingsBtn.Location = new Point(1188, 19);
-            bookingsBtn.Name = "bookingsBtn";
-            bookingsBtn.Size = new Size(105, 36);
-            bookingsBtn.TabIndex = 7;
-            bookingsBtn.Text = "Bookings";
-            // 
-            // dashboardBtn
-            // 
-            dashboardBtn.AutoSize = true;
-            dashboardBtn.Font = new Font("Poppins", 12F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
-            dashboardBtn.ForeColor = Color.White;
-            dashboardBtn.Location = new Point(996, 19);
-            dashboardBtn.Name = "dashboardBtn";
-            dashboardBtn.Size = new Size(132, 36);
-            dashboardBtn.TabIndex = 6;
-            dashboardBtn.Text = "Dashboard";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Crimson Pro", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(114, 39);
-            label1.Name = "label1";
-            label1.Size = new Size(134, 17);
-            label1.TabIndex = 5;
-            label1.Text = "PALM BEACH RESORT";
-            // 
-            // crmLbl
-            // 
-            crmLbl.AutoSize = true;
-            crmLbl.Font = new Font("Crimson Pro", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            crmLbl.ForeColor = Color.White;
-            crmLbl.Location = new Point(125, 10);
-            crmLbl.Name = "crmLbl";
-            crmLbl.Size = new Size(70, 26);
-            crmLbl.TabIndex = 4;
-            crmLbl.Text = "JARA'S";
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = Properties.Resources._464643879_122123191316493608_5108633697996930672_n_removebg_preview__1_;
-            pictureBox1.Location = new Point(36, 6);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(61, 53);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 1;
-            pictureBox1.TabStop = false;
-            // 
             // Dashboard
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -459,7 +447,7 @@
             AutoScroll = true;
             AutoSize = true;
             ClientSize = new Size(1924, 1055);
-            Controls.Add(panel1);
+            Controls.Add(topNavBar1);
             Controls.Add(panelCalendarHost);
             Controls.Add(panel3);
             Controls.Add(checkInsPanel);
@@ -484,10 +472,8 @@
             checkInsPanel.PerformLayout();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)chevronDownBtn).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)chevronDownBtn).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -517,15 +503,15 @@
         private Krypton.Toolkit.KryptonCustomPaletteBase kryptonCustomPaletteBase1;
         private Panel panelCalendarHost;
         private TableLayoutPanel tableLayoutPanel1;
-        private Panel panel1;
-        private FontAwesome.Sharp.IconPictureBox chevronDownBtn;
-        private Label supportBtn;
-        private Label marketingBtn;
-        private Label guestsBtn;
-        private Label bookingsBtn;
-        private Label dashboardBtn;
-        private Label label1;
-        private Label crmLbl;
+        private TopNavBar topNavBar1;
         private PictureBox pictureBox1;
+        private Label crmLbl;
+        private Label label1;
+        private Label dashboardBtn;
+        private Label bookingsBtn;
+        private Label guestsBtn;
+        private Label marketingBtn;
+        private Label supportBtn;
+        private FontAwesome.Sharp.IconPictureBox chevronDownBtn;
     }
 }
