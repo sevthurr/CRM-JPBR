@@ -28,11 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             paymentHisstoryLbl = new Label();
             paymentHistoryPanel = new Panel();
             paymentInfoPanel = new Panel();
+            moneyIcon = new FontAwesome.Sharp.IconPictureBox();
             addPaymentBtn = new Button();
             paymentMethodCb = new ComboBox();
             accountNumberTb = new TextBox();
@@ -51,12 +52,11 @@
             Purpose = new DataGridViewTextBoxColumn();
             PaymentDate = new DataGridViewTextBoxColumn();
             paymentPanel = new Panel();
-            moneyIcon = new FontAwesome.Sharp.IconPictureBox();
             paymentHistoryPanel.SuspendLayout();
             paymentInfoPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)moneyIcon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)paymentTable).BeginInit();
             paymentPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)moneyIcon).BeginInit();
             SuspendLayout();
             // 
             // paymentHisstoryLbl
@@ -100,6 +100,19 @@
             paymentInfoPanel.Name = "paymentInfoPanel";
             paymentInfoPanel.Size = new Size(770, 238);
             paymentInfoPanel.TabIndex = 22;
+            // 
+            // moneyIcon
+            // 
+            moneyIcon.BackColor = Color.FromArgb(38, 176, 112);
+            moneyIcon.IconChar = FontAwesome.Sharp.IconChar.MoneyBill;
+            moneyIcon.IconColor = Color.White;
+            moneyIcon.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            moneyIcon.IconSize = 22;
+            moneyIcon.Location = new Point(557, 169);
+            moneyIcon.Name = "moneyIcon";
+            moneyIcon.Size = new Size(22, 23);
+            moneyIcon.TabIndex = 36;
+            moneyIcon.TabStop = false;
             // 
             // addPaymentBtn
             // 
@@ -241,18 +254,18 @@
             // paymentTable
             // 
             paymentTable.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.BackColor = SystemColors.GradientInactiveCaption;
-            paymentTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 197, 149);
+            paymentTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             paymentTable.BackgroundColor = Color.White;
             paymentTable.BorderStyle = BorderStyle.Fixed3D;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            paymentTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            paymentTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             paymentTable.ColumnHeadersHeight = 29;
             paymentTable.Columns.AddRange(new DataGridViewColumn[] { Amount, paymentID, Purpose, PaymentDate });
             paymentTable.Location = new Point(0, 13);
@@ -304,19 +317,6 @@
             paymentPanel.Size = new Size(770, 313);
             paymentPanel.TabIndex = 23;
             // 
-            // moneyIcon
-            // 
-            moneyIcon.BackColor = Color.FromArgb(38, 176, 112);
-            moneyIcon.IconChar = FontAwesome.Sharp.IconChar.MoneyBill;
-            moneyIcon.IconColor = Color.White;
-            moneyIcon.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            moneyIcon.IconSize = 22;
-            moneyIcon.Location = new Point(557, 169);
-            moneyIcon.Name = "moneyIcon";
-            moneyIcon.Size = new Size(22, 23);
-            moneyIcon.TabIndex = 36;
-            moneyIcon.TabStop = false;
-            // 
             // Payment
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -333,9 +333,9 @@
             paymentHistoryPanel.PerformLayout();
             paymentInfoPanel.ResumeLayout(false);
             paymentInfoPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)moneyIcon).EndInit();
             ((System.ComponentModel.ISupportInitialize)paymentTable).EndInit();
             paymentPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)moneyIcon).EndInit();
             ResumeLayout(false);
         }
 

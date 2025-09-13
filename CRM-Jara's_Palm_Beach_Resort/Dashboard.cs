@@ -18,6 +18,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         {
             InitializeComponent();
             topNavBar1.SetActive("Dashboard");
+            topNavBar1.Dock = DockStyle.Top;
 
             panelCalendarHost.Size = new Size(1772, 589);
 
@@ -121,7 +122,25 @@ namespace CRM_Jara_s_Palm_Beach_Resort
 
         private void Dashboard_Load(object sender, EventArgs e)
         {
+            // Style checkInTable
+            checkInTable.ColumnHeadersDefaultCellStyle.Font = new Font("Poppins", 10F, FontStyle.Bold);
+            checkInTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            checkInTable.DefaultCellStyle.Font = new Font("Poppins", 9F, FontStyle.Regular);
+            checkInTable.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            checkInTable.Rows.Clear();
+            checkInTable.Rows.Add("John Doe", "A", "2", "09-13-2025", "Staying");
+            checkInTable.Rows.Add("Jane Smith", "B", "4", "09-16-2025", "Booked");
+            checkInTable.Rows.Add("Alice Brown", "A", "10", "09-25-2025", "Booked");
 
+            // Style checkOutTable
+            checkOutTable.ColumnHeadersDefaultCellStyle.Font = new Font("Poppins", 10F, FontStyle.Bold);
+            checkOutTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            checkOutTable.DefaultCellStyle.Font = new Font("Poppins", 9F, FontStyle.Regular);
+            checkOutTable.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            checkOutTable.Rows.Clear();
+            checkOutTable.Rows.Add("Bob Lee", "A", "2", "09-12-2025", "09:00 AM");
+            checkOutTable.Rows.Add("Mary Green", "B", "3", "09-08-2025", "10:30 AM");
+            checkOutTable.Rows.Add("Tom Black", "B", "1", "09-02-2025", "11:15 AM");
         }
 
         private void kryptonMonthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
@@ -135,6 +154,11 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         }
 
         private void Dashboard_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void contentPanel_Paint(object sender, PaintEventArgs e)
         {
 
         }

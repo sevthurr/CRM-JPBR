@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             bindingSource1 = new BindingSource(components);
             welcomeLbl = new Label();
             userLbl = new Label();
@@ -46,10 +48,10 @@
             activeCampaignsVal = new Label();
             activeCampaignsLbl = new Label();
             checkInsPanel = new Panel();
-            tableLayoutPanel1 = new TableLayoutPanel();
+            checkInTable = new DataGridView();
             checkInsLbl = new Label();
-            panel3 = new Panel();
-            checkOutsTable = new TableLayoutPanel();
+            checkOutPanel = new Panel();
+            checkOutTable = new DataGridView();
             checkOutsLbl = new Label();
             kryptonCustomPaletteBase1 = new Krypton.Toolkit.KryptonCustomPaletteBase(components);
             panelCalendarHost = new Panel();
@@ -63,22 +65,36 @@
             marketingBtn = new Label();
             supportBtn = new Label();
             chevronDownBtn = new FontAwesome.Sharp.IconPictureBox();
+            contentPanel = new Panel();
+            guestName = new DataGridViewTextBoxColumn();
+            package = new DataGridViewTextBoxColumn();
+            pax = new DataGridViewTextBoxColumn();
+            arrivalDate = new DataGridViewTextBoxColumn();
+            status = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
+            checkOutDate = new DataGridViewTextBoxColumn();
+            time = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             bookingsPanel.SuspendLayout();
             repeatGuestsPanel.SuspendLayout();
             openTicketsPanel.SuspendLayout();
             activeCampaignsPanel.SuspendLayout();
             checkInsPanel.SuspendLayout();
-            panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)checkInTable).BeginInit();
+            checkOutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)checkOutTable).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)chevronDownBtn).BeginInit();
+            contentPanel.SuspendLayout();
             SuspendLayout();
             // 
             // welcomeLbl
             // 
             welcomeLbl.AutoSize = true;
             welcomeLbl.Font = new Font("Poppins", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            welcomeLbl.Location = new Point(39, 97);
+            welcomeLbl.Location = new Point(75, 29);
             welcomeLbl.Name = "welcomeLbl";
             welcomeLbl.Size = new Size(209, 60);
             welcomeLbl.TabIndex = 2;
@@ -88,7 +104,7 @@
             // 
             userLbl.AutoSize = true;
             userLbl.Font = new Font("Poppins", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            userLbl.Location = new Point(236, 97);
+            userLbl.Location = new Point(259, 29);
             userLbl.Name = "userLbl";
             userLbl.Size = new Size(155, 60);
             userLbl.TabIndex = 3;
@@ -101,7 +117,7 @@
             bookingsPanel.Controls.Add(bookingsVal);
             bookingsPanel.Controls.Add(monthLbl);
             bookingsPanel.Controls.Add(TotalBookingsLbl);
-            bookingsPanel.Location = new Point(75, 171);
+            bookingsPanel.Location = new Point(75, 107);
             bookingsPanel.Name = "bookingsPanel";
             bookingsPanel.Size = new Size(405, 101);
             bookingsPanel.TabIndex = 4;
@@ -110,7 +126,7 @@
             // 
             bookingsVal.AutoSize = true;
             bookingsVal.Font = new Font("Poppins", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            bookingsVal.Location = new Point(20, 34);
+            bookingsVal.Location = new Point(20, 36);
             bookingsVal.Name = "bookingsVal";
             bookingsVal.Size = new Size(40, 50);
             bookingsVal.TabIndex = 8;
@@ -121,7 +137,7 @@
             monthLbl.AutoSize = true;
             monthLbl.Font = new Font("Poppins", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             monthLbl.ForeColor = SystemColors.ControlDarkDark;
-            monthLbl.Location = new Point(129, 10);
+            monthLbl.Location = new Point(154, 12);
             monthLbl.Name = "monthLbl";
             monthLbl.Size = new Size(96, 26);
             monthLbl.TabIndex = 9;
@@ -133,7 +149,7 @@
             TotalBookingsLbl.AutoSize = true;
             TotalBookingsLbl.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             TotalBookingsLbl.ForeColor = SystemColors.ControlDarkDark;
-            TotalBookingsLbl.Location = new Point(12, 11);
+            TotalBookingsLbl.Location = new Point(12, 13);
             TotalBookingsLbl.Name = "TotalBookingsLbl";
             TotalBookingsLbl.Size = new Size(147, 26);
             TotalBookingsLbl.TabIndex = 8;
@@ -144,7 +160,7 @@
             repeatGuestsPanel.BackColor = Color.White;
             repeatGuestsPanel.Controls.Add(repeatGuestsVal);
             repeatGuestsPanel.Controls.Add(repeatGuestsLbl);
-            repeatGuestsPanel.Location = new Point(540, 171);
+            repeatGuestsPanel.Location = new Point(540, 107);
             repeatGuestsPanel.Name = "repeatGuestsPanel";
             repeatGuestsPanel.Size = new Size(405, 101);
             repeatGuestsPanel.TabIndex = 5;
@@ -175,7 +191,7 @@
             openTicketsPanel.BackColor = Color.White;
             openTicketsPanel.Controls.Add(openTicketsVal);
             openTicketsPanel.Controls.Add(openTicketsLbl);
-            openTicketsPanel.Location = new Point(992, 171);
+            openTicketsPanel.Location = new Point(992, 107);
             openTicketsPanel.Name = "openTicketsPanel";
             openTicketsPanel.Size = new Size(405, 101);
             openTicketsPanel.TabIndex = 6;
@@ -207,7 +223,7 @@
             activeCampaignsPanel.BackColor = Color.White;
             activeCampaignsPanel.Controls.Add(activeCampaignsVal);
             activeCampaignsPanel.Controls.Add(activeCampaignsLbl);
-            activeCampaignsPanel.Location = new Point(1442, 171);
+            activeCampaignsPanel.Location = new Point(1442, 107);
             activeCampaignsPanel.Name = "activeCampaignsPanel";
             activeCampaignsPanel.Size = new Size(405, 101);
             activeCampaignsPanel.TabIndex = 7;
@@ -237,36 +253,28 @@
             // checkInsPanel
             // 
             checkInsPanel.BackColor = Color.White;
-            checkInsPanel.Controls.Add(tableLayoutPanel1);
+            checkInsPanel.Controls.Add(checkInTable);
             checkInsPanel.Controls.Add(checkInsLbl);
-            checkInsPanel.Location = new Point(75, 306);
+            checkInsPanel.Location = new Point(75, 241);
             checkInsPanel.Name = "checkInsPanel";
             checkInsPanel.Size = new Size(870, 412);
             checkInsPanel.TabIndex = 8;
             checkInsPanel.Paint += panel2_Paint;
             // 
-            // tableLayoutPanel1
+            // checkInTable
             // 
-            tableLayoutPanel1.AutoScroll = true;
-            tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
-            tableLayoutPanel1.ColumnCount = 5;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 48.3076935F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 51.6923065F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 154F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 153F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 134F));
-            tableLayoutPanel1.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tableLayoutPanel1.Location = new Point(36, 64);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 6;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 45.16129F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 54.83871F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 54F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 57F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 55F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 47F));
-            tableLayoutPanel1.Size = new Size(781, 319);
-            tableLayoutPanel1.TabIndex = 13;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 197, 149);
+            checkInTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            checkInTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            checkInTable.BackgroundColor = Color.White;
+            checkInTable.BorderStyle = BorderStyle.Fixed3D;
+            checkInTable.ColumnHeadersHeight = 29;
+            checkInTable.Columns.AddRange(new DataGridViewColumn[] { guestName, package, pax, arrivalDate, status });
+            checkInTable.Location = new Point(29, 54);
+            checkInTable.Name = "checkInTable";
+            checkInTable.RowHeadersWidth = 51;
+            checkInTable.Size = new Size(812, 337);
+            checkInTable.TabIndex = 11;
             // 
             // checkInsLbl
             // 
@@ -278,38 +286,30 @@
             checkInsLbl.TabIndex = 10;
             checkInsLbl.Text = "Check-Ins";
             // 
-            // panel3
+            // checkOutPanel
             // 
-            panel3.BackColor = Color.White;
-            panel3.Controls.Add(checkOutsTable);
-            panel3.Controls.Add(checkOutsLbl);
-            panel3.Location = new Point(992, 306);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(855, 412);
-            panel3.TabIndex = 9;
+            checkOutPanel.BackColor = Color.White;
+            checkOutPanel.Controls.Add(checkOutTable);
+            checkOutPanel.Controls.Add(checkOutsLbl);
+            checkOutPanel.Location = new Point(992, 241);
+            checkOutPanel.Name = "checkOutPanel";
+            checkOutPanel.Size = new Size(855, 412);
+            checkOutPanel.TabIndex = 9;
             // 
-            // checkOutsTable
+            // checkOutTable
             // 
-            checkOutsTable.AutoScroll = true;
-            checkOutsTable.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
-            checkOutsTable.ColumnCount = 5;
-            checkOutsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 53.23077F));
-            checkOutsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 46.76923F));
-            checkOutsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 164F));
-            checkOutsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 153F));
-            checkOutsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 134F));
-            checkOutsTable.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkOutsTable.Location = new Point(33, 64);
-            checkOutsTable.Name = "checkOutsTable";
-            checkOutsTable.RowCount = 6;
-            checkOutsTable.RowStyles.Add(new RowStyle(SizeType.Percent, 45.16129F));
-            checkOutsTable.RowStyles.Add(new RowStyle(SizeType.Percent, 54.83871F));
-            checkOutsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 54F));
-            checkOutsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 57F));
-            checkOutsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 55F));
-            checkOutsTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 47F));
-            checkOutsTable.Size = new Size(781, 319);
-            checkOutsTable.TabIndex = 12;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(235, 197, 149);
+            checkOutTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            checkOutTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            checkOutTable.BackgroundColor = Color.White;
+            checkOutTable.BorderStyle = BorderStyle.Fixed3D;
+            checkOutTable.ColumnHeadersHeight = 29;
+            checkOutTable.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, checkOutDate, time });
+            checkOutTable.Location = new Point(33, 54);
+            checkOutTable.Name = "checkOutTable";
+            checkOutTable.RowHeadersWidth = 51;
+            checkOutTable.Size = new Size(790, 337);
+            checkOutTable.TabIndex = 12;
             // 
             // checkOutsLbl
             // 
@@ -328,7 +328,7 @@
             // panelCalendarHost
             // 
             panelCalendarHost.BackColor = SystemColors.ButtonHighlight;
-            panelCalendarHost.Location = new Point(75, 756);
+            panelCalendarHost.Location = new Point(75, 696);
             panelCalendarHost.Name = "panelCalendarHost";
             panelCalendarHost.Size = new Size(1772, 443);
             panelCalendarHost.TabIndex = 11;
@@ -337,7 +337,7 @@
             // 
             topNavBar1.Location = new Point(0, 0);
             topNavBar1.Name = "topNavBar1";
-            topNavBar1.Size = new Size(1915, 70);
+            topNavBar1.Size = new Size(1922, 70);
             topNavBar1.TabIndex = 12;
             // 
             // pictureBox1
@@ -440,25 +440,105 @@
             chevronDownBtn.TabIndex = 2;
             chevronDownBtn.TabStop = false;
             // 
+            // contentPanel
+            // 
+            contentPanel.AutoScroll = true;
+            contentPanel.Controls.Add(userLbl);
+            contentPanel.Controls.Add(bookingsPanel);
+            contentPanel.Controls.Add(repeatGuestsPanel);
+            contentPanel.Controls.Add(openTicketsPanel);
+            contentPanel.Controls.Add(activeCampaignsPanel);
+            contentPanel.Controls.Add(checkInsPanel);
+            contentPanel.Controls.Add(checkOutPanel);
+            contentPanel.Controls.Add(panelCalendarHost);
+            contentPanel.Controls.Add(welcomeLbl);
+            contentPanel.Dock = DockStyle.Fill;
+            contentPanel.Location = new Point(0, 0);
+            contentPanel.Name = "contentPanel";
+            contentPanel.Size = new Size(1924, 1055);
+            contentPanel.TabIndex = 13;
+            // 
+            // guestName
+            // 
+            guestName.HeaderText = "Guest Name";
+            guestName.MinimumWidth = 6;
+            guestName.Name = "guestName";
+            guestName.ReadOnly = true;
+            // 
+            // package
+            // 
+            package.HeaderText = "Package";
+            package.MinimumWidth = 6;
+            package.Name = "package";
+            package.ReadOnly = true;
+            // 
+            // pax
+            // 
+            pax.HeaderText = "Pax";
+            pax.MinimumWidth = 6;
+            pax.Name = "pax";
+            pax.ReadOnly = true;
+            // 
+            // arrivalDate
+            // 
+            arrivalDate.HeaderText = "Arrival Date";
+            arrivalDate.MinimumWidth = 6;
+            arrivalDate.Name = "arrivalDate";
+            arrivalDate.ReadOnly = true;
+            // 
+            // status
+            // 
+            status.HeaderText = "Status";
+            status.MinimumWidth = 6;
+            status.Name = "status";
+            status.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            dataGridViewTextBoxColumn1.HeaderText = "Guest Name";
+            dataGridViewTextBoxColumn1.MinimumWidth = 6;
+            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            dataGridViewTextBoxColumn2.HeaderText = "Package";
+            dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            dataGridViewTextBoxColumn3.HeaderText = "Pax";
+            dataGridViewTextBoxColumn3.MinimumWidth = 6;
+            dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // checkOutDate
+            // 
+            checkOutDate.HeaderText = "Check Out Date";
+            checkOutDate.MinimumWidth = 6;
+            checkOutDate.Name = "checkOutDate";
+            checkOutDate.ReadOnly = true;
+            // 
+            // time
+            // 
+            time.HeaderText = "Time";
+            time.MinimumWidth = 6;
+            time.Name = "time";
+            time.ReadOnly = true;
+            // 
             // Dashboard
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            AutoScroll = true;
             AutoSize = true;
             ClientSize = new Size(1924, 1055);
+            Controls.Add(contentPanel);
             Controls.Add(topNavBar1);
-            Controls.Add(panelCalendarHost);
-            Controls.Add(panel3);
-            Controls.Add(checkInsPanel);
-            Controls.Add(activeCampaignsPanel);
-            Controls.Add(openTicketsPanel);
-            Controls.Add(repeatGuestsPanel);
-            Controls.Add(bookingsPanel);
-            Controls.Add(userLbl);
-            Controls.Add(welcomeLbl);
             Name = "Dashboard";
             Text = "Dashboard";
+            Load += Dashboard_Load;
             ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
             bookingsPanel.ResumeLayout(false);
             bookingsPanel.PerformLayout();
@@ -470,12 +550,15 @@
             activeCampaignsPanel.PerformLayout();
             checkInsPanel.ResumeLayout(false);
             checkInsPanel.PerformLayout();
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)checkInTable).EndInit();
+            checkOutPanel.ResumeLayout(false);
+            checkOutPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)checkOutTable).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)chevronDownBtn).EndInit();
+            contentPanel.ResumeLayout(false);
+            contentPanel.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -497,12 +580,10 @@
         private Label activeCampaignsVal;
         private Panel checkInsPanel;
         private Label checkInsLbl;
-        private Panel panel3;
-        private TableLayoutPanel checkOutsTable;
+        private Panel checkOutPanel;
         private Label checkOutsLbl;
         private Krypton.Toolkit.KryptonCustomPaletteBase kryptonCustomPaletteBase1;
         private Panel panelCalendarHost;
-        private TableLayoutPanel tableLayoutPanel1;
         private TopNavBar topNavBar1;
         private PictureBox pictureBox1;
         private Label crmLbl;
@@ -513,5 +594,18 @@
         private Label marketingBtn;
         private Label supportBtn;
         private FontAwesome.Sharp.IconPictureBox chevronDownBtn;
+        private Panel contentPanel;
+        private DataGridView checkInTable;
+        private DataGridView checkOutTable;
+        private DataGridViewTextBoxColumn guestName;
+        private DataGridViewTextBoxColumn package;
+        private DataGridViewTextBoxColumn pax;
+        private DataGridViewTextBoxColumn arrivalDate;
+        private DataGridViewTextBoxColumn status;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private DataGridViewTextBoxColumn checkOutDate;
+        private DataGridViewTextBoxColumn time;
     }
 }

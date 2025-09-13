@@ -17,6 +17,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         {
             InitializeComponent();
             topNavBar1.SetActive("BookingManagement");
+            topNavBar1.Dock = DockStyle.Top;
             paymentHistoryBtn.Click += paymentHistoryBtn_Click;
         }
 

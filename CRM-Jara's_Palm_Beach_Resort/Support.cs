@@ -16,6 +16,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         {
             InitializeComponent();
             topNavBar1.SetActive("Support");
+            topNavBar1.Dock = DockStyle.Top;
         }
 
         private void dashboardBtn_Click(object sender, EventArgs e)
