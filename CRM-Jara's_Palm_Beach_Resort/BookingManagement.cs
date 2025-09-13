@@ -17,6 +17,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         {
             InitializeComponent();
             topNavBar1.SetActive("BookingManagement");
+            paymentHistoryBtn.Click += paymentHistoryBtn_Click;
         }
 
         private void dashboardBtn_Click(object sender, EventArgs e)
@@ -97,7 +98,16 @@ namespace CRM_Jara_s_Palm_Beach_Resort
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            // Show modal form centered, no blur
+            using (var modal = new NewBookingForm())
+            {
+                modal.StartPosition = FormStartPosition.CenterParent;
+                modal.FormBorderStyle = FormBorderStyle.FixedDialog;
+                modal.ShowInTaskbar = false;
+                modal.MaximizeBox = false; // Disable maximize
+                modal.MinimizeBox = true;  // Allow minimize if you want
+                modal.ShowDialog(this);
+            }
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)
@@ -133,6 +143,19 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         private void panel4_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void paymentHistoryBtn_Click(object sender, EventArgs e)
+        {
+            using (var paymentForm = new Payment())
+            {
+                paymentForm.StartPosition = FormStartPosition.CenterParent;
+                paymentForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+                paymentForm.ShowInTaskbar = false;
+                paymentForm.MaximizeBox = false;
+                paymentForm.MinimizeBox = true;
+                paymentForm.ShowDialog(this);
+            }
         }
     }
 }

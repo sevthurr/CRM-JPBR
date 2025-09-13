@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             bookingListsPanel = new Panel();
             sortComboBox = new ComboBox();
             sortIcon = new FontAwesome.Sharp.IconPictureBox();
@@ -44,29 +44,31 @@
             newBookingBtn = new Button();
             bookingsTable = new DataGridView();
             bookingInformationPanel = new Panel();
+            checkOutDateVal = new Label();
+            checkOutDateLbl = new Label();
+            guestNameLnkLbl = new LinkLabel();
             itemsLinkVal = new LinkLabel();
             packageVal = new LinkLabel();
-            socialsVal = new Label();
-            contactNumberVal = new Label();
+            checkInDateVal = new Label();
             paxVal = new Label();
-            dateVal = new Label();
-            guestNameVal = new Label();
             deleteButton = new FontAwesome.Sharp.IconPictureBox();
             editButton = new FontAwesome.Sharp.IconPictureBox();
             deleteBtn = new Button();
             editBtn = new Button();
             guestImage = new Panel();
-            socialsLbl = new Label();
-            contactNumberLbl = new Label();
+            checkInDateLbl = new Label();
             rentalsLbl = new Label();
             paxLbl = new Label();
             packageLbl = new Label();
-            dateLbl = new Label();
             guestNameLbl = new Label();
             bookingInformationLbl = new Label();
             bookinglistsLbl = new Label();
             iconDropDownButton1 = new FontAwesome.Sharp.IconDropDownButton();
             topNavBar1 = new TopNavBar();
+            paymentAmountVal = new Label();
+            paymentLbl = new Label();
+            moneyIcon = new FontAwesome.Sharp.IconPictureBox();
+            paymentHistoryBtn = new Button();
             bookingListsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)sortIcon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filterIcon).BeginInit();
@@ -76,6 +78,7 @@
             bookingInformationPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)deleteButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)editButton).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)moneyIcon).BeginInit();
             SuspendLayout();
             // 
             // bookingListsPanel
@@ -246,19 +249,19 @@
             bookingsTable.AllowUserToDeleteRows = false;
             bookingsTable.AllowUserToResizeColumns = false;
             bookingsTable.AllowUserToResizeRows = false;
-            dataGridViewCellStyle3.BackColor = SystemColors.GradientInactiveCaption;
-            bookingsTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle5.BackColor = SystemColors.GradientInactiveCaption;
+            bookingsTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             bookingsTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             bookingsTable.BackgroundColor = Color.White;
             bookingsTable.BorderStyle = BorderStyle.Fixed3D;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            bookingsTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Control;
+            dataGridViewCellStyle6.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            bookingsTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             bookingsTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             bookingsTable.GridColor = Color.White;
             bookingsTable.Location = new Point(39, 96);
@@ -275,39 +278,74 @@
             // 
             bookingInformationPanel.BackColor = Color.White;
             bookingInformationPanel.BorderStyle = BorderStyle.FixedSingle;
+            bookingInformationPanel.Controls.Add(moneyIcon);
+            bookingInformationPanel.Controls.Add(paymentHistoryBtn);
+            bookingInformationPanel.Controls.Add(paymentAmountVal);
+            bookingInformationPanel.Controls.Add(paymentLbl);
+            bookingInformationPanel.Controls.Add(checkOutDateVal);
+            bookingInformationPanel.Controls.Add(checkOutDateLbl);
+            bookingInformationPanel.Controls.Add(guestNameLnkLbl);
             bookingInformationPanel.Controls.Add(itemsLinkVal);
             bookingInformationPanel.Controls.Add(packageVal);
-            bookingInformationPanel.Controls.Add(socialsVal);
-            bookingInformationPanel.Controls.Add(contactNumberVal);
+            bookingInformationPanel.Controls.Add(checkInDateVal);
             bookingInformationPanel.Controls.Add(paxVal);
-            bookingInformationPanel.Controls.Add(dateVal);
-            bookingInformationPanel.Controls.Add(guestNameVal);
             bookingInformationPanel.Controls.Add(deleteButton);
             bookingInformationPanel.Controls.Add(editButton);
             bookingInformationPanel.Controls.Add(deleteBtn);
             bookingInformationPanel.Controls.Add(editBtn);
             bookingInformationPanel.Controls.Add(guestImage);
-            bookingInformationPanel.Controls.Add(socialsLbl);
-            bookingInformationPanel.Controls.Add(contactNumberLbl);
+            bookingInformationPanel.Controls.Add(checkInDateLbl);
             bookingInformationPanel.Controls.Add(rentalsLbl);
             bookingInformationPanel.Controls.Add(paxLbl);
             bookingInformationPanel.Controls.Add(packageLbl);
-            bookingInformationPanel.Controls.Add(dateLbl);
             bookingInformationPanel.Controls.Add(guestNameLbl);
             bookingInformationPanel.Controls.Add(bookingInformationLbl);
             bookingInformationPanel.ForeColor = Color.Black;
-            bookingInformationPanel.Location = new Point(1393, 173);
+            bookingInformationPanel.Location = new Point(1393, 172);
             bookingInformationPanel.Name = "bookingInformationPanel";
-            bookingInformationPanel.Size = new Size(470, 778);
+            bookingInformationPanel.Size = new Size(470, 775);
             bookingInformationPanel.TabIndex = 6;
             bookingInformationPanel.Paint += panel4_Paint;
+            // 
+            // checkOutDateVal
+            // 
+            checkOutDateVal.AutoSize = true;
+            checkOutDateVal.Font = new Font("Poppins", 9F);
+            checkOutDateVal.Location = new Point(215, 498);
+            checkOutDateVal.Name = "checkOutDateVal";
+            checkOutDateVal.Size = new Size(108, 26);
+            checkOutDateVal.TabIndex = 32;
+            checkOutDateVal.Text = "mm/dd/yyyy";
+            // 
+            // checkOutDateLbl
+            // 
+            checkOutDateLbl.AutoSize = true;
+            checkOutDateLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            checkOutDateLbl.Location = new Point(78, 498);
+            checkOutDateLbl.Name = "checkOutDateLbl";
+            checkOutDateLbl.Size = new Size(108, 30);
+            checkOutDateLbl.TabIndex = 31;
+            checkOutDateLbl.Text = "Check Out:";
+            // 
+            // guestNameLnkLbl
+            // 
+            guestNameLnkLbl.AutoSize = true;
+            guestNameLnkLbl.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            guestNameLnkLbl.LinkColor = Color.FromArgb(40, 75, 83);
+            guestNameLnkLbl.Location = new Point(215, 400);
+            guestNameLnkLbl.Name = "guestNameLnkLbl";
+            guestNameLnkLbl.Size = new Size(105, 26);
+            guestNameLnkLbl.TabIndex = 30;
+            guestNameLnkLbl.TabStop = true;
+            guestNameLnkLbl.Text = "Guest Name";
+            guestNameLnkLbl.VisitedLinkColor = Color.FromArgb(83, 169, 181);
             // 
             // itemsLinkVal
             // 
             itemsLinkVal.AutoSize = true;
             itemsLinkVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             itemsLinkVal.LinkColor = Color.FromArgb(40, 75, 83);
-            itemsLinkVal.Location = new Point(214, 595);
+            itemsLinkVal.Location = new Point(214, 648);
             itemsLinkVal.Name = "itemsLinkVal";
             itemsLinkVal.Size = new Size(77, 30);
             itemsLinkVal.TabIndex = 29;
@@ -320,7 +358,7 @@
             packageVal.AutoSize = true;
             packageVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             packageVal.LinkColor = Color.FromArgb(40, 75, 83);
-            packageVal.Location = new Point(214, 495);
+            packageVal.Location = new Point(215, 548);
             packageVal.Name = "packageVal";
             packageVal.Size = new Size(24, 30);
             packageVal.TabIndex = 28;
@@ -328,55 +366,25 @@
             packageVal.Text = "A";
             packageVal.VisitedLinkColor = Color.FromArgb(83, 169, 181);
             // 
-            // socialsVal
+            // checkInDateVal
             // 
-            socialsVal.AutoSize = true;
-            socialsVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            socialsVal.Location = new Point(209, 695);
-            socialsVal.Name = "socialsVal";
-            socialsVal.Size = new Size(194, 30);
-            socialsVal.TabIndex = 27;
-            socialsVal.Text = "guest@platform.com";
-            // 
-            // contactNumberVal
-            // 
-            contactNumberVal.AutoSize = true;
-            contactNumberVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            contactNumberVal.Location = new Point(209, 645);
-            contactNumberVal.Name = "contactNumberVal";
-            contactNumberVal.Size = new Size(183, 30);
-            contactNumberVal.TabIndex = 26;
-            contactNumberVal.Text = "+63-000-000-0000";
+            checkInDateVal.AutoSize = true;
+            checkInDateVal.Font = new Font("Poppins", 9F);
+            checkInDateVal.Location = new Point(215, 448);
+            checkInDateVal.Name = "checkInDateVal";
+            checkInDateVal.Size = new Size(108, 26);
+            checkInDateVal.TabIndex = 26;
+            checkInDateVal.Text = "mm/dd/yyyy";
             // 
             // paxVal
             // 
             paxVal.AutoSize = true;
             paxVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            paxVal.Location = new Point(215, 545);
+            paxVal.Location = new Point(215, 598);
             paxVal.Name = "paxVal";
             paxVal.Size = new Size(24, 30);
             paxVal.TabIndex = 24;
             paxVal.Text = "0";
-            // 
-            // dateVal
-            // 
-            dateVal.AutoSize = true;
-            dateVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateVal.Location = new Point(209, 445);
-            dateVal.Name = "dateVal";
-            dateVal.Size = new Size(107, 30);
-            dateVal.TabIndex = 22;
-            dateVal.Text = "mm/dd/yy";
-            // 
-            // guestNameVal
-            // 
-            guestNameVal.AutoSize = true;
-            guestNameVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            guestNameVal.Location = new Point(209, 395);
-            guestNameVal.Name = "guestNameVal";
-            guestNameVal.Size = new Size(120, 30);
-            guestNameVal.TabIndex = 21;
-            guestNameVal.Text = "Guest Name";
             // 
             // deleteButton
             // 
@@ -385,7 +393,7 @@
             deleteButton.IconColor = Color.White;
             deleteButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             deleteButton.IconSize = 19;
-            deleteButton.Location = new Point(259, 343);
+            deleteButton.Location = new Point(194, 333);
             deleteButton.Name = "deleteButton";
             deleteButton.Size = new Size(19, 20);
             deleteButton.TabIndex = 19;
@@ -398,7 +406,7 @@
             editButton.IconColor = Color.White;
             editButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
             editButton.IconSize = 23;
-            editButton.Location = new Point(156, 340);
+            editButton.Location = new Point(91, 330);
             editButton.Name = "editButton";
             editButton.Size = new Size(24, 23);
             editButton.TabIndex = 18;
@@ -409,11 +417,11 @@
             deleteBtn.BackColor = Color.Red;
             deleteBtn.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             deleteBtn.ForeColor = Color.White;
-            deleteBtn.Location = new Point(247, 336);
+            deleteBtn.Location = new Point(182, 326);
             deleteBtn.Name = "deleteBtn";
             deleteBtn.Size = new Size(99, 31);
             deleteBtn.TabIndex = 20;
-            deleteBtn.Text = "   Delete";
+            deleteBtn.Text = "    Delete";
             deleteBtn.UseVisualStyleBackColor = false;
             // 
             // editBtn
@@ -421,47 +429,37 @@
             editBtn.BackColor = Color.FromArgb(255, 173, 70);
             editBtn.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             editBtn.ForeColor = Color.White;
-            editBtn.Location = new Point(142, 336);
+            editBtn.Location = new Point(77, 326);
             editBtn.Name = "editBtn";
             editBtn.Size = new Size(99, 31);
             editBtn.TabIndex = 18;
-            editBtn.Text = "   Edit";
+            editBtn.Text = "     Edit";
             editBtn.UseVisualStyleBackColor = false;
             // 
             // guestImage
             // 
             guestImage.BackColor = Color.White;
             guestImage.BorderStyle = BorderStyle.FixedSingle;
-            guestImage.Location = new Point(125, 89);
+            guestImage.Location = new Point(127, 84);
             guestImage.Name = "guestImage";
-            guestImage.Size = new Size(231, 232);
+            guestImage.Size = new Size(230, 221);
             guestImage.TabIndex = 9;
             // 
-            // socialsLbl
+            // checkInDateLbl
             // 
-            socialsLbl.AutoSize = true;
-            socialsLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            socialsLbl.Location = new Point(78, 695);
-            socialsLbl.Name = "socialsLbl";
-            socialsLbl.Size = new Size(80, 30);
-            socialsLbl.TabIndex = 16;
-            socialsLbl.Text = "Socials:";
-            // 
-            // contactNumberLbl
-            // 
-            contactNumberLbl.AutoSize = true;
-            contactNumberLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            contactNumberLbl.Location = new Point(78, 645);
-            contactNumberLbl.Name = "contactNumberLbl";
-            contactNumberLbl.Size = new Size(117, 30);
-            contactNumberLbl.TabIndex = 15;
-            contactNumberLbl.Text = "Contact No.";
+            checkInDateLbl.AutoSize = true;
+            checkInDateLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            checkInDateLbl.Location = new Point(78, 448);
+            checkInDateLbl.Name = "checkInDateLbl";
+            checkInDateLbl.Size = new Size(93, 30);
+            checkInDateLbl.TabIndex = 15;
+            checkInDateLbl.Text = "Check In:";
             // 
             // rentalsLbl
             // 
             rentalsLbl.AutoSize = true;
             rentalsLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            rentalsLbl.Location = new Point(78, 595);
+            rentalsLbl.Location = new Point(78, 648);
             rentalsLbl.Name = "rentalsLbl";
             rentalsLbl.Size = new Size(83, 30);
             rentalsLbl.TabIndex = 14;
@@ -471,7 +469,7 @@
             // 
             paxLbl.AutoSize = true;
             paxLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            paxLbl.Location = new Point(78, 545);
+            paxLbl.Location = new Point(78, 598);
             paxLbl.Name = "paxLbl";
             paxLbl.Size = new Size(51, 30);
             paxLbl.TabIndex = 13;
@@ -481,28 +479,17 @@
             // 
             packageLbl.AutoSize = true;
             packageLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            packageLbl.Location = new Point(78, 495);
+            packageLbl.Location = new Point(78, 548);
             packageLbl.Name = "packageLbl";
             packageLbl.Size = new Size(96, 30);
             packageLbl.TabIndex = 12;
             packageLbl.Text = "Package:";
             // 
-            // dateLbl
-            // 
-            dateLbl.AutoSize = true;
-            dateLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dateLbl.Location = new Point(78, 445);
-            dateLbl.Name = "dateLbl";
-            dateLbl.Size = new Size(59, 30);
-            dateLbl.TabIndex = 11;
-            dateLbl.Text = "Date:";
-            dateLbl.Click += label6_Click;
-            // 
             // guestNameLbl
             // 
             guestNameLbl.AutoSize = true;
             guestNameLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guestNameLbl.Location = new Point(78, 395);
+            guestNameLbl.Location = new Point(78, 398);
             guestNameLbl.Name = "guestNameLbl";
             guestNameLbl.Size = new Size(125, 30);
             guestNameLbl.TabIndex = 10;
@@ -511,11 +498,11 @@
             // bookingInformationLbl
             // 
             bookingInformationLbl.AutoSize = true;
-            bookingInformationLbl.Font = new Font("Poppins", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bookingInformationLbl.Font = new Font("Poppins", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             bookingInformationLbl.ForeColor = Color.Black;
-            bookingInformationLbl.Location = new Point(97, 34);
+            bookingInformationLbl.Location = new Point(112, 24);
             bookingInformationLbl.Name = "bookingInformationLbl";
-            bookingInformationLbl.Size = new Size(281, 44);
+            bookingInformationLbl.Size = new Size(260, 40);
             bookingInformationLbl.TabIndex = 8;
             bookingInformationLbl.Text = "Booking Information";
             // 
@@ -546,6 +533,51 @@
             topNavBar1.Size = new Size(1915, 70);
             topNavBar1.TabIndex = 7;
             // 
+            // paymentAmountVal
+            // 
+            paymentAmountVal.AutoSize = true;
+            paymentAmountVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            paymentAmountVal.Location = new Point(215, 699);
+            paymentAmountVal.Name = "paymentAmountVal";
+            paymentAmountVal.Size = new Size(91, 30);
+            paymentAmountVal.TabIndex = 34;
+            paymentAmountVal.Text = "Php. 0.00";
+            // 
+            // paymentLbl
+            // 
+            paymentLbl.AutoSize = true;
+            paymentLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            paymentLbl.Location = new Point(78, 698);
+            paymentLbl.Name = "paymentLbl";
+            paymentLbl.Size = new Size(102, 30);
+            paymentLbl.TabIndex = 33;
+            paymentLbl.Text = "Payment: ";
+            // 
+            // moneyIcon
+            // 
+            moneyIcon.BackColor = Color.FromArgb(38, 176, 112);
+            moneyIcon.IconChar = FontAwesome.Sharp.IconChar.MoneyBill;
+            moneyIcon.IconColor = Color.White;
+            moneyIcon.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            moneyIcon.IconSize = 19;
+            moneyIcon.Location = new Point(299, 333);
+            moneyIcon.Name = "moneyIcon";
+            moneyIcon.Size = new Size(19, 20);
+            moneyIcon.TabIndex = 35;
+            moneyIcon.TabStop = false;
+            // 
+            // paymentHistoryBtn
+            // 
+            paymentHistoryBtn.BackColor = Color.FromArgb(38, 176, 112);
+            paymentHistoryBtn.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            paymentHistoryBtn.ForeColor = Color.White;
+            paymentHistoryBtn.Location = new Point(287, 326);
+            paymentHistoryBtn.Name = "paymentHistoryBtn";
+            paymentHistoryBtn.Size = new Size(124, 31);
+            paymentHistoryBtn.TabIndex = 36;
+            paymentHistoryBtn.Text = "      Payments";
+            paymentHistoryBtn.UseVisualStyleBackColor = false;
+            // 
             // BookingManagement
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -569,6 +601,7 @@
             bookingInformationPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)deleteButton).EndInit();
             ((System.ComponentModel.ISupportInitialize)editButton).EndInit();
+            ((System.ComponentModel.ISupportInitialize)moneyIcon).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -586,12 +619,10 @@
         private Label bookingListLbl;
         private DataGridView bookingsTable;
         private Label guestNameLbl;
-        private Label socialsLbl;
-        private Label contactNumberLbl;
+        private Label checkInDateLbl;
         private Label rentalsLbl;
         private Label paxLbl;
         private Label packageLbl;
-        private Label dateLbl;
         private FontAwesome.Sharp.IconPictureBox editButton;
         private FontAwesome.Sharp.IconPictureBox deleteButton;
         private Button deleteBtn;
@@ -605,12 +636,16 @@
         private TextBox searchBoxLbl;
         private Panel filterPanel;
         private LinkLabel packageVal;
-        private Label socialsVal;
-        private Label contactNumberVal;
+        private Label checkInDateVal;
         private Label paxVal;
-        private Label dateVal;
-        private Label guestNameVal;
         private LinkLabel itemsLinkVal;
         private TopNavBar topNavBar1;
+        private LinkLabel guestNameLnkLbl;
+        private Label checkOutDateVal;
+        private Label checkOutDateLbl;
+        private Label paymentAmountVal;
+        private Label paymentLbl;
+        private FontAwesome.Sharp.IconPictureBox moneyIcon;
+        private Button paymentHistoryBtn;
     }
 }    
