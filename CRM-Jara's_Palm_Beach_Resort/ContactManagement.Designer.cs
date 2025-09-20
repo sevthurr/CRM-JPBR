@@ -53,6 +53,25 @@
             editBtn = new Button();
             imgPanel = new Panel();
             guestInfoLbl = new Label();
+            bookingInformationPanel = new Panel();
+            linkLabel2 = new LinkLabel();
+            linkLabel1 = new LinkLabel();
+            radioButton2 = new RadioButton();
+            radioButton1 = new RadioButton();
+            label2 = new Label();
+            label1 = new Label();
+            guestName = new Label();
+            paymentLbl = new Label();
+            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
+            iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
+            button1 = new Button();
+            button2 = new Button();
+            guestImage = new Panel();
+            contactNumberLbl = new Label();
+            rentalsLbl = new Label();
+            paxLbl = new Label();
+            nameLbl = new Label();
+            guestInformationLbl = new Label();
             contactListPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)guestTable).BeginInit();
             ((System.ComponentModel.ISupportInitialize)sortIcon).BeginInit();
@@ -61,6 +80,9 @@
             guestInfoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)deleteButton).BeginInit();
             ((System.ComponentModel.ISupportInitialize)editButton).BeginInit();
+            bookingInformationPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
             SuspendLayout();
             // 
             // contactManagementLbl
@@ -83,7 +105,6 @@
             // contactListPanel
             // 
             contactListPanel.BackColor = Color.White;
-            contactListPanel.BorderStyle = BorderStyle.FixedSingle;
             contactListPanel.Controls.Add(guestTable);
             contactListPanel.Controls.Add(sortComboBox);
             contactListPanel.Controls.Add(contactListLbl);
@@ -104,21 +125,17 @@
             // 
             guestTable.AllowUserToAddRows = false;
             guestTable.AllowUserToDeleteRows = false;
-            guestTable.AllowUserToResizeColumns = false;
-            guestTable.AllowUserToResizeRows = false;
             guestTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             guestTable.BackgroundColor = Color.White;
             guestTable.BorderStyle = BorderStyle.Fixed3D;
             guestTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            guestTable.GridColor = Color.White;
+            guestTable.GridColor = SystemColors.ControlDark;
             guestTable.Location = new Point(39, 96);
             guestTable.Name = "guestTable";
             guestTable.ReadOnly = true;
-            guestTable.RowHeadersVisible = false;
             guestTable.RowHeadersWidth = 51;
             guestTable.Size = new Size(1196, 633);
-            guestTable.TabIndex = 17;
-            guestTable.CellContentClick += guestTable_CellContentClick;
+            guestTable.TabIndex = 36;
             // 
             // sortComboBox
             // 
@@ -373,14 +390,245 @@
             guestInfoLbl.TabIndex = 8;
             guestInfoLbl.Text = "Guest Information";
             // 
+            // bookingInformationPanel
+            // 
+            bookingInformationPanel.AutoScroll = true;
+            bookingInformationPanel.BackColor = Color.White;
+            bookingInformationPanel.BorderStyle = BorderStyle.FixedSingle;
+            bookingInformationPanel.Controls.Add(linkLabel2);
+            bookingInformationPanel.Controls.Add(linkLabel1);
+            bookingInformationPanel.Controls.Add(radioButton2);
+            bookingInformationPanel.Controls.Add(radioButton1);
+            bookingInformationPanel.Controls.Add(label2);
+            bookingInformationPanel.Controls.Add(label1);
+            bookingInformationPanel.Controls.Add(guestName);
+            bookingInformationPanel.Controls.Add(paymentLbl);
+            bookingInformationPanel.Controls.Add(iconPictureBox1);
+            bookingInformationPanel.Controls.Add(iconPictureBox2);
+            bookingInformationPanel.Controls.Add(button1);
+            bookingInformationPanel.Controls.Add(button2);
+            bookingInformationPanel.Controls.Add(guestImage);
+            bookingInformationPanel.Controls.Add(contactNumberLbl);
+            bookingInformationPanel.Controls.Add(rentalsLbl);
+            bookingInformationPanel.Controls.Add(paxLbl);
+            bookingInformationPanel.Controls.Add(nameLbl);
+            bookingInformationPanel.Controls.Add(guestInformationLbl);
+            bookingInformationPanel.ForeColor = Color.Black;
+            bookingInformationPanel.Location = new Point(1389, 172);
+            bookingInformationPanel.Name = "bookingInformationPanel";
+            bookingInformationPanel.Size = new Size(470, 775);
+            bookingInformationPanel.TabIndex = 18;
+            // 
+            // linkLabel2
+            // 
+            linkLabel2.AutoSize = true;
+            linkLabel2.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            linkLabel2.LinkColor = Color.FromArgb(40, 75, 83);
+            linkLabel2.Location = new Point(236, 600);
+            linkLabel2.Name = "linkLabel2";
+            linkLabel2.Size = new Size(19, 23);
+            linkLabel2.TabIndex = 41;
+            linkLabel2.TabStop = true;
+            linkLabel2.Text = "1";
+            linkLabel2.VisitedLinkColor = Color.FromArgb(235, 197, 149);
+            // 
+            // linkLabel1
+            // 
+            linkLabel1.AutoSize = true;
+            linkLabel1.LinkColor = Color.FromArgb(40, 75, 83);
+            linkLabel1.Location = new Point(216, 554);
+            linkLabel1.Name = "linkLabel1";
+            linkLabel1.Size = new Size(106, 20);
+            linkLabel1.TabIndex = 40;
+            linkLabel1.TabStop = true;
+            linkLabel1.Text = "+ Add Contact";
+            linkLabel1.VisitedLinkColor = Color.FromArgb(235, 197, 149);
+            // 
+            // radioButton2
+            // 
+            radioButton2.AutoSize = true;
+            radioButton2.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            radioButton2.Location = new Point(331, 657);
+            radioButton2.Name = "radioButton2";
+            radioButton2.Size = new Size(55, 30);
+            radioButton2.TabIndex = 39;
+            radioButton2.TabStop = true;
+            radioButton2.Text = "Off";
+            radioButton2.TextAlign = ContentAlignment.MiddleCenter;
+            radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            radioButton1.AutoSize = true;
+            radioButton1.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            radioButton1.Location = new Point(270, 657);
+            radioButton1.Name = "radioButton1";
+            radioButton1.Size = new Size(55, 30);
+            radioButton1.TabIndex = 38;
+            radioButton1.TabStop = true;
+            radioButton1.Text = "On";
+            radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(204, 522);
+            label2.Name = "label2";
+            label2.Size = new Size(192, 30);
+            label2.TabIndex = 37;
+            label2.Text = "facebook.com/guest";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(204, 464);
+            label1.Name = "label1";
+            label1.Size = new Size(152, 30);
+            label1.TabIndex = 36;
+            label1.Text = "+639-000-0000";
+            // 
+            // guestName
+            // 
+            guestName.AutoSize = true;
+            guestName.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            guestName.Location = new Point(204, 402);
+            guestName.Name = "guestName";
+            guestName.Size = new Size(120, 30);
+            guestName.TabIndex = 35;
+            guestName.Text = "Guest Name";
+            // 
+            // paymentLbl
+            // 
+            paymentLbl.AutoSize = true;
+            paymentLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            paymentLbl.Location = new Point(71, 658);
+            paymentLbl.Name = "paymentLbl";
+            paymentLbl.Size = new Size(185, 30);
+            paymentLbl.TabIndex = 33;
+            paymentLbl.Text = "Marketing Consent:";
+            // 
+            // iconPictureBox1
+            // 
+            iconPictureBox1.BackColor = Color.Red;
+            iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.Trash;
+            iconPictureBox1.IconColor = Color.White;
+            iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox1.IconSize = 19;
+            iconPictureBox1.Location = new Point(259, 332);
+            iconPictureBox1.Name = "iconPictureBox1";
+            iconPictureBox1.Size = new Size(19, 20);
+            iconPictureBox1.TabIndex = 19;
+            iconPictureBox1.TabStop = false;
+            // 
+            // iconPictureBox2
+            // 
+            iconPictureBox2.BackColor = Color.FromArgb(255, 173, 70);
+            iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.Edit;
+            iconPictureBox2.IconColor = Color.White;
+            iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox2.IconSize = 23;
+            iconPictureBox2.Location = new Point(152, 329);
+            iconPictureBox2.Name = "iconPictureBox2";
+            iconPictureBox2.Size = new Size(24, 23);
+            iconPictureBox2.TabIndex = 18;
+            iconPictureBox2.TabStop = false;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.Red;
+            button1.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(247, 325);
+            button1.Name = "button1";
+            button1.Size = new Size(99, 31);
+            button1.TabIndex = 20;
+            button1.Text = "    Delete";
+            button1.UseVisualStyleBackColor = false;
+            // 
+            // button2
+            // 
+            button2.BackColor = Color.FromArgb(255, 173, 70);
+            button2.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button2.ForeColor = Color.White;
+            button2.Location = new Point(138, 325);
+            button2.Name = "button2";
+            button2.Size = new Size(99, 31);
+            button2.TabIndex = 18;
+            button2.Text = "     Edit";
+            button2.UseVisualStyleBackColor = false;
+            // 
+            // guestImage
+            // 
+            guestImage.BackColor = Color.White;
+            guestImage.BorderStyle = BorderStyle.FixedSingle;
+            guestImage.Location = new Point(127, 84);
+            guestImage.Name = "guestImage";
+            guestImage.Size = new Size(230, 221);
+            guestImage.TabIndex = 9;
+            // 
+            // contactNumberLbl
+            // 
+            contactNumberLbl.AutoSize = true;
+            contactNumberLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            contactNumberLbl.Location = new Point(71, 464);
+            contactNumberLbl.Name = "contactNumberLbl";
+            contactNumberLbl.Size = new Size(117, 30);
+            contactNumberLbl.TabIndex = 15;
+            contactNumberLbl.Text = "Contact No:";
+            // 
+            // rentalsLbl
+            // 
+            rentalsLbl.AutoSize = true;
+            rentalsLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            rentalsLbl.Location = new Point(71, 522);
+            rentalsLbl.Name = "rentalsLbl";
+            rentalsLbl.Size = new Size(80, 30);
+            rentalsLbl.TabIndex = 14;
+            rentalsLbl.Text = "Socials:";
+            // 
+            // paxLbl
+            // 
+            paxLbl.AutoSize = true;
+            paxLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            paxLbl.Location = new Point(71, 600);
+            paxLbl.Name = "paxLbl";
+            paxLbl.Size = new Size(156, 30);
+            paxLbl.TabIndex = 13;
+            paxLbl.Text = "Booking History:";
+            // 
+            // nameLbl
+            // 
+            nameLbl.AutoSize = true;
+            nameLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            nameLbl.Location = new Point(71, 406);
+            nameLbl.Name = "nameLbl";
+            nameLbl.Size = new Size(71, 30);
+            nameLbl.TabIndex = 10;
+            nameLbl.Text = "Name:";
+            // 
+            // guestInformationLbl
+            // 
+            guestInformationLbl.AutoSize = true;
+            guestInformationLbl.Font = new Font("Poppins", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guestInformationLbl.ForeColor = Color.Black;
+            guestInformationLbl.Location = new Point(128, 24);
+            guestInformationLbl.Name = "guestInformationLbl";
+            guestInformationLbl.Size = new Size(232, 40);
+            guestInformationLbl.TabIndex = 8;
+            guestInformationLbl.Text = "Guest Information";
+            guestInformationLbl.Click += bookingInformationLbl_Click;
+            // 
             // ContactManagement
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1924, 977);
-            Controls.Add(contactListPanel);
+            Controls.Add(bookingInformationPanel);
             Controls.Add(contactManagementLbl);
             Controls.Add(topNavBar1);
+            Controls.Add(contactListPanel);
             Location = new Point(55, 101);
             Name = "ContactManagement";
             Text = "ContactManagement";
@@ -394,6 +642,10 @@
             guestInfoPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)deleteButton).EndInit();
             ((System.ComponentModel.ISupportInitialize)editButton).EndInit();
+            bookingInformationPanel.ResumeLayout(false);
+            bookingInformationPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -404,7 +656,6 @@
         private Panel contactListPanel;
         private Label contactListLbl;
         private Label label3;
-        private DataGridView guestTable;
         private Label contactLbl;
         private Label bkHistoryLbl;
         private Label marketingLbl;
@@ -425,5 +676,33 @@
         private FontAwesome.Sharp.IconPictureBox searchIcon;
         private Panel panel2;
         private TopNavBar topNavBar1;
+        private Panel bookingInformationPanel;
+        private Label paymentLbl;
+        private Label checkOutDateVal;
+        private Label checkOutDateLbl;
+        private LinkLabel guestNameLnkLbl;
+        private LinkLabel itemsLinkVal;
+        private LinkLabel packageVal;
+        private Label checkInDateVal;
+        private Label paxVal;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox2;
+        private Button button1;
+        private Button button2;
+        private Panel guestImage;
+        private Label contactNumberLbl;
+        private Label rentalsLbl;
+        private Label paxLbl;
+        private Label packageLbl;
+        private Label nameLbl;
+        private Label guestInformationLbl;
+        private Label guestName;
+        private Label label1;
+        private LinkLabel linkLabel2;
+        private LinkLabel linkLabel1;
+        private RadioButton radioButton2;
+        private RadioButton radioButton1;
+        private Label label2;
+        private DataGridView guestTable;
     }
 }

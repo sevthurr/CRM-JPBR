@@ -17,65 +17,72 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             InitializeComponent();
             topNavBar1.SetActive("ContactManagement");
             topNavBar1.Dock = DockStyle.Top;
-        }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ContactManagement_Load(object sender, EventArgs e)
-        {
+            // Initialize guestTable columns and sample data
             guestTable.Columns.Clear();
-            string[] headers = { "Guest Name", "Channel", "Tag", "Last Booking" };
+            string[] headers = { "Guest ID", "Guest Name", "Tag", "Last Booking" };
             foreach (var header in headers)
             {
                 guestTable.Columns.Add(header.Replace(" ", ""), header);
             }
-
-            // Add Actions column for edit/delete
-            var actionsCol = new DataGridViewTextBoxColumn();
-            actionsCol.Name = "Actions";
-            actionsCol.HeaderText = "Actions";
-            guestTable.Columns.Add(actionsCol);
-
             guestTable.ColumnHeadersDefaultCellStyle.Font = new Font("Poppins", 12F, FontStyle.Bold);
             guestTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             guestTable.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
-
-            guestTable.DefaultCellStyle.Font = new Font("Poppins", 9F, FontStyle.Regular);
+            guestTable.DefaultCellStyle.Font = new Font("Poppins", 10F, FontStyle.Regular);
             guestTable.DefaultCellStyle.ForeColor = Color.Black;
 
-            // SAMPLE DATA -- REMOVE THIS DURING BACKEND DEVELOPMENT GUYS
-            guestTable.Rows.Add("John Doe", "Facebook", "Family", "2024-06-01", "");
-            guestTable.Rows.Add("Jane Smith", "Instagram", "Couple", "2024-06-05", "");
-            guestTable.Rows.Add("Alice Brown", "Mobile", "Solo", "2024-06-10", "");
-            guestTable.Rows.Add("Bob Lee", "Walk-In", "Group", "2024-06-15", "");
+            // Sample data
+            guestTable.Rows.Add("G001", "John Doe", "Family", "06-23-2025");
+            guestTable.Rows.Add("G002", "Jane Smith", "Group", "05-06-2025");
+            guestTable.Rows.Add("G003", "Alice Brown", "Couple", "05-01-2025");
+            guestTable.Rows.Add("G004", "Bob Lee", "Solo", "04-30-2025");
 
-            // TODO: Add Krypton Icon Buttons to the Actions column once resources and correct usage are available.
+            // Add cell formatting event for tag color coding
+            guestTable.CellFormatting += guestTable_CellFormatting;
         }
 
-
-        private void guestTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void guestTable_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-
-            if (e.ColumnIndex == guestTable.Columns["Actions"].Index && e.RowIndex >= 0)
+            // Tag column index is 2
+            if (guestTable.Columns[e.ColumnIndex].Name == "Tag")
             {
-                var cell = guestTable[e.ColumnIndex, e.RowIndex];
-                var cellRect = guestTable.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
-                int buttonWidth = (cellRect.Width - 12) / 2;
-                Rectangle editRect = new Rectangle(cellRect.Left + 4, cellRect.Top + 4, buttonWidth, cellRect.Height - 8);
-                Rectangle deleteRect = new Rectangle(cellRect.Left + buttonWidth + 8, cellRect.Top + 4, buttonWidth, cellRect.Height - 8);
-                Point mouse = guestTable.PointToClient(Cursor.Position);
-                if (editRect.Contains(mouse))
+                if (e.Value != null)
                 {
-                    MessageBox.Show($"Edit clicked for {guestTable[1, e.RowIndex].Value}");
-                }
-                else if (deleteRect.Contains(mouse))
-                {
-                    MessageBox.Show($"Delete clicked for {guestTable[1, e.RowIndex].Value}");
+                    string tag = e.Value.ToString();
+                    e.CellStyle.ForeColor = Color.White;
+                    e.CellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    e.CellStyle.SelectionForeColor = Color.White;
+                    e.CellStyle.Padding = new Padding(10, 5, 10, 5); // Pill effect
+                    switch (tag)
+                    {
+                        case "Family":
+                            e.CellStyle.BackColor = ColorTranslator.FromHtml("#26B070");
+                            e.CellStyle.SelectionBackColor = ColorTranslator.FromHtml("#26B070");
+                            break;
+                        case "Group":
+                            e.CellStyle.BackColor = ColorTranslator.FromHtml("#F4991A");
+                            e.CellStyle.SelectionBackColor = ColorTranslator.FromHtml("#F4991A");
+                            break;
+                        case "Couple":
+                            e.CellStyle.BackColor = ColorTranslator.FromHtml("#E45A92");
+                            e.CellStyle.SelectionBackColor = ColorTranslator.FromHtml("#E45A92");
+                            break;
+                        case "Solo":
+                            e.CellStyle.BackColor = ColorTranslator.FromHtml("#4FB7B3");
+                            e.CellStyle.SelectionBackColor = ColorTranslator.FromHtml("#4FB7B3");
+                            break;
+                        default:
+                            e.CellStyle.BackColor = Color.White;
+                            e.CellStyle.SelectionBackColor = Color.White;
+                            e.CellStyle.ForeColor = Color.Black;
+                            break;
+                    }
                 }
             }
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
 
         }
 
@@ -117,6 +124,21 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             supportForm.WindowState = FormWindowState.Maximized;
             supportForm.Show();
             this.Hide();
+        }
+
+        private void bookingInformationLbl_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void contactListPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void checkInTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

@@ -49,9 +49,19 @@
             activeCampaignsLbl = new Label();
             checkInsPanel = new Panel();
             checkInTable = new DataGridView();
+            guestName = new DataGridViewTextBoxColumn();
+            package = new DataGridViewTextBoxColumn();
+            pax = new DataGridViewTextBoxColumn();
+            arrivalDate = new DataGridViewTextBoxColumn();
+            status = new DataGridViewTextBoxColumn();
             checkInsLbl = new Label();
             checkOutPanel = new Panel();
             checkOutTable = new DataGridView();
+            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
+            checkOutDate = new DataGridViewTextBoxColumn();
+            time = new DataGridViewTextBoxColumn();
             checkOutsLbl = new Label();
             kryptonCustomPaletteBase1 = new Krypton.Toolkit.KryptonCustomPaletteBase(components);
             panelCalendarHost = new Panel();
@@ -66,16 +76,6 @@
             supportBtn = new Label();
             chevronDownBtn = new FontAwesome.Sharp.IconPictureBox();
             contentPanel = new Panel();
-            guestName = new DataGridViewTextBoxColumn();
-            package = new DataGridViewTextBoxColumn();
-            pax = new DataGridViewTextBoxColumn();
-            arrivalDate = new DataGridViewTextBoxColumn();
-            status = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
-            checkOutDate = new DataGridViewTextBoxColumn();
-            time = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             bookingsPanel.SuspendLayout();
             repeatGuestsPanel.SuspendLayout();
@@ -270,11 +270,47 @@
             checkInTable.BorderStyle = BorderStyle.Fixed3D;
             checkInTable.ColumnHeadersHeight = 29;
             checkInTable.Columns.AddRange(new DataGridViewColumn[] { guestName, package, pax, arrivalDate, status });
+            checkInTable.GridColor = Color.FromArgb(40, 75, 83);
             checkInTable.Location = new Point(29, 54);
             checkInTable.Name = "checkInTable";
             checkInTable.RowHeadersWidth = 51;
             checkInTable.Size = new Size(812, 337);
             checkInTable.TabIndex = 11;
+            // 
+            // guestName
+            // 
+            guestName.HeaderText = "Guest Name";
+            guestName.MinimumWidth = 6;
+            guestName.Name = "guestName";
+            guestName.ReadOnly = true;
+            // 
+            // package
+            // 
+            package.HeaderText = "Package";
+            package.MinimumWidth = 6;
+            package.Name = "package";
+            package.ReadOnly = true;
+            // 
+            // pax
+            // 
+            pax.HeaderText = "Pax";
+            pax.MinimumWidth = 6;
+            pax.Name = "pax";
+            pax.ReadOnly = true;
+            // 
+            // arrivalDate
+            // 
+            arrivalDate.HeaderText = "Arrival Date";
+            arrivalDate.MinimumWidth = 6;
+            arrivalDate.Name = "arrivalDate";
+            arrivalDate.ReadOnly = true;
+            // 
+            // status
+            // 
+            status.HeaderText = "Status";
+            status.MinimumWidth = 6;
+            status.Name = "status";
+            status.ReadOnly = true;
             // 
             // checkInsLbl
             // 
@@ -305,11 +341,47 @@
             checkOutTable.BorderStyle = BorderStyle.Fixed3D;
             checkOutTable.ColumnHeadersHeight = 29;
             checkOutTable.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, checkOutDate, time });
+            checkOutTable.GridColor = Color.FromArgb(40, 75, 83);
             checkOutTable.Location = new Point(33, 54);
             checkOutTable.Name = "checkOutTable";
             checkOutTable.RowHeadersWidth = 51;
             checkOutTable.Size = new Size(790, 337);
             checkOutTable.TabIndex = 12;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            dataGridViewTextBoxColumn1.HeaderText = "Guest Name";
+            dataGridViewTextBoxColumn1.MinimumWidth = 6;
+            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            dataGridViewTextBoxColumn2.HeaderText = "Package";
+            dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            dataGridViewTextBoxColumn3.HeaderText = "Pax";
+            dataGridViewTextBoxColumn3.MinimumWidth = 6;
+            dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // checkOutDate
+            // 
+            checkOutDate.HeaderText = "Check Out Date";
+            checkOutDate.MinimumWidth = 6;
+            checkOutDate.Name = "checkOutDate";
+            checkOutDate.ReadOnly = true;
+            // 
+            // time
+            // 
+            time.HeaderText = "Time";
+            time.MinimumWidth = 6;
+            time.Name = "time";
+            time.ReadOnly = true;
             // 
             // checkOutsLbl
             // 
@@ -457,76 +529,6 @@
             contentPanel.Name = "contentPanel";
             contentPanel.Size = new Size(1924, 1055);
             contentPanel.TabIndex = 13;
-            // 
-            // guestName
-            // 
-            guestName.HeaderText = "Guest Name";
-            guestName.MinimumWidth = 6;
-            guestName.Name = "guestName";
-            guestName.ReadOnly = true;
-            // 
-            // package
-            // 
-            package.HeaderText = "Package";
-            package.MinimumWidth = 6;
-            package.Name = "package";
-            package.ReadOnly = true;
-            // 
-            // pax
-            // 
-            pax.HeaderText = "Pax";
-            pax.MinimumWidth = 6;
-            pax.Name = "pax";
-            pax.ReadOnly = true;
-            // 
-            // arrivalDate
-            // 
-            arrivalDate.HeaderText = "Arrival Date";
-            arrivalDate.MinimumWidth = 6;
-            arrivalDate.Name = "arrivalDate";
-            arrivalDate.ReadOnly = true;
-            // 
-            // status
-            // 
-            status.HeaderText = "Status";
-            status.MinimumWidth = 6;
-            status.Name = "status";
-            status.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            dataGridViewTextBoxColumn1.HeaderText = "Guest Name";
-            dataGridViewTextBoxColumn1.MinimumWidth = 6;
-            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            dataGridViewTextBoxColumn2.HeaderText = "Package";
-            dataGridViewTextBoxColumn2.MinimumWidth = 6;
-            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            dataGridViewTextBoxColumn3.HeaderText = "Pax";
-            dataGridViewTextBoxColumn3.MinimumWidth = 6;
-            dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            dataGridViewTextBoxColumn3.ReadOnly = true;
-            // 
-            // checkOutDate
-            // 
-            checkOutDate.HeaderText = "Check Out Date";
-            checkOutDate.MinimumWidth = 6;
-            checkOutDate.Name = "checkOutDate";
-            checkOutDate.ReadOnly = true;
-            // 
-            // time
-            // 
-            time.HeaderText = "Time";
-            time.MinimumWidth = 6;
-            time.Name = "time";
-            time.ReadOnly = true;
             // 
             // Dashboard
             // 
