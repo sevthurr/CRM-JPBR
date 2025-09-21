@@ -57,14 +57,18 @@
             accountNameLbl = new Label();
             paymentInfoLbl = new Label();
             bookingInfoPanel = new Panel();
+            packageAPanel = new Panel();
+            packageALbl = new Label();
+            packageARBtn = new RadioButton();
+            packageBPanel = new Panel();
+            packageBLbl = new Label();
+            packageBRbtn = new RadioButton();
             checkOutDp = new DateTimePicker();
             checkOutLbl = new Label();
             checkInDp = new DateTimePicker();
             bookingDateDp = new DateTimePicker();
-            packageCb = new ComboBox();
-            packageLbl = new Label();
             paxTb = new TextBox();
-            paxLbl = new Label();
+            regularGuestLbl = new Label();
             checkInLbl = new Label();
             bookingDateLbl = new Label();
             BookingInfoLbl = new Label();
@@ -74,6 +78,8 @@
             guestInfoPanel.SuspendLayout();
             paymentInfoPanel.SuspendLayout();
             bookingInfoPanel.SuspendLayout();
+            packageAPanel.SuspendLayout();
+            packageBPanel.SuspendLayout();
             newBookingPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)plusIcon).BeginInit();
             SuspendLayout();
@@ -282,7 +288,7 @@
             paymentInfoPanel.Controls.Add(accountNumberLbl);
             paymentInfoPanel.Controls.Add(accountNameLbl);
             paymentInfoPanel.Controls.Add(paymentInfoLbl);
-            paymentInfoPanel.Location = new Point(49, 619);
+            paymentInfoPanel.Location = new Point(49, 888);
             paymentInfoPanel.Name = "paymentInfoPanel";
             paymentInfoPanel.Size = new Size(790, 235);
             paymentInfoPanel.TabIndex = 17;
@@ -346,7 +352,6 @@
             amountLbl.Size = new Size(61, 23);
             amountLbl.TabIndex = 14;
             amountLbl.Text = "Amount";
-            amountLbl.Click += label6_Click;
             // 
             // purposeCb
             // 
@@ -363,7 +368,7 @@
             purposeLbl.AutoSize = true;
             purposeLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             purposeLbl.ForeColor = Color.DimGray;
-            purposeLbl.Location = new Point(305, 56);
+            purposeLbl.Location = new Point(308, 56);
             purposeLbl.Name = "purposeLbl";
             purposeLbl.Size = new Size(63, 23);
             purposeLbl.TabIndex = 8;
@@ -416,21 +421,96 @@
             // bookingInfoPanel
             // 
             bookingInfoPanel.BackColor = Color.White;
+            bookingInfoPanel.Controls.Add(packageAPanel);
+            bookingInfoPanel.Controls.Add(packageBPanel);
             bookingInfoPanel.Controls.Add(checkOutDp);
             bookingInfoPanel.Controls.Add(checkOutLbl);
             bookingInfoPanel.Controls.Add(checkInDp);
             bookingInfoPanel.Controls.Add(bookingDateDp);
-            bookingInfoPanel.Controls.Add(packageCb);
-            bookingInfoPanel.Controls.Add(packageLbl);
             bookingInfoPanel.Controls.Add(paxTb);
-            bookingInfoPanel.Controls.Add(paxLbl);
+            bookingInfoPanel.Controls.Add(regularGuestLbl);
             bookingInfoPanel.Controls.Add(checkInLbl);
             bookingInfoPanel.Controls.Add(bookingDateLbl);
             bookingInfoPanel.Controls.Add(BookingInfoLbl);
             bookingInfoPanel.Location = new Point(49, 349);
             bookingInfoPanel.Name = "bookingInfoPanel";
-            bookingInfoPanel.Size = new Size(790, 235);
+            bookingInfoPanel.Size = new Size(790, 512);
             bookingInfoPanel.TabIndex = 19;
+            // 
+            // packageAPanel
+            // 
+            packageAPanel.BackColor = Color.White;
+            packageAPanel.BorderStyle = BorderStyle.FixedSingle;
+            packageAPanel.Controls.Add(packageALbl);
+            packageAPanel.Controls.Add(packageARBtn);
+            packageAPanel.ForeColor = Color.White;
+            packageAPanel.Location = new Point(30, 218);
+            packageAPanel.Name = "packageAPanel";
+            packageAPanel.Size = new Size(341, 261);
+            packageAPanel.TabIndex = 23;
+            packageAPanel.Click += packageAPanel_Click;
+            // 
+            // packageALbl
+            // 
+            packageALbl.AutoSize = true;
+            packageALbl.BackColor = Color.Transparent;
+            packageALbl.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            packageALbl.ForeColor = Color.Black;
+            packageALbl.Location = new Point(60, 63);
+            packageALbl.Name = "packageALbl";
+            packageALbl.Size = new Size(222, 182);
+            packageALbl.TabIndex = 1;
+            packageALbl.Text = "• Full Resort Access\r\n• Up to 30 guests\r\n• Casa Keona (main house)\r\n• 2 Airconditioned rooms\r\n• Dining room with minibar\r\n• Spacious Cozy Porch\r\n• 4 Indian Rooms ( Non-AC)\r\n";
+            // 
+            // packageARBtn
+            // 
+            packageARBtn.AutoSize = true;
+            packageARBtn.Font = new Font("Poppins", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            packageARBtn.ForeColor = Color.Black;
+            packageARBtn.Location = new Point(30, 15);
+            packageARBtn.Name = "packageARBtn";
+            packageARBtn.Size = new Size(132, 35);
+            packageARBtn.TabIndex = 0;
+            packageARBtn.TabStop = true;
+            packageARBtn.Text = "Package A";
+            packageARBtn.UseVisualStyleBackColor = true;
+            // 
+            // packageBPanel
+            // 
+            packageBPanel.BackColor = SystemColors.ControlLightLight;
+            packageBPanel.BorderStyle = BorderStyle.FixedSingle;
+            packageBPanel.Controls.Add(packageBLbl);
+            packageBPanel.Controls.Add(packageBRbtn);
+            packageBPanel.Location = new Point(409, 218);
+            packageBPanel.Name = "packageBPanel";
+            packageBPanel.Size = new Size(341, 261);
+            packageBPanel.TabIndex = 24;
+            packageBPanel.Click += packageBPanel_Click;
+            // 
+            // packageBLbl
+            // 
+            packageBLbl.AutoSize = true;
+            packageBLbl.BackColor = Color.Transparent;
+            packageBLbl.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            packageBLbl.ForeColor = Color.Black;
+            packageBLbl.Location = new Point(60, 59);
+            packageBLbl.Name = "packageBLbl";
+            packageBLbl.Size = new Size(220, 182);
+            packageBLbl.TabIndex = 3;
+            packageBLbl.Text = "• Up to 20 persons\r\n• 4 Indian Rooms ( Non-Air)\r\n• Swing Garden\r\n• Dining Area\r\n• Receiving Area \r\n• 2 Cabana\r\n• 1 Dirty Kitchen";
+            // 
+            // packageBRbtn
+            // 
+            packageBRbtn.AutoSize = true;
+            packageBRbtn.Font = new Font("Poppins", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            packageBRbtn.ForeColor = Color.Black;
+            packageBRbtn.Location = new Point(28, 15);
+            packageBRbtn.Name = "packageBRbtn";
+            packageBRbtn.Size = new Size(131, 35);
+            packageBRbtn.TabIndex = 2;
+            packageBRbtn.TabStop = true;
+            packageBRbtn.Text = "Package B";
+            packageBRbtn.UseVisualStyleBackColor = true;
             // 
             // checkOutDp
             // 
@@ -479,27 +559,6 @@
             bookingDateDp.Size = new Size(270, 27);
             bookingDateDp.TabIndex = 17;
             // 
-            // packageCb
-            // 
-            packageCb.BackColor = Color.White;
-            packageCb.FormattingEnabled = true;
-            packageCb.Items.AddRange(new object[] { "A", "B" });
-            packageCb.Location = new Point(511, 82);
-            packageCb.Name = "packageCb";
-            packageCb.Size = new Size(107, 28);
-            packageCb.TabIndex = 9;
-            // 
-            // packageLbl
-            // 
-            packageLbl.AutoSize = true;
-            packageLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            packageLbl.ForeColor = Color.DimGray;
-            packageLbl.Location = new Point(511, 52);
-            packageLbl.Name = "packageLbl";
-            packageLbl.Size = new Size(68, 23);
-            packageLbl.TabIndex = 8;
-            packageLbl.Text = "Package";
-            // 
             // paxTb
             // 
             paxTb.BackColor = Color.White;
@@ -512,16 +571,16 @@
             paxTb.Size = new Size(108, 32);
             paxTb.TabIndex = 7;
             // 
-            // paxLbl
+            // regularGuestLbl
             // 
-            paxLbl.AutoSize = true;
-            paxLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            paxLbl.ForeColor = Color.DimGray;
-            paxLbl.Location = new Point(348, 52);
-            paxLbl.Name = "paxLbl";
-            paxLbl.Size = new Size(33, 23);
-            paxLbl.TabIndex = 6;
-            paxLbl.Text = "Pax";
+            regularGuestLbl.AutoSize = true;
+            regularGuestLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            regularGuestLbl.ForeColor = Color.DimGray;
+            regularGuestLbl.Location = new Point(348, 52);
+            regularGuestLbl.Name = "regularGuestLbl";
+            regularGuestLbl.Size = new Size(101, 23);
+            regularGuestLbl.TabIndex = 6;
+            regularGuestLbl.Text = "Regular Guest";
             // 
             // checkInLbl
             // 
@@ -568,9 +627,9 @@
             // addBookingBtn
             // 
             addBookingBtn.BackColor = Color.FromArgb(82, 169, 181);
-            addBookingBtn.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            addBookingBtn.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             addBookingBtn.ForeColor = Color.Transparent;
-            addBookingBtn.Location = new Point(336, 874);
+            addBookingBtn.Location = new Point(336, 1142);
             addBookingBtn.Name = "addBookingBtn";
             addBookingBtn.Size = new Size(198, 40);
             addBookingBtn.TabIndex = 21;
@@ -583,10 +642,10 @@
             plusIcon.IconChar = FontAwesome.Sharp.IconChar.Add;
             plusIcon.IconColor = Color.White;
             plusIcon.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            plusIcon.IconSize = 29;
-            plusIcon.Location = new Point(351, 880);
+            plusIcon.IconSize = 25;
+            plusIcon.Location = new Point(361, 1148);
             plusIcon.Name = "plusIcon";
-            plusIcon.Size = new Size(31, 29);
+            plusIcon.Size = new Size(25, 25);
             plusIcon.TabIndex = 22;
             plusIcon.TabStop = false;
             // 
@@ -594,7 +653,8 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(898, 932);
+            AutoScroll = true;
+            ClientSize = new Size(898, 923);
             Controls.Add(plusIcon);
             Controls.Add(addBookingBtn);
             Controls.Add(bookingInfoPanel);
@@ -609,6 +669,10 @@
             paymentInfoPanel.PerformLayout();
             bookingInfoPanel.ResumeLayout(false);
             bookingInfoPanel.PerformLayout();
+            packageAPanel.ResumeLayout(false);
+            packageAPanel.PerformLayout();
+            packageBPanel.ResumeLayout(false);
+            packageBPanel.PerformLayout();
             newBookingPanel.ResumeLayout(false);
             newBookingPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)plusIcon).EndInit();
@@ -647,10 +711,8 @@
         private Panel bookingInfoPanel;
         private DateTimePicker checkInDp;
         private DateTimePicker bookingDateDp;
-        private ComboBox packageCb;
-        private Label packageLbl;
         private TextBox paxTb;
-        private Label paxLbl;
+        private Label regularGuestLbl;
         private Label checkInLbl;
         private Label bookingDateLbl;
         private Label BookingInfoLbl;
@@ -660,5 +722,13 @@
         private Panel newBookingPanel;
         private Button addBookingBtn;
         private FontAwesome.Sharp.IconPictureBox plusIcon;
+        private Panel packageAPanel;
+        private Panel packageBPanel;
+        private RadioButton packageARBtn;
+        private Label packageALbl;
+        private Label label2;
+        private RadioButton radioButton2;
+        private RadioButton packageBRbtn;
+        private Label packageBLbl;
     }
 }
