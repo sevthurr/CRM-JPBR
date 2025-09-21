@@ -23,6 +23,78 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             packageBRbtn.CheckedChanged += packageBRbtn_CheckedChanged;
             packageAPanel.Paint += packageAPanel_Paint;
             packageBPanel.Paint += packageBPanel_Paint;
+            proceedPaymentBtn.Click += proceedPaymentBtn_Click;
+        }
+
+        // Store form data in a serializable object
+        public BookingFormData GetFormData()
+        {
+            return new BookingFormData
+            {
+                FirstName = firstNameTb.Text,
+                MiddleName = middleNameTb.Text,
+                LastName = lastNameTb.Text,
+                Suffix = suffixCb.Text,
+                Address = addressTb.Text,
+                Contact = contactTb.Text,
+                Platform = platformCb.Text,
+                BookingDate = bookingDateDp.Value,
+                CheckIn = checkInDp.Value,
+                CheckOut = checkOutDp.Value,
+                GuestQty = (int)guestQty.Value,
+                PromoCode = textBox1.Text,
+                PackageASelected = packageARBtn.Checked,
+                PackageBSelected = packageBRbtn.Checked
+            };
+        }
+
+        public void SetFormData(BookingFormData data)
+        {
+            firstNameTb.Text = data.FirstName;
+            middleNameTb.Text = data.MiddleName;
+            lastNameTb.Text = data.LastName;
+            suffixCb.Text = data.Suffix;
+            addressTb.Text = data.Address;
+            contactTb.Text = data.Contact;
+            platformCb.Text = data.Platform;
+            bookingDateDp.Value = data.BookingDate;
+            checkInDp.Value = data.CheckIn;
+            checkOutDp.Value = data.CheckOut;
+            guestQty.Value = data.GuestQty;
+            textBox1.Text = data.PromoCode;
+            packageARBtn.Checked = data.PackageASelected;
+            packageBRbtn.Checked = data.PackageBSelected;
+        }
+
+        private void proceedPaymentBtn_Click(object sender, EventArgs e)
+        {
+            var paymentForm = new BookingPayment(GetFormData());
+            paymentForm.StartPosition = FormStartPosition.CenterParent;
+            paymentForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+            paymentForm.ShowInTaskbar = false;
+            paymentForm.MaximizeBox = false;
+            paymentForm.MinimizeBox = true;
+            this.Hide();
+            paymentForm.ShowDialog(this);
+            if (paymentForm.DialogResult == DialogResult.Retry)
+            {
+                // User clicked backBtn in BookingPayment
+                if (paymentForm.RestoreData != null)
+                {
+                    SetFormData(paymentForm.RestoreData);
+                }
+                this.Show();
+            }
+            else if (paymentForm.DialogResult == DialogResult.OK)
+            {
+                // User confirmed booking, close this form
+                this.Close();
+            }
+            else
+            {
+                // User closed payment form, just show this form again
+                this.Show();
+            }
         }
 
         private readonly Color highlightColor = Color.FromArgb(235, 197, 149);
@@ -151,5 +223,23 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         {
 
         }
+    }
+
+    public class BookingFormData
+    {
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
+        public string Suffix { get; set; }
+        public string Address { get; set; }
+        public string Contact { get; set; }
+        public string Platform { get; set; }
+        public DateTime BookingDate { get; set; }
+        public DateTime CheckIn { get; set; }
+        public DateTime CheckOut { get; set; }
+        public int GuestQty { get; set; }
+        public string PromoCode { get; set; }
+        public bool PackageASelected { get; set; }
+        public bool PackageBSelected { get; set; }
     }
 }
