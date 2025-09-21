@@ -21,6 +21,9 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                     forgot.ShowDialog(this);
                 }
             };
+
+            DatabaseHelper.TestConnection();
+            DatabaseHelper.GeneratePasswordHash("admin");
         }
 
         private void LogIn_Load(object sender, EventArgs e)
