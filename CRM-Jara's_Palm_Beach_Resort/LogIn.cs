@@ -22,8 +22,12 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 }
             };
 
-            DatabaseHelper.TestConnection();
-            DatabaseHelper.GeneratePasswordHash("admin");
+            //DatabaseHelper.TestConnection();
+
+            if (!DatabaseHelper.TestConnection())
+            {
+                Application.Exit(); // Close the program if connection fails
+            }
         }
 
         private void LogIn_Load(object sender, EventArgs e)
@@ -38,11 +42,33 @@ namespace CRM_Jara_s_Palm_Beach_Resort
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var dashboard = new Dashboard();
-            dashboard.StartPosition = FormStartPosition.CenterScreen;
-            dashboard.WindowState = FormWindowState.Maximized;
-            dashboard.Show();
-            this.Hide();
+            AccountManager manager = new AccountManager();
+            string userName = usernameTb.Text;
+            string password = passwordTb.Text;
+
+            if (string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Please enter both username and password.");
+                return;
+            }
+
+            var (success, userID, position) = manager.Authenticate(userName, password);
+            if (success)
+            {
+                Session.CurrentUserID = userID;
+                Session.CurrentPosition = position;
+                manager.LogAction(userID, "Login", $"User {userName} logged in successfully");
+
+                var dashboard = new Dashboard();
+                dashboard.StartPosition = FormStartPosition.CenterScreen;
+                dashboard.WindowState = FormWindowState.Maximized;
+                dashboard.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Invalid username or password.");
+            }
         }
     }
 }

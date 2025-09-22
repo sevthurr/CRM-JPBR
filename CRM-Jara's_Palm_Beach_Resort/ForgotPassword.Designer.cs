@@ -59,7 +59,7 @@
             // 
             // confirmPasswordTb
             // 
-            confirmPasswordTb.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            confirmPasswordTb.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             confirmPasswordTb.Location = new Point(58, 258);
             confirmPasswordTb.Multiline = true;
             confirmPasswordTb.Name = "confirmPasswordTb";
@@ -73,17 +73,17 @@
             confirmPasswordLbl.AccessibleRole = AccessibleRole.OutlineButton;
             confirmPasswordLbl.AutoSize = true;
             confirmPasswordLbl.BackColor = Color.FromArgb(40, 75, 83);
-            confirmPasswordLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            confirmPasswordLbl.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             confirmPasswordLbl.ForeColor = Color.White;
             confirmPasswordLbl.Location = new Point(58, 225);
             confirmPasswordLbl.Name = "confirmPasswordLbl";
-            confirmPasswordLbl.Size = new Size(179, 30);
+            confirmPasswordLbl.Size = new Size(169, 20);
             confirmPasswordLbl.TabIndex = 6;
             confirmPasswordLbl.Text = "Confirm Password:";
             // 
             // newPasswordTb
             // 
-            newPasswordTb.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            newPasswordTb.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             newPasswordTb.Location = new Point(58, 162);
             newPasswordTb.Multiline = true;
             newPasswordTb.Name = "newPasswordTb";
@@ -94,24 +94,27 @@
             // 
             // accountIdTb
             // 
-            accountIdTb.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            accountIdTb.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             accountIdTb.Location = new Point(58, 66);
+            accountIdTb.MaxLength = 10;
             accountIdTb.Multiline = true;
             accountIdTb.Name = "accountIdTb";
             accountIdTb.PlaceholderText = "Enter account ID";
             accountIdTb.Size = new Size(361, 40);
             accountIdTb.TabIndex = 3;
+            accountIdTb.TextChanged += accountIdTb_TextChanged;
+            accountIdTb.KeyPress += accountIdTb_KeyPress;
             // 
             // newPasswordLbl
             // 
             newPasswordLbl.AccessibleRole = AccessibleRole.OutlineButton;
             newPasswordLbl.AutoSize = true;
             newPasswordLbl.BackColor = Color.FromArgb(40, 75, 83);
-            newPasswordLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            newPasswordLbl.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             newPasswordLbl.ForeColor = Color.White;
             newPasswordLbl.Location = new Point(58, 129);
             newPasswordLbl.Name = "newPasswordLbl";
-            newPasswordLbl.Size = new Size(146, 30);
+            newPasswordLbl.Size = new Size(139, 20);
             newPasswordLbl.TabIndex = 1;
             newPasswordLbl.Text = "New Password:";
             // 
@@ -120,11 +123,11 @@
             accountIdLbl.AccessibleRole = AccessibleRole.OutlineButton;
             accountIdLbl.AutoSize = true;
             accountIdLbl.BackColor = Color.FromArgb(40, 75, 83);
-            accountIdLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            accountIdLbl.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             accountIdLbl.ForeColor = Color.White;
             accountIdLbl.Location = new Point(58, 33);
             accountIdLbl.Name = "accountIdLbl";
-            accountIdLbl.Size = new Size(112, 30);
+            accountIdLbl.Size = new Size(108, 20);
             accountIdLbl.TabIndex = 0;
             accountIdLbl.Text = "Account ID:";
             // 
@@ -140,7 +143,7 @@
             // resetPasswordBtn
             // 
             resetPasswordBtn.BackColor = Color.FromArgb(235, 197, 149);
-            resetPasswordBtn.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            resetPasswordBtn.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             resetPasswordBtn.ForeColor = SystemColors.ActiveCaptionText;
             resetPasswordBtn.Location = new Point(141, 334);
             resetPasswordBtn.Name = "resetPasswordBtn";
@@ -148,6 +151,7 @@
             resetPasswordBtn.TabIndex = 5;
             resetPasswordBtn.Text = "Reset Password";
             resetPasswordBtn.UseVisualStyleBackColor = false;
+            resetPasswordBtn.Click += resetPasswordBtn_Click;
             // 
             // ForgotPassword
             // 

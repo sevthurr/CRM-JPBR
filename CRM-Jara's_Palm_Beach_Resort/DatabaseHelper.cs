@@ -19,12 +19,12 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 try
                 {
                     conn.Open();
-                    MessageBox.Show("Connection successful!");
+                    //MessageBox.Show("Connection successful!");
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Connection failed: {ex.Message}");
+                    MessageBox.Show($"Connection failed: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
             }
