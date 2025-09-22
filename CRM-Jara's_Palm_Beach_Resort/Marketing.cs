@@ -17,6 +17,8 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             InitializeComponent();
             topNavBar1.SetActive("Marketing");
             topNavBar1.Dock = DockStyle.Top;
+            newCampaignBtn.Click += newCampaignBtn_Click;
+            viewDetailsBtn.Click += viewDetailsBtn_Click;
         }
 
         private void dashboardBtn_Click(object sender, EventArgs e)
@@ -58,5 +60,32 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             supportForm.Show();
             this.Hide();
         }
+
+        private void newCampaignBtn_Click(object sender, EventArgs e)
+        {
+            using (var modal = new NewCampaign())
+            {
+                modal.StartPosition = FormStartPosition.CenterParent;
+                modal.FormBorderStyle = FormBorderStyle.FixedDialog;
+                modal.ShowInTaskbar = false;
+                modal.MaximizeBox = false;
+                modal.MinimizeBox = true;
+                modal.ShowDialog(this);
+            }
+        }
+
+        private void viewDetailsBtn_Click(object sender, EventArgs e)
+        {
+            using (var modal = new CampaignInfo())
+            {
+                modal.StartPosition = FormStartPosition.CenterParent;
+                modal.FormBorderStyle = FormBorderStyle.FixedDialog;
+                modal.ShowInTaskbar = false;
+                modal.MaximizeBox = false;
+                modal.MinimizeBox = true;
+                modal.ShowDialog(this);
+            }
+        }
+
     }
 }

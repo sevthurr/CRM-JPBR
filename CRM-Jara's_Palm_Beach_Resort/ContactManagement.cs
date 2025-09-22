@@ -37,49 +37,8 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             guestTable.Rows.Add("G003", "Alice Brown", "Couple", "05-01-2025");
             guestTable.Rows.Add("G004", "Bob Lee", "Solo", "04-30-2025");
 
-            // Add cell formatting event for tag color coding
-            guestTable.CellFormatting += guestTable_CellFormatting;
         }
 
-        private void guestTable_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            // Tag column index is 2
-            if (guestTable.Columns[e.ColumnIndex].Name == "Tag")
-            {
-                if (e.Value != null)
-                {
-                    string tag = e.Value.ToString();
-                    e.CellStyle.ForeColor = Color.White;
-                    e.CellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    e.CellStyle.SelectionForeColor = Color.White;
-                    e.CellStyle.Padding = new Padding(10, 5, 10, 5); // Pill effect
-                    switch (tag)
-                    {
-                        case "Family":
-                            e.CellStyle.BackColor = ColorTranslator.FromHtml("#26B070");
-                            e.CellStyle.SelectionBackColor = ColorTranslator.FromHtml("#26B070");
-                            break;
-                        case "Group":
-                            e.CellStyle.BackColor = ColorTranslator.FromHtml("#F4991A");
-                            e.CellStyle.SelectionBackColor = ColorTranslator.FromHtml("#F4991A");
-                            break;
-                        case "Couple":
-                            e.CellStyle.BackColor = ColorTranslator.FromHtml("#E45A92");
-                            e.CellStyle.SelectionBackColor = ColorTranslator.FromHtml("#E45A92");
-                            break;
-                        case "Solo":
-                            e.CellStyle.BackColor = ColorTranslator.FromHtml("#4FB7B3");
-                            e.CellStyle.SelectionBackColor = ColorTranslator.FromHtml("#4FB7B3");
-                            break;
-                        default:
-                            e.CellStyle.BackColor = Color.White;
-                            e.CellStyle.SelectionBackColor = Color.White;
-                            e.CellStyle.ForeColor = Color.Black;
-                            break;
-                    }
-                }
-            }
-        }
 
         private void label2_Click(object sender, EventArgs e)
         {

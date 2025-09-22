@@ -76,7 +76,7 @@
             paymentHistoryPanel.Controls.Add(paymentHisstoryLbl);
             paymentHistoryPanel.Location = new Point(0, 0);
             paymentHistoryPanel.Name = "paymentHistoryPanel";
-            paymentHistoryPanel.Size = new Size(838, 58);
+            paymentHistoryPanel.Size = new Size(811, 58);
             paymentHistoryPanel.TabIndex = 21;
             // 
             // paymentInfoPanel

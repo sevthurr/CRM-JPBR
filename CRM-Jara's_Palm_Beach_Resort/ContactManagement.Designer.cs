@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             contactManagementLbl = new Label();
             topNavBar1 = new TopNavBar();
             contactListPanel = new Panel();
@@ -125,11 +126,13 @@
             // 
             guestTable.AllowUserToAddRows = false;
             guestTable.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 197, 149);
+            guestTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             guestTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             guestTable.BackgroundColor = Color.White;
             guestTable.BorderStyle = BorderStyle.Fixed3D;
             guestTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            guestTable.GridColor = SystemColors.ControlDark;
+            guestTable.GridColor = Color.White;
             guestTable.Location = new Point(39, 96);
             guestTable.Name = "guestTable";
             guestTable.ReadOnly = true;
