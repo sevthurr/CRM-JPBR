@@ -1,11 +1,12 @@
-﻿using System;
+﻿using BCrypt.Net;
+using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.Data.SqlClient;
-using BCrypt.Net;
 
 namespace CRM_Jara_s_Palm_Beach_Resort
 {
@@ -157,10 +158,10 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                         guestCmd.Parameters.AddWithValue("@MName", (object)data.MiddleName ?? DBNull.Value);
                         guestCmd.Parameters.AddWithValue("@LName", data.LastName);
                         guestCmd.Parameters.AddWithValue("@Suffix", (object)data.Suffix ?? DBNull.Value);
-                        guestCmd.Parameters.AddWithValue("@Email", "test@test.com"); // No Email in BookingFormData
+                        guestCmd.Parameters.AddWithValue("@Email", (object)data.Email ?? DBNull.Value);
                         guestCmd.Parameters.AddWithValue("@Phone", data.Contact);
                         guestCmd.Parameters.AddWithValue("@Address", data.Address);
-                        guestCmd.Parameters.AddWithValue("@Contactable", 1); // Default to contactable
+                        guestCmd.Parameters.AddWithValue("@Contactable", 1);
                         guestID = (int)guestCmd.ExecuteScalar();
                     }
 
@@ -219,6 +220,28 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                     MessageBox.Show($"Error creating booking: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return (false, -1);
                 }
+            }
+        }
+
+        public DataTable GetBookingList()
+        {
+            DataTable bookings = new DataTable();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = "SELECT BookingID, GuestName, [Date], [Status], [Payment] FROM [dbo].[BookingListView]";
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(query, conn))
+                    {
+                        adapter.Fill(bookings);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading bookings: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                return bookings;
             }
         }
 

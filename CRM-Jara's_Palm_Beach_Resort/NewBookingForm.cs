@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -35,6 +36,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 MiddleName = middleNameTb.Text,
                 LastName = lastNameTb.Text,
                 Suffix = suffixCb.Text,
+                Email = emailTb.Text,
                 Address = addressTb.Text,
                 Contact = contactTb.Text,
                 Platform = platformCb.Text,
@@ -54,6 +56,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             middleNameTb.Text = data.MiddleName;
             lastNameTb.Text = data.LastName;
             suffixCb.Text = data.Suffix;
+            emailTb.Text = data.Email;
             addressTb.Text = data.Address;
             contactTb.Text = data.Contact;
             platformCb.Text = data.Platform;
@@ -79,10 +82,17 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 return;
             }
 
-            // Validate contact (simple phone number check, e.g., 10-15 digits or format)
-            if (!System.Text.RegularExpressions.Regex.IsMatch(contactTb.Text, @"^\+?\d{10,15}$"))
+            // Validate contact (10-15 digits, optional +)
+            if (!Regex.IsMatch(contactTb.Text, @"^\+?\d{10,15}$"))
             {
                 MessageBox.Show("Please enter a valid contact number (10-15 digits, optional + prefix).", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Validate email (optional, but must be valid if provided)
+            if (!string.IsNullOrWhiteSpace(emailTb.Text) && !Regex.IsMatch(emailTb.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                MessageBox.Show("Please enter a valid email address or leave it empty.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -287,6 +297,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public string Suffix { get; set; }
+        public string Email { get; set; }
         public string Address { get; set; }
         public string Contact { get; set; }
         public string Platform { get; set; }

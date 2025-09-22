@@ -64,6 +64,8 @@
             BookingInfoLbl = new Label();
             newBookingPanel = new Panel();
             proceedPaymentBtn = new Button();
+            emailTb = new TextBox();
+            emailLbl = new Label();
             guestInfoPanel.SuspendLayout();
             bookingInfoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)guestQty).BeginInit();
@@ -81,7 +83,7 @@
             firstNameTb.Multiline = true;
             firstNameTb.Name = "firstNameTb";
             firstNameTb.PlaceholderText = "First Name";
-            firstNameTb.Size = new Size(171, 32);
+            firstNameTb.Size = new Size(180, 32);
             firstNameTb.TabIndex = 0;
             // 
             // newBookingLbl
@@ -109,6 +111,8 @@
             // guestInfoPanel
             // 
             guestInfoPanel.BackColor = Color.White;
+            guestInfoPanel.Controls.Add(emailTb);
+            guestInfoPanel.Controls.Add(emailLbl);
             guestInfoPanel.Controls.Add(contactTb);
             guestInfoPanel.Controls.Add(platformCb);
             guestInfoPanel.Controls.Add(contactLbl);
@@ -170,7 +174,7 @@
             addressTb.Multiline = true;
             addressTb.Name = "addressTb";
             addressTb.PlaceholderText = "Address";
-            addressTb.Size = new Size(375, 32);
+            addressTb.Size = new Size(180, 32);
             addressTb.TabIndex = 13;
             // 
             // addressLbl
@@ -502,6 +506,29 @@
             proceedPaymentBtn.UseVisualStyleBackColor = false;
             proceedPaymentBtn.Click += proceedPaymentBtn_Click_1;
             // 
+            // emailTb
+            // 
+            emailTb.BackColor = Color.White;
+            emailTb.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            emailTb.ForeColor = Color.Black;
+            emailTb.Location = new Point(232, 159);
+            emailTb.Multiline = true;
+            emailTb.Name = "emailTb";
+            emailTb.PlaceholderText = "Email Address";
+            emailTb.Size = new Size(180, 32);
+            emailTb.TabIndex = 18;
+            // 
+            // emailLbl
+            // 
+            emailLbl.AutoSize = true;
+            emailLbl.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            emailLbl.ForeColor = Color.DimGray;
+            emailLbl.Location = new Point(232, 133);
+            emailLbl.Name = "emailLbl";
+            emailLbl.Size = new Size(95, 16);
+            emailLbl.TabIndex = 17;
+            emailLbl.Text = "Email Address";
+            // 
             // NewBookingForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -568,5 +595,7 @@
         private NumericUpDown guestQty;
         private TextBox textBox1;
         private Label label1;
+        private TextBox emailTb;
+        private Label emailLbl;
     }
 }

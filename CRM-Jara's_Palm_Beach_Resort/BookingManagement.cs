@@ -13,9 +13,13 @@ namespace CRM_Jara_s_Palm_Beach_Resort
 {
     public partial class BookingManagement : Form
     {
+
+        private readonly AccountManager _accountManager;
+
         public BookingManagement()
         {
             InitializeComponent();
+            _accountManager = new AccountManager(); // Initialize to prevent NullReferenceException
             topNavBar1.SetActive("BookingManagement");
             topNavBar1.Dock = DockStyle.Top;
             paymentHistoryBtn.Click += paymentHistoryBtn_Click;
@@ -64,12 +68,11 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         private void BookingManagement_Load(object sender, EventArgs e)
         {
             bookingsTable.Columns.Clear();
-            string[] headers = { "Booking ID", "Guest Name", "Date", "Status", "Payment" };
+            string[] headers = { "Booking ID", "Guest Name", "Date", "Status", "Payment"};
             foreach (var header in headers)
             {
                 bookingsTable.Columns.Add(header.Replace(" ", ""), header);
             }
-
 
             bookingsTable.ColumnHeadersDefaultCellStyle.Font = new Font("Poppins", 12F, FontStyle.Bold);
             bookingsTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -78,13 +81,19 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             bookingsTable.DefaultCellStyle.Font = new Font("Poppins", 10F, FontStyle.Regular);
             bookingsTable.DefaultCellStyle.ForeColor = Color.Black;
 
-            // SAMPLE DATA -- REMOVE THIS DURING BACKEND DEVELOPMENT GUYS
-            bookingsTable.Rows.Add("B001", "John Doe", "06-23-2025", "Booked", "Fully Paid");
-            bookingsTable.Rows.Add("B002", "Jane Smith", "05-06-2025", "Staying", "Partial");
-            bookingsTable.Rows.Add("B003", "Alice Brown", "05-01-2025", "Completed", "Fully Paid");
-            bookingsTable.Rows.Add("B004", "Bob Lee", "04-30-2025", "Cancelled", "Downpayment");
+            // Load data from database
+            DataTable bookings = _accountManager.GetBookingList();
+            foreach (DataRow row in bookings.Rows)
+            {
+                bookingsTable.Rows.Add(
+                    row["BookingID"],
+                    row["GuestName"],
+                    Convert.ToDateTime(row["Date"]).ToString("MM-dd-yyyy"),
+                    row["Status"],
+                    row["Payment"]
+                    ); // Placeholder for Actions
+            }
 
-            // TODO: Add Krypton Icon Buttons to the Actions column once resources and correct usage are available.
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
