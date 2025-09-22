@@ -75,7 +75,7 @@
             // firstNameTb
             // 
             firstNameTb.BackColor = Color.White;
-            firstNameTb.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            firstNameTb.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             firstNameTb.ForeColor = Color.Black;
             firstNameTb.Location = new Point(28, 78);
             firstNameTb.Multiline = true;
@@ -87,22 +87,22 @@
             // newBookingLbl
             // 
             newBookingLbl.AutoSize = true;
-            newBookingLbl.Font = new Font("Crimson Pro", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            newBookingLbl.Font = new Font("Microsoft Sans Serif", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             newBookingLbl.ForeColor = Color.White;
             newBookingLbl.Location = new Point(340, 9);
             newBookingLbl.Name = "newBookingLbl";
-            newBookingLbl.Size = new Size(213, 43);
+            newBookingLbl.Size = new Size(230, 39);
             newBookingLbl.TabIndex = 1;
             newBookingLbl.Text = "New Booking";
             // 
             // guestInfoLbl
             // 
             guestInfoLbl.AutoSize = true;
-            guestInfoLbl.Font = new Font("Poppins", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guestInfoLbl.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             guestInfoLbl.ForeColor = Color.Black;
             guestInfoLbl.Location = new Point(19, 14);
             guestInfoLbl.Name = "guestInfoLbl";
-            guestInfoLbl.Size = new Size(150, 26);
+            guestInfoLbl.Size = new Size(143, 18);
             guestInfoLbl.TabIndex = 2;
             guestInfoLbl.Text = "Guest Information";
             // 
@@ -131,7 +131,7 @@
             // contactTb
             // 
             contactTb.BackColor = Color.White;
-            contactTb.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            contactTb.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             contactTb.ForeColor = Color.Black;
             contactTb.Location = new Point(430, 159);
             contactTb.Multiline = true;
@@ -153,18 +153,18 @@
             // contactLbl
             // 
             contactLbl.AutoSize = true;
-            contactLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            contactLbl.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             contactLbl.ForeColor = Color.DimGray;
             contactLbl.Location = new Point(430, 133);
             contactLbl.Name = "contactLbl";
-            contactLbl.Size = new Size(89, 23);
+            contactLbl.Size = new Size(76, 16);
             contactLbl.TabIndex = 14;
             contactLbl.Text = "Contact Info";
             // 
             // addressTb
             // 
             addressTb.BackColor = Color.White;
-            addressTb.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            addressTb.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             addressTb.ForeColor = Color.Black;
             addressTb.Location = new Point(28, 159);
             addressTb.Multiline = true;
@@ -176,11 +176,11 @@
             // addressLbl
             // 
             addressLbl.AutoSize = true;
-            addressLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            addressLbl.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             addressLbl.ForeColor = Color.DimGray;
             addressLbl.Location = new Point(28, 133);
             addressLbl.Name = "addressLbl";
-            addressLbl.Size = new Size(64, 23);
+            addressLbl.Size = new Size(58, 16);
             addressLbl.TabIndex = 12;
             addressLbl.Text = "Address";
             // 
@@ -197,18 +197,18 @@
             // suffixLbl
             // 
             suffixLbl.AutoSize = true;
-            suffixLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            suffixLbl.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             suffixLbl.ForeColor = Color.DimGray;
             suffixLbl.Location = new Point(626, 52);
             suffixLbl.Name = "suffixLbl";
-            suffixLbl.Size = new Size(111, 23);
+            suffixLbl.Size = new Size(97, 16);
             suffixLbl.TabIndex = 8;
             suffixLbl.Text = "Suffix (optional)";
             // 
             // middleNameTb
             // 
             middleNameTb.BackColor = Color.White;
-            middleNameTb.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            middleNameTb.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             middleNameTb.ForeColor = Color.Black;
             middleNameTb.Location = new Point(430, 78);
             middleNameTb.Multiline = true;
@@ -220,18 +220,18 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label4.ForeColor = Color.DimGray;
             label4.Location = new Point(430, 52);
             label4.Name = "label4";
-            label4.Size = new Size(95, 23);
+            label4.Size = new Size(88, 16);
             label4.TabIndex = 6;
             label4.Text = "Middle Name";
             // 
             // lastNameTb
             // 
             lastNameTb.BackColor = Color.White;
-            lastNameTb.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lastNameTb.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lastNameTb.ForeColor = Color.Black;
             lastNameTb.Location = new Point(232, 78);
             lastNameTb.Multiline = true;
@@ -243,22 +243,22 @@
             // lastNameLbl
             // 
             lastNameLbl.AutoSize = true;
-            lastNameLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lastNameLbl.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lastNameLbl.ForeColor = Color.DimGray;
             lastNameLbl.Location = new Point(232, 52);
             lastNameLbl.Name = "lastNameLbl";
-            lastNameLbl.Size = new Size(79, 23);
+            lastNameLbl.Size = new Size(72, 16);
             lastNameLbl.TabIndex = 4;
             lastNameLbl.Text = "Last Name";
             // 
             // firstNameLbl
             // 
             firstNameLbl.AutoSize = true;
-            firstNameLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            firstNameLbl.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             firstNameLbl.ForeColor = Color.DimGray;
             firstNameLbl.Location = new Point(28, 52);
             firstNameLbl.Name = "firstNameLbl";
-            firstNameLbl.Size = new Size(79, 23);
+            firstNameLbl.Size = new Size(72, 16);
             firstNameLbl.TabIndex = 3;
             firstNameLbl.Text = "First Name";
             // 
@@ -285,16 +285,16 @@
             // 
             // guestQty
             // 
-            guestQty.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            guestQty.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             guestQty.Location = new Point(349, 77);
             guestQty.Name = "guestQty";
-            guestQty.Size = new Size(150, 30);
+            guestQty.Size = new Size(150, 24);
             guestQty.TabIndex = 27;
             // 
             // textBox1
             // 
             textBox1.BackColor = Color.White;
-            textBox1.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBox1.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBox1.ForeColor = Color.Black;
             textBox1.Location = new Point(558, 78);
             textBox1.Multiline = true;
@@ -306,11 +306,11 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.DimGray;
             label1.Location = new Point(558, 52);
             label1.Name = "label1";
-            label1.Size = new Size(90, 23);
+            label1.Size = new Size(83, 16);
             label1.TabIndex = 25;
             label1.Text = "Promo Code";
             // 
@@ -331,22 +331,22 @@
             // 
             packageALbl.AutoSize = true;
             packageALbl.BackColor = Color.Transparent;
-            packageALbl.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            packageALbl.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             packageALbl.ForeColor = Color.Black;
             packageALbl.Location = new Point(60, 63);
             packageALbl.Name = "packageALbl";
-            packageALbl.Size = new Size(222, 182);
+            packageALbl.Size = new Size(193, 126);
             packageALbl.TabIndex = 1;
             packageALbl.Text = "• Full Resort Access\r\n• Up to 30 guests\r\n• Casa Keona (main house)\r\n• 2 Airconditioned rooms\r\n• Dining room with minibar\r\n• Spacious Cozy Porch\r\n• 4 Indian Rooms ( Non-AC)\r\n";
             // 
             // packageARBtn
             // 
             packageARBtn.AutoSize = true;
-            packageARBtn.Font = new Font("Poppins", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            packageARBtn.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             packageARBtn.ForeColor = Color.Black;
             packageARBtn.Location = new Point(30, 15);
             packageARBtn.Name = "packageARBtn";
-            packageARBtn.Size = new Size(132, 35);
+            packageARBtn.Size = new Size(127, 26);
             packageARBtn.TabIndex = 0;
             packageARBtn.TabStop = true;
             packageARBtn.Text = "Package A";
@@ -368,22 +368,22 @@
             // 
             packageBLbl.AutoSize = true;
             packageBLbl.BackColor = Color.Transparent;
-            packageBLbl.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            packageBLbl.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             packageBLbl.ForeColor = Color.Black;
             packageBLbl.Location = new Point(60, 59);
             packageBLbl.Name = "packageBLbl";
-            packageBLbl.Size = new Size(220, 182);
+            packageBLbl.Size = new Size(190, 126);
             packageBLbl.TabIndex = 3;
             packageBLbl.Text = "• Up to 20 persons\r\n• 4 Indian Rooms ( Non-Air)\r\n• Swing Garden\r\n• Dining Area\r\n• Receiving Area \r\n• 2 Cabana\r\n• 1 Dirty Kitchen";
             // 
             // packageBRbtn
             // 
             packageBRbtn.AutoSize = true;
-            packageBRbtn.Font = new Font("Poppins", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            packageBRbtn.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             packageBRbtn.ForeColor = Color.Black;
             packageBRbtn.Location = new Point(28, 15);
             packageBRbtn.Name = "packageBRbtn";
-            packageBRbtn.Size = new Size(131, 35);
+            packageBRbtn.Size = new Size(127, 26);
             packageBRbtn.TabIndex = 2;
             packageBRbtn.TabStop = true;
             packageBRbtn.Text = "Package B";
@@ -394,21 +394,21 @@
             checkOutDp.CalendarForeColor = Color.FromArgb(40, 75, 83);
             checkOutDp.CalendarMonthBackground = SystemColors.ControlLight;
             checkOutDp.CalendarTitleForeColor = Color.FromArgb(40, 75, 83);
-            checkOutDp.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkOutDp.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             checkOutDp.Location = new Point(349, 156);
             checkOutDp.MinDate = new DateTime(2025, 9, 13, 0, 0, 0, 0);
             checkOutDp.Name = "checkOutDp";
-            checkOutDp.Size = new Size(270, 27);
+            checkOutDp.Size = new Size(270, 22);
             checkOutDp.TabIndex = 20;
             // 
             // checkOutLbl
             // 
             checkOutLbl.AutoSize = true;
-            checkOutLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkOutLbl.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             checkOutLbl.ForeColor = Color.DimGray;
             checkOutLbl.Location = new Point(349, 131);
             checkOutLbl.Name = "checkOutLbl";
-            checkOutLbl.Size = new Size(111, 23);
+            checkOutLbl.Size = new Size(100, 16);
             checkOutLbl.TabIndex = 19;
             checkOutLbl.Text = "Check Out Date";
             // 
@@ -417,11 +417,11 @@
             checkInDp.CalendarForeColor = Color.FromArgb(40, 75, 83);
             checkInDp.CalendarMonthBackground = SystemColors.ControlLight;
             checkInDp.CalendarTitleForeColor = Color.FromArgb(40, 75, 83);
-            checkInDp.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkInDp.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             checkInDp.Location = new Point(28, 156);
             checkInDp.MinDate = new DateTime(2025, 9, 13, 0, 0, 0, 0);
             checkInDp.Name = "checkInDp";
-            checkInDp.Size = new Size(270, 27);
+            checkInDp.Size = new Size(270, 22);
             checkInDp.TabIndex = 18;
             // 
             // bookingDateDp
@@ -429,54 +429,54 @@
             bookingDateDp.CalendarForeColor = Color.FromArgb(40, 75, 83);
             bookingDateDp.CalendarMonthBackground = SystemColors.ControlLight;
             bookingDateDp.CalendarTitleForeColor = Color.FromArgb(40, 75, 83);
-            bookingDateDp.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            bookingDateDp.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             bookingDateDp.Location = new Point(28, 77);
             bookingDateDp.MinDate = new DateTime(2025, 9, 13, 0, 0, 0, 0);
             bookingDateDp.Name = "bookingDateDp";
-            bookingDateDp.Size = new Size(270, 27);
+            bookingDateDp.Size = new Size(270, 22);
             bookingDateDp.TabIndex = 17;
             // 
             // numberOfGuestLbl
             // 
             numberOfGuestLbl.AutoSize = true;
-            numberOfGuestLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            numberOfGuestLbl.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             numberOfGuestLbl.ForeColor = Color.DimGray;
             numberOfGuestLbl.Location = new Point(348, 52);
             numberOfGuestLbl.Name = "numberOfGuestLbl";
-            numberOfGuestLbl.Size = new Size(86, 23);
+            numberOfGuestLbl.Size = new Size(80, 16);
             numberOfGuestLbl.TabIndex = 6;
             numberOfGuestLbl.Text = "No. of Guest";
             // 
             // checkInLbl
             // 
             checkInLbl.AutoSize = true;
-            checkInLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkInLbl.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             checkInLbl.ForeColor = Color.DimGray;
             checkInLbl.Location = new Point(28, 131);
             checkInLbl.Name = "checkInLbl";
-            checkInLbl.Size = new Size(99, 23);
+            checkInLbl.Size = new Size(90, 16);
             checkInLbl.TabIndex = 4;
             checkInLbl.Text = "Check In Date";
             // 
             // bookingDateLbl
             // 
             bookingDateLbl.AutoSize = true;
-            bookingDateLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            bookingDateLbl.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             bookingDateLbl.ForeColor = Color.DimGray;
             bookingDateLbl.Location = new Point(28, 52);
             bookingDateLbl.Name = "bookingDateLbl";
-            bookingDateLbl.Size = new Size(95, 23);
+            bookingDateLbl.Size = new Size(89, 16);
             bookingDateLbl.TabIndex = 3;
             bookingDateLbl.Text = "Booking Date";
             // 
             // BookingInfoLbl
             // 
             BookingInfoLbl.AutoSize = true;
-            BookingInfoLbl.Font = new Font("Poppins", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BookingInfoLbl.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BookingInfoLbl.ForeColor = Color.Black;
             BookingInfoLbl.Location = new Point(19, 14);
             BookingInfoLbl.Name = "BookingInfoLbl";
-            BookingInfoLbl.Size = new Size(169, 26);
+            BookingInfoLbl.Size = new Size(160, 18);
             BookingInfoLbl.TabIndex = 2;
             BookingInfoLbl.Text = "Booking Information";
             // 
@@ -492,7 +492,7 @@
             // proceedPaymentBtn
             // 
             proceedPaymentBtn.BackColor = Color.FromArgb(82, 169, 181);
-            proceedPaymentBtn.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            proceedPaymentBtn.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             proceedPaymentBtn.ForeColor = Color.Transparent;
             proceedPaymentBtn.Location = new Point(641, 895);
             proceedPaymentBtn.Name = "proceedPaymentBtn";
@@ -500,6 +500,7 @@
             proceedPaymentBtn.TabIndex = 21;
             proceedPaymentBtn.Text = "Proceed to Payment  >";
             proceedPaymentBtn.UseVisualStyleBackColor = false;
+            proceedPaymentBtn.Click += proceedPaymentBtn_Click_1;
             // 
             // NewBookingForm
             // 

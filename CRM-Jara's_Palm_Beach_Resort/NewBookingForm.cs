@@ -68,6 +68,57 @@ namespace CRM_Jara_s_Palm_Beach_Resort
 
         private void proceedPaymentBtn_Click(object sender, EventArgs e)
         {
+            // Validate inputs
+            if (string.IsNullOrWhiteSpace(firstNameTb.Text) ||
+                string.IsNullOrWhiteSpace(lastNameTb.Text) ||
+                string.IsNullOrWhiteSpace(addressTb.Text) ||
+                string.IsNullOrWhiteSpace(contactTb.Text) ||
+                string.IsNullOrWhiteSpace(platformCb.Text))
+            {
+                MessageBox.Show("Please fill in all required fields (First Name, Last Name, Address, Contact, Platform).", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Validate contact (simple phone number check, e.g., 10-15 digits or format)
+            if (!System.Text.RegularExpressions.Regex.IsMatch(contactTb.Text, @"^\+?\d{10,15}$"))
+            {
+                MessageBox.Show("Please enter a valid contact number (10-15 digits, optional + prefix).", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Validate dates
+            DateTime today = DateTime.Today;
+            if (bookingDateDp.Value.Date < today)
+            {
+                MessageBox.Show("Booking Date cannot be in the past.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (checkInDp.Value.Date < bookingDateDp.Value.Date)
+            {
+                MessageBox.Show("Check-In Date cannot be before Booking Date.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (checkOutDp.Value.Date <= checkInDp.Value.Date)
+            {
+                MessageBox.Show("Check-Out Date must be after Check-In Date.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Validate package selection
+            if (!packageARBtn.Checked && !packageBRbtn.Checked)
+            {
+                MessageBox.Show("Please select a package (Package A or Package B).", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Validate GuestQty
+            if (guestQty.Value <= 0)
+            {
+                MessageBox.Show("Guest Quantity must be greater than 0.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Proceed to payment
             var paymentForm = new BookingPayment(GetFormData());
             paymentForm.StartPosition = FormStartPosition.CenterParent;
             paymentForm.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -92,7 +143,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             }
             else
             {
-                // User closed payment form, just show this form again
+                // User closed payment form, show this form again
                 this.Show();
             }
         }
@@ -220,6 +271,11 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         }
 
         private void label17_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void proceedPaymentBtn_Click_1(object sender, EventArgs e)
         {
 
         }

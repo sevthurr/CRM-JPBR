@@ -68,11 +68,11 @@
             // newBookingLbl
             // 
             newBookingLbl.AutoSize = true;
-            newBookingLbl.Font = new Font("Crimson Pro", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            newBookingLbl.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             newBookingLbl.ForeColor = Color.White;
             newBookingLbl.Location = new Point(281, 14);
             newBookingLbl.Name = "newBookingLbl";
-            newBookingLbl.Size = new Size(342, 38);
+            newBookingLbl.Size = new Size(380, 36);
             newBookingLbl.TabIndex = 1;
             newBookingLbl.Text = "New Booking  >  Payment";
             // 
@@ -117,8 +117,7 @@
             // accountNumberTb
             // 
             accountNumberTb.BackColor = Color.White;
-            accountNumberTb.Enabled = false;
-            accountNumberTb.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            accountNumberTb.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             accountNumberTb.ForeColor = Color.Black;
             accountNumberTb.Location = new Point(305, 168);
             accountNumberTb.Multiline = true;
@@ -130,8 +129,7 @@
             // accountNameTb
             // 
             accountNameTb.BackColor = Color.White;
-            accountNameTb.Enabled = false;
-            accountNameTb.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            accountNameTb.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             accountNameTb.ForeColor = Color.Black;
             accountNameTb.Location = new Point(30, 167);
             accountNameTb.Multiline = true;
@@ -143,8 +141,7 @@
             // amountTb
             // 
             amountTb.BackColor = Color.White;
-            amountTb.Enabled = false;
-            amountTb.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            amountTb.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             amountTb.ForeColor = Color.Black;
             amountTb.Location = new Point(518, 89);
             amountTb.Multiline = true;
@@ -156,11 +153,11 @@
             // amountLbl
             // 
             amountLbl.AutoSize = true;
-            amountLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            amountLbl.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             amountLbl.ForeColor = Color.DimGray;
             amountLbl.Location = new Point(518, 63);
             amountLbl.Name = "amountLbl";
-            amountLbl.Size = new Size(61, 23);
+            amountLbl.Size = new Size(52, 16);
             amountLbl.TabIndex = 14;
             amountLbl.Text = "Amount";
             // 
@@ -177,55 +174,55 @@
             // purposeLbl
             // 
             purposeLbl.AutoSize = true;
-            purposeLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            purposeLbl.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             purposeLbl.ForeColor = Color.DimGray;
             purposeLbl.Location = new Point(308, 63);
             purposeLbl.Name = "purposeLbl";
-            purposeLbl.Size = new Size(63, 23);
+            purposeLbl.Size = new Size(58, 16);
             purposeLbl.TabIndex = 8;
             purposeLbl.Text = "Purpose";
             // 
             // paymentMethodLbl
             // 
             paymentMethodLbl.AutoSize = true;
-            paymentMethodLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            paymentMethodLbl.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             paymentMethodLbl.ForeColor = Color.DimGray;
             paymentMethodLbl.Location = new Point(28, 63);
             paymentMethodLbl.Name = "paymentMethodLbl";
-            paymentMethodLbl.Size = new Size(120, 23);
+            paymentMethodLbl.Size = new Size(108, 16);
             paymentMethodLbl.TabIndex = 6;
             paymentMethodLbl.Text = "Payment Method";
             // 
             // accountNumberLbl
             // 
             accountNumberLbl.AutoSize = true;
-            accountNumberLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            accountNumberLbl.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             accountNumberLbl.ForeColor = Color.DimGray;
             accountNumberLbl.Location = new Point(305, 142);
             accountNumberLbl.Name = "accountNumberLbl";
-            accountNumberLbl.Size = new Size(119, 23);
+            accountNumberLbl.Size = new Size(106, 16);
             accountNumberLbl.TabIndex = 4;
             accountNumberLbl.Text = "Account Number";
             // 
             // accountNameLbl
             // 
             accountNameLbl.AutoSize = true;
-            accountNameLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            accountNameLbl.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             accountNameLbl.ForeColor = Color.DimGray;
             accountNameLbl.Location = new Point(30, 142);
             accountNameLbl.Name = "accountNameLbl";
-            accountNameLbl.Size = new Size(106, 23);
+            accountNameLbl.Size = new Size(95, 16);
             accountNameLbl.TabIndex = 3;
             accountNameLbl.Text = "Account Name";
             // 
             // paymentInfoLbl
             // 
             paymentInfoLbl.AutoSize = true;
-            paymentInfoLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            paymentInfoLbl.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             paymentInfoLbl.ForeColor = Color.Black;
             paymentInfoLbl.Location = new Point(19, 17);
             paymentInfoLbl.Name = "paymentInfoLbl";
-            paymentInfoLbl.Size = new Size(201, 30);
+            paymentInfoLbl.Size = new Size(181, 20);
             paymentInfoLbl.TabIndex = 2;
             paymentInfoLbl.Text = "Payment Information";
             // 
@@ -256,11 +253,11 @@
             // totalAmountLbl
             // 
             totalAmountLbl.AutoSize = true;
-            totalAmountLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            totalAmountLbl.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             totalAmountLbl.ForeColor = Color.Black;
             totalAmountLbl.Location = new Point(438, 122);
             totalAmountLbl.Name = "totalAmountLbl";
-            totalAmountLbl.Size = new Size(138, 30);
+            totalAmountLbl.Size = new Size(126, 20);
             totalAmountLbl.TabIndex = 29;
             totalAmountLbl.Text = "Total Amount:";
             // 
@@ -268,161 +265,161 @@
             // 
             totalAmountVal.AutoSize = true;
             totalAmountVal.BorderStyle = BorderStyle.FixedSingle;
-            totalAmountVal.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            totalAmountVal.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             totalAmountVal.ForeColor = Color.Black;
             totalAmountVal.Location = new Point(576, 122);
             totalAmountVal.Name = "totalAmountVal";
-            totalAmountVal.Size = new Size(88, 32);
+            totalAmountVal.Size = new Size(84, 22);
             totalAmountVal.TabIndex = 30;
             totalAmountVal.Text = "₱ 15,200";
             // 
             // discountAmount
             // 
             discountAmount.AutoSize = true;
-            discountAmount.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            discountAmount.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             discountAmount.ForeColor = Color.DimGray;
             discountAmount.Location = new Point(621, 79);
             discountAmount.Name = "discountAmount";
-            discountAmount.Size = new Size(85, 26);
+            discountAmount.Size = new Size(76, 18);
             discountAmount.TabIndex = 33;
             discountAmount.Text = "(₱ 15,000)";
             // 
             // discountPercentage
             // 
             discountPercentage.AutoSize = true;
-            discountPercentage.Font = new Font("Poppins", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            discountPercentage.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             discountPercentage.ForeColor = Color.Black;
             discountPercentage.Location = new Point(576, 78);
             discountPercentage.Name = "discountPercentage";
-            discountPercentage.Size = new Size(45, 26);
+            discountPercentage.Size = new Size(40, 18);
             discountPercentage.TabIndex = 32;
             discountPercentage.Text = "50%";
             // 
             // promoDiscountLbl
             // 
             promoDiscountLbl.AutoSize = true;
-            promoDiscountLbl.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            promoDiscountLbl.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             promoDiscountLbl.ForeColor = Color.Black;
             promoDiscountLbl.Location = new Point(438, 78);
             promoDiscountLbl.Name = "promoDiscountLbl";
-            promoDiscountLbl.Size = new Size(136, 26);
+            promoDiscountLbl.Size = new Size(121, 18);
             promoDiscountLbl.TabIndex = 31;
             promoDiscountLbl.Text = "Promo Discount:";
             // 
             // excessPersonAmount
             // 
             excessPersonAmount.AutoSize = true;
-            excessPersonAmount.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            excessPersonAmount.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             excessPersonAmount.ForeColor = Color.DimGray;
             excessPersonAmount.Location = new Point(247, 171);
             excessPersonAmount.Name = "excessPersonAmount";
-            excessPersonAmount.Size = new Size(88, 26);
+            excessPersonAmount.Size = new Size(78, 18);
             excessPersonAmount.TabIndex = 28;
             excessPersonAmount.Text = "(2 * ₱ 100)";
             // 
             // excessPersonVal
             // 
             excessPersonVal.AutoSize = true;
-            excessPersonVal.Font = new Font("Poppins", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            excessPersonVal.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             excessPersonVal.ForeColor = Color.Black;
             excessPersonVal.Location = new Point(177, 171);
             excessPersonVal.Name = "excessPersonVal";
-            excessPersonVal.Size = new Size(68, 26);
+            excessPersonVal.Size = new Size(67, 18);
             excessPersonVal.TabIndex = 27;
             excessPersonVal.Text = "2 Guest";
             // 
             // excessPersonLbl
             // 
             excessPersonLbl.AutoSize = true;
-            excessPersonLbl.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            excessPersonLbl.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             excessPersonLbl.ForeColor = Color.Black;
             excessPersonLbl.Location = new Point(44, 171);
             excessPersonLbl.Name = "excessPersonLbl";
-            excessPersonLbl.Size = new Size(120, 26);
+            excessPersonLbl.Size = new Size(113, 18);
             excessPersonLbl.TabIndex = 26;
             excessPersonLbl.Text = "Excess Person:";
             // 
             // daysStayingAmount
             // 
             daysStayingAmount.AutoSize = true;
-            daysStayingAmount.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            daysStayingAmount.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             daysStayingAmount.ForeColor = Color.DimGray;
             daysStayingAmount.Location = new Point(256, 124);
             daysStayingAmount.Name = "daysStayingAmount";
-            daysStayingAmount.Size = new Size(109, 26);
+            daysStayingAmount.Size = new Size(98, 18);
             daysStayingAmount.TabIndex = 25;
             daysStayingAmount.Text = "(2 * ₱ 15,000)";
             // 
             // daysStayingVal
             // 
             daysStayingVal.AutoSize = true;
-            daysStayingVal.Font = new Font("Poppins", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            daysStayingVal.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             daysStayingVal.ForeColor = Color.Black;
             daysStayingVal.Location = new Point(177, 124);
             daysStayingVal.Name = "daysStayingVal";
-            daysStayingVal.Size = new Size(62, 26);
+            daysStayingVal.Size = new Size(60, 18);
             daysStayingVal.TabIndex = 24;
             daysStayingVal.Text = "2 Days";
             // 
             // daysStayingLbl
             // 
             daysStayingLbl.AutoSize = true;
-            daysStayingLbl.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            daysStayingLbl.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             daysStayingLbl.ForeColor = Color.Black;
             daysStayingLbl.Location = new Point(44, 124);
             daysStayingLbl.Name = "daysStayingLbl";
-            daysStayingLbl.Size = new Size(116, 26);
+            daysStayingLbl.Size = new Size(102, 18);
             daysStayingLbl.TabIndex = 23;
             daysStayingLbl.Text = "Days Staying: ";
             // 
             // packageAmount
             // 
             packageAmount.AutoSize = true;
-            packageAmount.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            packageAmount.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             packageAmount.ForeColor = Color.DimGray;
             packageAmount.Location = new Point(275, 78);
             packageAmount.Name = "packageAmount";
-            packageAmount.Size = new Size(85, 26);
+            packageAmount.Size = new Size(76, 18);
             packageAmount.TabIndex = 22;
             packageAmount.Text = "(₱ 15,000)";
             // 
             // packageVal
             // 
             packageVal.AutoSize = true;
-            packageVal.Font = new Font("Poppins", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            packageVal.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             packageVal.ForeColor = Color.Black;
             packageVal.Location = new Point(177, 78);
             packageVal.Name = "packageVal";
-            packageVal.Size = new Size(92, 26);
+            packageVal.Size = new Size(88, 18);
             packageVal.TabIndex = 21;
             packageVal.Text = "Package A";
             // 
             // packageLbl
             // 
             packageLbl.AutoSize = true;
-            packageLbl.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            packageLbl.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             packageLbl.ForeColor = Color.Black;
             packageLbl.Location = new Point(44, 78);
             packageLbl.Name = "packageLbl";
-            packageLbl.Size = new Size(80, 26);
+            packageLbl.Size = new Size(70, 18);
             packageLbl.TabIndex = 20;
             packageLbl.Text = "Package:";
             // 
             // summaryLbl
             // 
             summaryLbl.AutoSize = true;
-            summaryLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            summaryLbl.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             summaryLbl.ForeColor = Color.Black;
             summaryLbl.Location = new Point(19, 17);
             summaryLbl.Name = "summaryLbl";
-            summaryLbl.Size = new Size(100, 30);
+            summaryLbl.Size = new Size(87, 20);
             summaryLbl.TabIndex = 20;
             summaryLbl.Text = "Summary";
             // 
             // confirmBookingBtn
             // 
             confirmBookingBtn.BackColor = Color.FromArgb(82, 169, 181);
-            confirmBookingBtn.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            confirmBookingBtn.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             confirmBookingBtn.ForeColor = Color.Transparent;
             confirmBookingBtn.Location = new Point(627, 663);
             confirmBookingBtn.Name = "confirmBookingBtn";
@@ -435,11 +432,11 @@
             // 
             backBtn.ActiveLinkColor = Color.FromArgb(40, 75, 83);
             backBtn.AutoSize = true;
-            backBtn.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            backBtn.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             backBtn.LinkColor = Color.FromArgb(40, 75, 83);
             backBtn.Location = new Point(70, 673);
             backBtn.Name = "backBtn";
-            backBtn.Size = new Size(74, 30);
+            backBtn.Size = new Size(74, 20);
             backBtn.TabIndex = 51;
             backBtn.TabStop = true;
             backBtn.Text = "<  Back";
