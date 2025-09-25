@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             bookingListsPanel = new Panel();
             sortComboBox = new ComboBox();
             sortIcon = new FontAwesome.Sharp.IconPictureBox();
@@ -51,7 +51,6 @@
             checkOutDateVal = new Label();
             checkOutDateLbl = new Label();
             guestNameLnkLbl = new LinkLabel();
-            itemsLinkVal = new LinkLabel();
             packageVal = new LinkLabel();
             checkInDateVal = new Label();
             paxVal = new Label();
@@ -61,7 +60,6 @@
             editBtn = new Button();
             guestImage = new Panel();
             checkInDateLbl = new Label();
-            rentalsLbl = new Label();
             paxLbl = new Label();
             packageLbl = new Label();
             guestNameLbl = new Label();
@@ -249,19 +247,19 @@
             bookingsTable.AllowUserToDeleteRows = false;
             bookingsTable.AllowUserToResizeColumns = false;
             bookingsTable.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 197, 149);
-            bookingsTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(235, 197, 149);
+            bookingsTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             bookingsTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             bookingsTable.BackgroundColor = Color.White;
             bookingsTable.BorderStyle = BorderStyle.Fixed3D;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            bookingsTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            bookingsTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             bookingsTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             bookingsTable.GridColor = Color.White;
             bookingsTable.Location = new Point(39, 96);
@@ -285,7 +283,6 @@
             bookingInformationPanel.Controls.Add(checkOutDateVal);
             bookingInformationPanel.Controls.Add(checkOutDateLbl);
             bookingInformationPanel.Controls.Add(guestNameLnkLbl);
-            bookingInformationPanel.Controls.Add(itemsLinkVal);
             bookingInformationPanel.Controls.Add(packageVal);
             bookingInformationPanel.Controls.Add(checkInDateVal);
             bookingInformationPanel.Controls.Add(paxVal);
@@ -295,7 +292,6 @@
             bookingInformationPanel.Controls.Add(editBtn);
             bookingInformationPanel.Controls.Add(guestImage);
             bookingInformationPanel.Controls.Add(checkInDateLbl);
-            bookingInformationPanel.Controls.Add(rentalsLbl);
             bookingInformationPanel.Controls.Add(paxLbl);
             bookingInformationPanel.Controls.Add(packageLbl);
             bookingInformationPanel.Controls.Add(guestNameLbl);
@@ -336,7 +332,7 @@
             // 
             paymentAmountVal.AutoSize = true;
             paymentAmountVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            paymentAmountVal.Location = new Point(215, 699);
+            paymentAmountVal.Location = new Point(215, 646);
             paymentAmountVal.Name = "paymentAmountVal";
             paymentAmountVal.Size = new Size(91, 30);
             paymentAmountVal.TabIndex = 34;
@@ -346,7 +342,7 @@
             // 
             paymentLbl.AutoSize = true;
             paymentLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            paymentLbl.Location = new Point(78, 698);
+            paymentLbl.Location = new Point(78, 645);
             paymentLbl.Name = "paymentLbl";
             paymentLbl.Size = new Size(102, 30);
             paymentLbl.TabIndex = 33;
@@ -384,19 +380,6 @@
             guestNameLnkLbl.TabStop = true;
             guestNameLnkLbl.Text = "Guest Name";
             guestNameLnkLbl.VisitedLinkColor = Color.FromArgb(83, 169, 181);
-            // 
-            // itemsLinkVal
-            // 
-            itemsLinkVal.AutoSize = true;
-            itemsLinkVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            itemsLinkVal.LinkColor = Color.FromArgb(40, 75, 83);
-            itemsLinkVal.Location = new Point(214, 648);
-            itemsLinkVal.Name = "itemsLinkVal";
-            itemsLinkVal.Size = new Size(77, 30);
-            itemsLinkVal.TabIndex = 29;
-            itemsLinkVal.TabStop = true;
-            itemsLinkVal.Text = "0 Items";
-            itemsLinkVal.VisitedLinkColor = Color.FromArgb(83, 169, 181);
             // 
             // packageVal
             // 
@@ -499,16 +482,6 @@
             checkInDateLbl.Size = new Size(93, 30);
             checkInDateLbl.TabIndex = 15;
             checkInDateLbl.Text = "Check In:";
-            // 
-            // rentalsLbl
-            // 
-            rentalsLbl.AutoSize = true;
-            rentalsLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            rentalsLbl.Location = new Point(78, 648);
-            rentalsLbl.Name = "rentalsLbl";
-            rentalsLbl.Size = new Size(83, 30);
-            rentalsLbl.TabIndex = 14;
-            rentalsLbl.Text = "Rentals:";
             // 
             // paxLbl
             // 
@@ -620,7 +593,6 @@
         private DataGridView bookingsTable;
         private Label guestNameLbl;
         private Label checkInDateLbl;
-        private Label rentalsLbl;
         private Label paxLbl;
         private Label packageLbl;
         private FontAwesome.Sharp.IconPictureBox editButton;
@@ -638,7 +610,6 @@
         private LinkLabel packageVal;
         private Label checkInDateVal;
         private Label paxVal;
-        private LinkLabel itemsLinkVal;
         private TopNavBar topNavBar1;
         private LinkLabel guestNameLnkLbl;
         private Label checkOutDateVal;

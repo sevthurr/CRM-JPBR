@@ -657,6 +657,7 @@
             contentPanel.Name = "contentPanel";
             contentPanel.Size = new Size(1924, 977);
             contentPanel.TabIndex = 44;
+            contentPanel.Paint += contentPanel_Paint;
             // 
             // Marketing
             // 

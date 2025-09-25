@@ -87,5 +87,9 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             }
         }
 
+        private void contentPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
