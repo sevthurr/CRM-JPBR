@@ -99,5 +99,10 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         {
 
         }
+
+        private void paxLbl_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             contactManagementLbl = new Label();
             topNavBar1 = new TopNavBar();
             contactListPanel = new Panel();
@@ -73,6 +73,8 @@
             paxLbl = new Label();
             nameLbl = new Label();
             guestInformationLbl = new Label();
+            tagVal = new Label();
+            label4 = new Label();
             contactListPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)guestTable).BeginInit();
             ((System.ComponentModel.ISupportInitialize)sortIcon).BeginInit();
@@ -89,10 +91,10 @@
             // contactManagementLbl
             // 
             contactManagementLbl.AutoSize = true;
-            contactManagementLbl.Font = new Font("Poppins", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            contactManagementLbl.Font = new Font("Microsoft Sans Serif", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             contactManagementLbl.Location = new Point(55, 101);
             contactManagementLbl.Name = "contactManagementLbl";
-            contactManagementLbl.Size = new Size(413, 60);
+            contactManagementLbl.Size = new Size(359, 39);
             contactManagementLbl.TabIndex = 4;
             contactManagementLbl.Text = "Contact Management";
             // 
@@ -126,8 +128,8 @@
             // 
             guestTable.AllowUserToAddRows = false;
             guestTable.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 197, 149);
-            guestTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(235, 197, 149);
+            guestTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             guestTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             guestTable.BackgroundColor = Color.White;
             guestTable.BorderStyle = BorderStyle.Fixed3D;
@@ -143,25 +145,25 @@
             // sortComboBox
             // 
             sortComboBox.BackColor = Color.White;
-            sortComboBox.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            sortComboBox.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             sortComboBox.ForeColor = SystemColors.WindowFrame;
             sortComboBox.FormattingEnabled = true;
-            sortComboBox.ItemHeight = 26;
+            sortComboBox.ItemHeight = 18;
             sortComboBox.Items.AddRange(new object[] { "Name (Asc)", "Name (Dsc)", "Date (Asc)", "Date (Dsc)" });
             sortComboBox.Location = new Point(1086, 34);
             sortComboBox.Name = "sortComboBox";
-            sortComboBox.Size = new Size(132, 34);
+            sortComboBox.Size = new Size(132, 26);
             sortComboBox.TabIndex = 31;
             sortComboBox.Text = "Sort";
             // 
             // contactListLbl
             // 
             contactListLbl.AutoSize = true;
-            contactListLbl.Font = new Font("Poppins", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            contactListLbl.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             contactListLbl.ForeColor = Color.Black;
             contactListLbl.Location = new Point(39, 29);
             contactListLbl.Name = "contactListLbl";
-            contactListLbl.Size = new Size(158, 40);
+            contactListLbl.Size = new Size(149, 29);
             contactListLbl.TabIndex = 8;
             contactListLbl.Text = "Contact List";
             // 
@@ -183,11 +185,11 @@
             // 
             label3.AutoSize = true;
             label3.BackColor = Color.White;
-            label3.Font = new Font("Poppins", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.Black;
             label3.Location = new Point(31, 20);
             label3.Name = "label3";
-            label3.Size = new Size(0, 40);
+            label3.Size = new Size(0, 29);
             label3.TabIndex = 12;
             // 
             // filterIcon
@@ -207,21 +209,21 @@
             // filterComboBox
             // 
             filterComboBox.BackColor = Color.White;
-            filterComboBox.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            filterComboBox.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             filterComboBox.ForeColor = SystemColors.WindowFrame;
             filterComboBox.FormattingEnabled = true;
-            filterComboBox.ItemHeight = 26;
+            filterComboBox.ItemHeight = 18;
             filterComboBox.Items.AddRange(new object[] { "Booked", "Staying", "Completed", "Cancelled", "", "Fully Paid", "Partial", "Downpayment" });
             filterComboBox.Location = new Point(888, 33);
             filterComboBox.Name = "filterComboBox";
-            filterComboBox.Size = new Size(132, 34);
+            filterComboBox.Size = new Size(132, 26);
             filterComboBox.TabIndex = 28;
             filterComboBox.Text = "Filter";
             // 
             // searchBoxLbl
             // 
             searchBoxLbl.BackColor = Color.White;
-            searchBoxLbl.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            searchBoxLbl.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             searchBoxLbl.ForeColor = SystemColors.WindowFrame;
             searchBoxLbl.Location = new Point(521, 34);
             searchBoxLbl.Multiline = true;
@@ -255,50 +257,50 @@
             // contactLbl
             // 
             contactLbl.AutoSize = true;
-            contactLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            contactLbl.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             contactLbl.Location = new Point(97, 483);
             contactLbl.Name = "contactLbl";
-            contactLbl.Size = new Size(117, 30);
+            contactLbl.Size = new Size(108, 20);
             contactLbl.TabIndex = 15;
             contactLbl.Text = "Contact No.";
             // 
             // bkHistoryLbl
             // 
             bkHistoryLbl.AutoSize = true;
-            bkHistoryLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bkHistoryLbl.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             bkHistoryLbl.Location = new Point(97, 663);
             bkHistoryLbl.Name = "bkHistoryLbl";
-            bkHistoryLbl.Size = new Size(156, 30);
+            bkHistoryLbl.Size = new Size(149, 20);
             bkHistoryLbl.TabIndex = 14;
             bkHistoryLbl.Text = "Booking History:";
             // 
             // marketingLbl
             // 
             marketingLbl.AutoSize = true;
-            marketingLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            marketingLbl.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             marketingLbl.Location = new Point(97, 603);
             marketingLbl.Name = "marketingLbl";
-            marketingLbl.Size = new Size(189, 30);
+            marketingLbl.Size = new Size(178, 20);
             marketingLbl.TabIndex = 13;
             marketingLbl.Text = "Marketing Consent: ";
             // 
             // socialsLbl
             // 
             socialsLbl.AutoSize = true;
-            socialsLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            socialsLbl.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             socialsLbl.Location = new Point(97, 543);
             socialsLbl.Name = "socialsLbl";
-            socialsLbl.Size = new Size(80, 30);
+            socialsLbl.Size = new Size(77, 20);
             socialsLbl.TabIndex = 12;
             socialsLbl.Text = "Socials:";
             // 
             // guestNameLbl
             // 
             guestNameLbl.AutoSize = true;
-            guestNameLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guestNameLbl.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             guestNameLbl.Location = new Point(97, 423);
             guestNameLbl.Name = "guestNameLbl";
-            guestNameLbl.Size = new Size(125, 30);
+            guestNameLbl.Size = new Size(119, 20);
             guestNameLbl.TabIndex = 10;
             guestNameLbl.Text = "Guest Name:";
             // 
@@ -352,7 +354,7 @@
             // deleteBtn
             // 
             deleteBtn.BackColor = Color.Red;
-            deleteBtn.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            deleteBtn.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             deleteBtn.ForeColor = Color.White;
             deleteBtn.Location = new Point(247, 336);
             deleteBtn.Name = "deleteBtn";
@@ -364,7 +366,7 @@
             // editBtn
             // 
             editBtn.BackColor = Color.FromArgb(255, 173, 70);
-            editBtn.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            editBtn.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             editBtn.ForeColor = Color.White;
             editBtn.Location = new Point(142, 336);
             editBtn.Name = "editBtn";
@@ -385,11 +387,11 @@
             // guestInfoLbl
             // 
             guestInfoLbl.AutoSize = true;
-            guestInfoLbl.Font = new Font("Poppins", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guestInfoLbl.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
             guestInfoLbl.ForeColor = Color.Black;
             guestInfoLbl.Location = new Point(115, 31);
             guestInfoLbl.Name = "guestInfoLbl";
-            guestInfoLbl.Size = new Size(252, 44);
+            guestInfoLbl.Size = new Size(230, 29);
             guestInfoLbl.TabIndex = 8;
             guestInfoLbl.Text = "Guest Information";
             // 
@@ -398,6 +400,8 @@
             bookingInformationPanel.AutoScroll = true;
             bookingInformationPanel.BackColor = Color.White;
             bookingInformationPanel.BorderStyle = BorderStyle.FixedSingle;
+            bookingInformationPanel.Controls.Add(tagVal);
+            bookingInformationPanel.Controls.Add(label4);
             bookingInformationPanel.Controls.Add(linkLabel2);
             bookingInformationPanel.Controls.Add(linkLabel1);
             bookingInformationPanel.Controls.Add(radioButton2);
@@ -427,7 +431,7 @@
             linkLabel2.AutoSize = true;
             linkLabel2.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             linkLabel2.LinkColor = Color.FromArgb(40, 75, 83);
-            linkLabel2.Location = new Point(236, 600);
+            linkLabel2.Location = new Point(242, 649);
             linkLabel2.Name = "linkLabel2";
             linkLabel2.Size = new Size(19, 23);
             linkLabel2.TabIndex = 41;
@@ -439,7 +443,7 @@
             // 
             linkLabel1.AutoSize = true;
             linkLabel1.LinkColor = Color.FromArgb(40, 75, 83);
-            linkLabel1.Location = new Point(216, 554);
+            linkLabel1.Location = new Point(216, 537);
             linkLabel1.Name = "linkLabel1";
             linkLabel1.Size = new Size(106, 20);
             linkLabel1.TabIndex = 40;
@@ -450,10 +454,10 @@
             // radioButton2
             // 
             radioButton2.AutoSize = true;
-            radioButton2.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            radioButton2.Location = new Point(331, 657);
+            radioButton2.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            radioButton2.Location = new Point(337, 708);
             radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(55, 30);
+            radioButton2.Size = new Size(49, 22);
             radioButton2.TabIndex = 39;
             radioButton2.TabStop = true;
             radioButton2.Text = "Off";
@@ -463,10 +467,10 @@
             // radioButton1
             // 
             radioButton1.AutoSize = true;
-            radioButton1.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            radioButton1.Location = new Point(270, 657);
+            radioButton1.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            radioButton1.Location = new Point(276, 708);
             radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(55, 30);
+            radioButton1.Size = new Size(49, 22);
             radioButton1.TabIndex = 38;
             radioButton1.TabStop = true;
             radioButton1.Text = "On";
@@ -475,40 +479,40 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(204, 522);
+            label2.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(204, 505);
             label2.Name = "label2";
-            label2.Size = new Size(192, 30);
+            label2.Size = new Size(158, 20);
             label2.TabIndex = 37;
             label2.Text = "facebook.com/guest";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(204, 464);
+            label1.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(204, 447);
             label1.Name = "label1";
-            label1.Size = new Size(152, 30);
+            label1.Size = new Size(121, 20);
             label1.TabIndex = 36;
             label1.Text = "+639-000-0000";
             // 
             // guestName
             // 
             guestName.AutoSize = true;
-            guestName.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            guestName.Location = new Point(204, 402);
+            guestName.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            guestName.Location = new Point(204, 385);
             guestName.Name = "guestName";
-            guestName.Size = new Size(120, 30);
+            guestName.Size = new Size(103, 20);
             guestName.TabIndex = 35;
             guestName.Text = "Guest Name";
             // 
             // paymentLbl
             // 
             paymentLbl.AutoSize = true;
-            paymentLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            paymentLbl.Location = new Point(71, 658);
+            paymentLbl.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            paymentLbl.Location = new Point(77, 709);
             paymentLbl.Name = "paymentLbl";
-            paymentLbl.Size = new Size(185, 30);
+            paymentLbl.Size = new Size(172, 20);
             paymentLbl.TabIndex = 33;
             paymentLbl.Text = "Marketing Consent:";
             // 
@@ -541,7 +545,7 @@
             // button1
             // 
             button1.BackColor = Color.Red;
-            button1.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button1.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.White;
             button1.Location = new Point(247, 325);
             button1.Name = "button1";
@@ -553,7 +557,7 @@
             // button2
             // 
             button2.BackColor = Color.FromArgb(255, 173, 70);
-            button2.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button2.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button2.ForeColor = Color.White;
             button2.Location = new Point(138, 325);
             button2.Name = "button2";
@@ -574,54 +578,75 @@
             // contactNumberLbl
             // 
             contactNumberLbl.AutoSize = true;
-            contactNumberLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            contactNumberLbl.Location = new Point(71, 464);
+            contactNumberLbl.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            contactNumberLbl.Location = new Point(71, 447);
             contactNumberLbl.Name = "contactNumberLbl";
-            contactNumberLbl.Size = new Size(117, 30);
+            contactNumberLbl.Size = new Size(109, 20);
             contactNumberLbl.TabIndex = 15;
             contactNumberLbl.Text = "Contact No:";
             // 
             // rentalsLbl
             // 
             rentalsLbl.AutoSize = true;
-            rentalsLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            rentalsLbl.Location = new Point(71, 522);
+            rentalsLbl.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            rentalsLbl.Location = new Point(71, 505);
             rentalsLbl.Name = "rentalsLbl";
-            rentalsLbl.Size = new Size(80, 30);
+            rentalsLbl.Size = new Size(77, 20);
             rentalsLbl.TabIndex = 14;
             rentalsLbl.Text = "Socials:";
             // 
             // paxLbl
             // 
             paxLbl.AutoSize = true;
-            paxLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            paxLbl.Location = new Point(71, 600);
+            paxLbl.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            paxLbl.Location = new Point(77, 649);
             paxLbl.Name = "paxLbl";
-            paxLbl.Size = new Size(156, 30);
+            paxLbl.Size = new Size(149, 20);
             paxLbl.TabIndex = 13;
             paxLbl.Text = "Booking History:";
+            paxLbl.Click += paxLbl_Click;
             // 
             // nameLbl
             // 
             nameLbl.AutoSize = true;
-            nameLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            nameLbl.Location = new Point(71, 406);
+            nameLbl.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            nameLbl.Location = new Point(71, 389);
             nameLbl.Name = "nameLbl";
-            nameLbl.Size = new Size(71, 30);
+            nameLbl.Size = new Size(63, 20);
             nameLbl.TabIndex = 10;
             nameLbl.Text = "Name:";
             // 
             // guestInformationLbl
             // 
             guestInformationLbl.AutoSize = true;
-            guestInformationLbl.Font = new Font("Poppins", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guestInformationLbl.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             guestInformationLbl.ForeColor = Color.Black;
             guestInformationLbl.Location = new Point(128, 24);
             guestInformationLbl.Name = "guestInformationLbl";
-            guestInformationLbl.Size = new Size(232, 40);
+            guestInformationLbl.Size = new Size(218, 29);
             guestInformationLbl.TabIndex = 8;
             guestInformationLbl.Text = "Guest Information";
             guestInformationLbl.Click += bookingInformationLbl_Click;
+            // 
+            // tagVal
+            // 
+            tagVal.AutoSize = true;
+            tagVal.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tagVal.Location = new Point(216, 588);
+            tagVal.Name = "tagVal";
+            tagVal.Size = new Size(48, 20);
+            tagVal.TabIndex = 43;
+            tagVal.Text = "None";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.Location = new Point(79, 588);
+            label4.Name = "label4";
+            label4.Size = new Size(46, 20);
+            label4.TabIndex = 42;
+            label4.Text = "Tag:";
             // 
             // ContactManagement
             // 
@@ -707,5 +732,7 @@
         private RadioButton radioButton1;
         private Label label2;
         private DataGridView guestTable;
+        private Label tagVal;
+        private Label label4;
     }
 }

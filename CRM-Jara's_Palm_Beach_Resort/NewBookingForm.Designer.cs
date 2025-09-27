@@ -32,6 +32,8 @@
             newBookingLbl = new Label();
             guestInfoLbl = new Label();
             guestInfoPanel = new Panel();
+            emailTb = new TextBox();
+            emailLbl = new Label();
             contactTb = new TextBox();
             platformCb = new ComboBox();
             contactLbl = new Label();
@@ -64,8 +66,7 @@
             BookingInfoLbl = new Label();
             newBookingPanel = new Panel();
             proceedPaymentBtn = new Button();
-            emailTb = new TextBox();
-            emailLbl = new Label();
+            platformLbl = new Label();
             guestInfoPanel.SuspendLayout();
             bookingInfoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)guestQty).BeginInit();
@@ -111,6 +112,7 @@
             // guestInfoPanel
             // 
             guestInfoPanel.BackColor = Color.White;
+            guestInfoPanel.Controls.Add(platformLbl);
             guestInfoPanel.Controls.Add(emailTb);
             guestInfoPanel.Controls.Add(emailLbl);
             guestInfoPanel.Controls.Add(contactTb);
@@ -132,6 +134,29 @@
             guestInfoPanel.Size = new Size(790, 235);
             guestInfoPanel.TabIndex = 3;
             // 
+            // emailTb
+            // 
+            emailTb.BackColor = Color.White;
+            emailTb.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            emailTb.ForeColor = Color.Black;
+            emailTb.Location = new Point(232, 159);
+            emailTb.Multiline = true;
+            emailTb.Name = "emailTb";
+            emailTb.PlaceholderText = "Email Address";
+            emailTb.Size = new Size(180, 32);
+            emailTb.TabIndex = 18;
+            // 
+            // emailLbl
+            // 
+            emailLbl.AutoSize = true;
+            emailLbl.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            emailLbl.ForeColor = Color.DimGray;
+            emailLbl.Location = new Point(232, 133);
+            emailLbl.Name = "emailLbl";
+            emailLbl.Size = new Size(95, 16);
+            emailLbl.TabIndex = 17;
+            emailLbl.Text = "Email Address";
+            // 
             // contactTb
             // 
             contactTb.BackColor = Color.White;
@@ -148,7 +173,7 @@
             // 
             platformCb.BackColor = Color.White;
             platformCb.FormattingEnabled = true;
-            platformCb.Items.AddRange(new object[] { "Facebook", "Instagram", "Email", "Mobile" });
+            platformCb.Items.AddRange(new object[] { "Facebook", "Instagram", "Mobile" });
             platformCb.Location = new Point(629, 163);
             platformCb.Name = "platformCb";
             platformCb.Size = new Size(121, 28);
@@ -506,28 +531,16 @@
             proceedPaymentBtn.UseVisualStyleBackColor = false;
             proceedPaymentBtn.Click += proceedPaymentBtn_Click_1;
             // 
-            // emailTb
+            // platformLbl
             // 
-            emailTb.BackColor = Color.White;
-            emailTb.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            emailTb.ForeColor = Color.Black;
-            emailTb.Location = new Point(232, 159);
-            emailTb.Multiline = true;
-            emailTb.Name = "emailTb";
-            emailTb.PlaceholderText = "Email Address";
-            emailTb.Size = new Size(180, 32);
-            emailTb.TabIndex = 18;
-            // 
-            // emailLbl
-            // 
-            emailLbl.AutoSize = true;
-            emailLbl.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            emailLbl.ForeColor = Color.DimGray;
-            emailLbl.Location = new Point(232, 133);
-            emailLbl.Name = "emailLbl";
-            emailLbl.Size = new Size(95, 16);
-            emailLbl.TabIndex = 17;
-            emailLbl.Text = "Email Address";
+            platformLbl.AutoSize = true;
+            platformLbl.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            platformLbl.ForeColor = Color.DimGray;
+            platformLbl.Location = new Point(626, 133);
+            platformLbl.Name = "platformLbl";
+            platformLbl.Size = new Size(56, 16);
+            platformLbl.TabIndex = 19;
+            platformLbl.Text = "Platform";
             // 
             // NewBookingForm
             // 
@@ -597,5 +610,6 @@
         private Label label1;
         private TextBox emailTb;
         private Label emailLbl;
+        private Label platformLbl;
     }
 }
