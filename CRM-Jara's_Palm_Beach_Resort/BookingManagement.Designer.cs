@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             bookingListsPanel = new Panel();
             sortComboBox = new ComboBox();
             sortIcon = new FontAwesome.Sharp.IconPictureBox();
@@ -247,19 +247,19 @@
             bookingsTable.AllowUserToDeleteRows = false;
             bookingsTable.AllowUserToResizeColumns = false;
             bookingsTable.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 197, 149);
-            bookingsTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(235, 197, 149);
+            bookingsTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             bookingsTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             bookingsTable.BackgroundColor = Color.White;
             bookingsTable.BorderStyle = BorderStyle.Fixed3D;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            bookingsTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            bookingsTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             bookingsTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             bookingsTable.GridColor = Color.White;
             bookingsTable.Location = new Point(39, 96);
@@ -331,8 +331,8 @@
             // paymentAmountVal
             // 
             paymentAmountVal.AutoSize = true;
-            paymentAmountVal.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            paymentAmountVal.Location = new Point(215, 649);
+            paymentAmountVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            paymentAmountVal.Location = new Point(215, 646);
             paymentAmountVal.Name = "paymentAmountVal";
             paymentAmountVal.Size = new Size(78, 20);
             paymentAmountVal.TabIndex = 34;
@@ -341,8 +341,8 @@
             // paymentLbl
             // 
             paymentLbl.AutoSize = true;
-            paymentLbl.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            paymentLbl.Location = new Point(78, 648);
+            paymentLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            paymentLbl.Location = new Point(78, 645);
             paymentLbl.Name = "paymentLbl";
             paymentLbl.Size = new Size(93, 20);
             paymentLbl.TabIndex = 33;

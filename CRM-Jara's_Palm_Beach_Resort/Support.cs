@@ -58,5 +58,40 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             supportForm.Show();
             this.Hide();
         }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Support_Load(object sender, EventArgs e)
+        {
+            ticketsTable.ColumnHeadersDefaultCellStyle.Font = new Font("Poppins", 10F, FontStyle.Bold);
+            ticketsTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            ticketsTable.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
+
+            ticketsTable.DefaultCellStyle.Font = new Font("Poppins", 9F, FontStyle.Regular);
+            ticketsTable.DefaultCellStyle.ForeColor = Color.Black;
+
+            // SAMPLE DATA -- REMOVE THIS DURING BACKEND DEVELOPMENT GUYS
+            ticketsTable.Rows.Add("T001", "Broken AC", "Casa Keona", "Repair", "Ballerina Capucina", "High");
+            ticketsTable.Rows.Add("T002", "Additional tubig", "Function Hall", "Equipment/Product Request", "Tung Tung Sahur", "Medium");
+          
+        }
+
+        private void ticketsTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void s_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
