@@ -76,23 +76,30 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 string.IsNullOrWhiteSpace(lastNameTb.Text) ||
                 string.IsNullOrWhiteSpace(addressTb.Text) ||
                 string.IsNullOrWhiteSpace(contactTb.Text) ||
-                string.IsNullOrWhiteSpace(platformCb.Text))
+                string.IsNullOrWhiteSpace(platformCb.Text) ||
+                string.IsNullOrWhiteSpace(emailTb.Text))
             {
-                MessageBox.Show("Please fill in all required fields (First Name, Last Name, Address, Contact, Platform).", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please fill in all required fields (First Name, Last Name, Address, Contact, Platform, Email).", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Validate contact (10-15 digits, optional +)
+            // Validate contact
             if (!Regex.IsMatch(contactTb.Text, @"^\+?\d{10,15}$"))
             {
                 MessageBox.Show("Please enter a valid contact number (10-15 digits, optional + prefix).", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Validate email (optional, but must be valid if provided)
-            if (!string.IsNullOrWhiteSpace(emailTb.Text) && !Regex.IsMatch(emailTb.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            if (new AccountManager().IsContactNumberUsed(contactTb.Text))
             {
-                MessageBox.Show("Please enter a valid email address or leave it empty.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Contact number is already used.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Validate email
+            if (!Regex.IsMatch(emailTb.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                MessageBox.Show("Please enter a valid email address.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -129,32 +136,32 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             }
 
             // Proceed to payment
-            var paymentForm = new BookingPayment(GetFormData());
-            paymentForm.StartPosition = FormStartPosition.CenterParent;
-            paymentForm.FormBorderStyle = FormBorderStyle.FixedDialog;
-            paymentForm.ShowInTaskbar = false;
-            paymentForm.MaximizeBox = false;
-            paymentForm.MinimizeBox = true;
-            this.Hide();
-            paymentForm.ShowDialog(this);
-            if (paymentForm.DialogResult == DialogResult.Retry)
+            using (var paymentForm = new BookingPayment(GetFormData()))
             {
-                // User clicked backBtn in BookingPayment
-                if (paymentForm.RestoreData != null)
+                paymentForm.StartPosition = FormStartPosition.CenterParent;
+                paymentForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+                paymentForm.ShowInTaskbar = false;
+                paymentForm.MaximizeBox = false;
+                paymentForm.MinimizeBox = true;
+                this.Hide();
+                var result = paymentForm.ShowDialog(this);
+                if (result == DialogResult.Retry)
                 {
-                    SetFormData(paymentForm.RestoreData);
+                    if (paymentForm.RestoreData != null)
+                    {
+                        SetFormData(paymentForm.RestoreData);
+                    }
+                    this.Show();
                 }
-                this.Show();
-            }
-            else if (paymentForm.DialogResult == DialogResult.OK)
-            {
-                // User confirmed booking, close this form
-                this.Close();
-            }
-            else
-            {
-                // User closed payment form, show this form again
-                this.Show();
+                else if (result == DialogResult.OK)
+                {
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                else
+                {
+                    this.Show();
+                }
             }
         }
 

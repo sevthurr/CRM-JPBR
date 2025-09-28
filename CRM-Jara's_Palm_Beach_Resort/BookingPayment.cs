@@ -26,6 +26,47 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             this.StartPosition = FormStartPosition.CenterParent;
             this.ShowInTaskbar = false;
             this.MinimizeBox = true;
+
+            PopulateSummary();
+        }
+
+        private void PopulateSummary()
+        {
+            // Package
+            string packageName = _restoreData.PackageASelected ? "Package A" : "Package B";
+            decimal basePrice = _restoreData.PackageASelected ? 15000m : 20000m;
+            int maxGuests = _restoreData.PackageASelected ? 4 : 6;
+            decimal extraGuestRate = _restoreData.PackageASelected ? 2000m : 2500m;
+
+            packageVal.Text = packageName;
+            packageAmount.Text = $"(₱ {basePrice:N0})";
+
+            // Days staying
+            int daysStaying = (_restoreData.CheckOut.Date - _restoreData.CheckIn.Date).Days;
+            daysStayingVal.Text = $"{daysStaying} night{(daysStaying > 1 ? "s" : "")}";
+            daysStayingAmount.Text = $"(₱ {basePrice * daysStaying:N0})";
+
+            // Excess persons
+            int excessGuests = Math.Max(0, _restoreData.GuestQty - maxGuests);
+            decimal excessAmount = excessGuests * extraGuestRate * daysStaying;
+            excessPersonVal.Text = excessGuests > 0 ? $"{excessGuests} person{(excessGuests > 1 ? "s" : "")}" : "None";
+            excessPersonAmount.Text = $"(₱ {excessAmount:N0})";
+
+            // Promo discount
+            decimal discountPercentage = 0m;
+            if (_restoreData.PromoCode == "SUMMER25")
+            {
+                discountPercentage = 25m;
+            }
+            decimal totalBeforeDiscount = (basePrice * daysStaying) + excessAmount;
+            decimal discountAmount = totalBeforeDiscount * (discountPercentage / 100m);
+            promoDiscountLbl.Text = string.IsNullOrWhiteSpace(_restoreData.PromoCode) ? "No Promo Code" : _restoreData.PromoCode;
+            this.discountPercentage.Text = discountPercentage > 0 ? $"{discountPercentage}%" : "0%";
+            this.discountAmount.Text = $"(₱ {discountAmount:N0})";
+
+            // Total amount
+            decimal totalAmount = totalBeforeDiscount - discountAmount;
+            totalAmountVal.Text = $"₱ {totalAmount:N0}";
         }
 
         private void backBtn_Click(object sender, EventArgs e)

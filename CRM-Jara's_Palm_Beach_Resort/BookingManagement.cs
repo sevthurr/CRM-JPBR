@@ -15,6 +15,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
     {
 
         private readonly AccountManager _accountManager;
+        private bool _isOpeningModal = false; // To prevent multiple modals
 
         public BookingManagement()
         {
@@ -23,6 +24,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             topNavBar1.SetActive("BookingManagement");
             topNavBar1.Dock = DockStyle.Top;
             paymentHistoryBtn.Click += paymentHistoryBtn_Click;
+            bookingsTable.SelectionChanged += bookingsTable_SelectionChanged;
         }
 
         private void dashboardBtn_Click(object sender, EventArgs e)
@@ -81,19 +83,8 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             bookingsTable.DefaultCellStyle.Font = new Font("Poppins", 10F, FontStyle.Regular);
             bookingsTable.DefaultCellStyle.ForeColor = Color.Black;
 
-            // Load data from database
-            DataTable bookings = _accountManager.GetBookingList();
-            foreach (DataRow row in bookings.Rows)
-            {
-                bookingsTable.Rows.Add(
-                    row["BookingID"],
-                    row["GuestName"],
-                    Convert.ToDateTime(row["Date"]).ToString("MM-dd-yyyy"),
-                    row["Status"],
-                    row["Payment"]
-                    ); // Placeholder for Actions
-            }
-
+            RefreshBookingsTable();
+            ClearBookingInformation();
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -108,15 +99,43 @@ namespace CRM_Jara_s_Palm_Beach_Resort
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Show modal form centered, no blur
-            using (var modal = new NewBookingForm())
+            if (_isOpeningModal) return; // Prevent re-entrancy
+            _isOpeningModal = true;
+            try
             {
-                modal.StartPosition = FormStartPosition.CenterParent;
-                modal.FormBorderStyle = FormBorderStyle.FixedDialog;
-                modal.ShowInTaskbar = false;
-                modal.MaximizeBox = false; // Disable maximize
-                modal.MinimizeBox = true;  // Allow minimize if you want
-                modal.ShowDialog(this);
+                using (var modal = new NewBookingForm())
+                {
+                    modal.StartPosition = FormStartPosition.CenterParent;
+                    modal.FormBorderStyle = FormBorderStyle.FixedDialog;
+                    modal.ShowInTaskbar = false;
+                    modal.MaximizeBox = false;
+                    modal.MinimizeBox = true;
+                    var result = modal.ShowDialog(this);
+                    if (result == DialogResult.OK)
+                    {
+                        RefreshBookingsTable();
+                    }
+                }
+            }
+            finally
+            {
+                _isOpeningModal = false;
+            }
+        }
+
+        private void RefreshBookingsTable()
+        {
+            bookingsTable.Rows.Clear();
+            DataTable bookings = _accountManager.GetBookingList();
+            foreach (DataRow row in bookings.Rows)
+            {
+                bookingsTable.Rows.Add(
+                    row["BookingID"],
+                    row["GuestName"],
+                    Convert.ToDateTime(row["Date"]).ToString("MM-dd-yyyy"),
+                    row["Status"],
+                    row["Payment"]
+                );
             }
         }
 
@@ -167,5 +186,47 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 paymentForm.ShowDialog(this);
             }
         }
+
+        private void bookingsTable_SelectionChanged(object sender, EventArgs e)
+        {
+            if (bookingsTable.SelectedRows.Count > 0)
+            {
+                int bookingID = Convert.ToInt32(bookingsTable.SelectedRows[0].Cells["BookingID"].Value);
+                var (success, details) = _accountManager.GetBookingDetails(bookingID);
+                if (success && details != null)
+                {
+                    guestNameLnkLbl.Text = details.GuestName;
+                    packageVal.Text = details.Package;
+                    checkInDateVal.Text = details.CheckInDate.ToString("MM-dd-yyyy");
+                    checkOutDateVal.Text = details.CheckOutDate.ToString("MM-dd-yyyy");
+                    paxVal.Text = $"{details.Pax} guest{(details.Pax > 1 ? "s" : "")}";
+                    paymentAmountVal.Text = $"₱ {details.Amount:N0}";
+                    // Enable action buttons
+                    editBtn.Enabled = true;
+                    deleteBtn.Enabled = true;
+                }
+                else
+                {
+                    ClearBookingInformation();
+                }
+            }
+            else
+            {
+                ClearBookingInformation();
+            }
+        }
+
+        private void ClearBookingInformation()
+        {
+            guestNameLnkLbl.Text = string.Empty;
+            packageVal.Text = string.Empty;
+            checkInDateVal.Text = string.Empty;
+            checkOutDateVal.Text = string.Empty;
+            paxVal.Text = string.Empty;
+            paymentAmountVal.Text = string.Empty;
+            editBtn.Enabled = false;
+            deleteBtn.Enabled = false;
+        }
+
     }
 }

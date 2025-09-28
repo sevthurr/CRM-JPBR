@@ -271,6 +271,8 @@
             bookingsTable.TabIndex = 17;
             bookingsTable.CellContentClick += bookingsTable_CellContentClick;
             bookingsTable.Paint += tableLayoutPanel1_Paint;
+            bookingsTable.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            bookingsTable.MultiSelect = false;
             // 
             // bookingInformationPanel
             // 

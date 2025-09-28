@@ -131,6 +131,28 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             }
         }
 
+        public bool IsContactNumberUsed(string contact)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = "SELECT COUNT(1) FROM [dbo].[Guest] WHERE Phone = @Phone";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Phone", contact);
+                        return (int)cmd.ExecuteScalar() > 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error checking contact number: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+        }
+
         public (bool Success, int BookingID) CreateBooking(BookingFormData data, int userID)
         {
             if (userID <= 0)
@@ -158,7 +180,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                         guestCmd.Parameters.AddWithValue("@MName", (object)data.MiddleName ?? DBNull.Value);
                         guestCmd.Parameters.AddWithValue("@LName", data.LastName);
                         guestCmd.Parameters.AddWithValue("@Suffix", (object)data.Suffix ?? DBNull.Value);
-                        guestCmd.Parameters.AddWithValue("@Email", (object)data.Email ?? DBNull.Value);
+                        guestCmd.Parameters.AddWithValue("@Email", data.Email); // Mandatory, no DBNull
                         guestCmd.Parameters.AddWithValue("@Phone", data.Contact);
                         guestCmd.Parameters.AddWithValue("@Address", data.Address);
                         guestCmd.Parameters.AddWithValue("@Contactable", 1);
@@ -182,7 +204,19 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                         bookingDetailsID = (int)bookingDetailsCmd.ExecuteScalar();
                     }
 
-                    // Insert into PaymentDetails table (placeholder values)
+                    // Calculate payment amount
+                    decimal basePrice = data.PackageASelected ? 15000m : 20000m;
+                    int maxGuests = data.PackageASelected ? 4 : 6;
+                    decimal extraGuestRate = data.PackageASelected ? 2000m : 2500m;
+                    int daysStaying = (data.CheckOut.Date - data.CheckIn.Date).Days;
+                    int excessGuests = Math.Max(0, data.GuestQty - maxGuests);
+                    decimal excessAmount = excessGuests * extraGuestRate * daysStaying;
+                    decimal totalBeforeDiscount = (basePrice * daysStaying) + excessAmount;
+                    decimal discountPercentage = data.PromoCode == "SUMMER25" ? 25m : 0m;
+                    decimal discountAmount = totalBeforeDiscount * (discountPercentage / 100m);
+                    decimal totalAmount = totalBeforeDiscount - discountAmount;
+
+                    // Insert into PaymentDetails table
                     string paymentQuery = @"INSERT INTO [dbo].[PaymentDetails] (PaymentDate, Amount, PaymentMethod, PaymentStatus)
                                           OUTPUT INSERTED.PaymentID
                                           VALUES (@PaymentDate, @Amount, @PaymentMethod, @PaymentStatus)";
@@ -190,8 +224,8 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                     using (SqlCommand paymentCmd = new SqlCommand(paymentQuery, conn, transaction))
                     {
                         paymentCmd.Parameters.AddWithValue("@PaymentDate", DateTime.Today);
-                        paymentCmd.Parameters.AddWithValue("@Amount", 0.00m); // Placeholder
-                        paymentCmd.Parameters.AddWithValue("@PaymentMethod", "Pending"); // Placeholder
+                        paymentCmd.Parameters.AddWithValue("@Amount", totalAmount);
+                        paymentCmd.Parameters.AddWithValue("@PaymentMethod", "Pending"); // Update later
                         paymentCmd.Parameters.AddWithValue("@PaymentStatus", "Pending");
                         paymentID = (int)paymentCmd.ExecuteScalar();
                     }
@@ -223,6 +257,56 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             }
         }
 
+        public (bool Success, BookingDetailsData BookingDetails) GetBookingDetails(int bookingID)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = @"
+                        SELECT 
+                            g.FName + ' ' + ISNULL(g.MName + ' ', '') + g.LName AS GuestName,
+                            bd.Package,
+                            bd.CheckInDate,
+                            bd.CheckOutDate,
+                            bd.Pax,
+                            pd.Amount
+                        FROM [dbo].[Booking] b
+                        JOIN [dbo].[Guest] g ON b.GuestID = g.GuestID
+                        JOIN [dbo].[BookingDetails] bd ON b.BookingDetailsID = bd.BookingDetailsID
+                        JOIN [dbo].[PaymentDetails] pd ON b.PaymentID = pd.PaymentID
+                        WHERE b.BookingID = @BookingID";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@BookingID", bookingID);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                var details = new BookingDetailsData
+                                {
+                                    GuestName = reader["GuestName"].ToString(),
+                                    Package = reader["Package"].ToString(),
+                                    CheckInDate = Convert.ToDateTime(reader["CheckInDate"]),
+                                    CheckOutDate = Convert.ToDateTime(reader["CheckOutDate"]),
+                                    Pax = Convert.ToInt32(reader["Pax"]),
+                                    Amount = Convert.ToDecimal(reader["Amount"])
+                                };
+                                return (true, details);
+                            }
+                        }
+                    }
+                    return (false, null);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error fetching booking details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return (false, null);
+                }
+            }
+        }
+
         public DataTable GetBookingList()
         {
             DataTable bookings = new DataTable();
@@ -245,5 +329,16 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             }
         }
 
+
+    }
+
+    public class BookingDetailsData
+    {
+        public string GuestName { get; set; }
+        public string Package { get; set; }
+        public DateTime CheckInDate { get; set; }
+        public DateTime CheckOutDate { get; set; }
+        public int Pax { get; set; }
+        public decimal Amount { get; set; }
     }
 }
