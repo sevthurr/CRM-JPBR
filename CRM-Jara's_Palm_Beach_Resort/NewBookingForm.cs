@@ -109,10 +109,20 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 return;
             }
 
-            if (new AccountManager().IsContactNumberUsed(contactTb.Text))
+            if (this.Text != "Edit Booking")
             {
-                MessageBox.Show("Contact number is already used.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                AccountManager manager = new AccountManager();
+                if (manager.IsContactNumberUsed(contactTb.Text))
+                {
+                    MessageBox.Show("Contact number is already used.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                // Check date overlap
+                if (manager.CheckBookingOverlap(checkInDp.Value, checkOutDp.Value))
+                {
+                    MessageBox.Show("The selected dates are already booked. Please choose another date range.", "Booking Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
             }
 
             // Validate email

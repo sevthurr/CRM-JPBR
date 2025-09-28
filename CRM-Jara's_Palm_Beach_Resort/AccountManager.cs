@@ -161,6 +161,13 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 return (false, -1);
             }
 
+            // Check for date overlap
+            if (CheckBookingOverlap(data.CheckIn, data.CheckOut))
+            {
+                MessageBox.Show("The selected dates are already booked. Please choose another date range.", "Booking Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return (false, -1);
+            }
+
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlTransaction transaction = null;
@@ -330,6 +337,36 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             }
         }
 
+        // Method to check for date conflicts
+        public bool CheckBookingOverlap(DateTime checkIn, DateTime checkOut)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = @"
+                        SELECT COUNT(1)
+                        FROM [dbo].[BookingDetails] bd
+                        JOIN [dbo].[Booking] b ON bd.BookingDetailsID = b.BookingDetailsID
+                        WHERE bd.BookingStatus != 'Canceled'
+                        AND (
+                            (@CheckIn <= bd.CheckOutDate AND @CheckOut >= bd.CheckInDate)
+                        )";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@CheckIn", checkIn.Date);
+                        cmd.Parameters.AddWithValue("@CheckOut", checkOut.Date);
+                        return (int)cmd.ExecuteScalar() > 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error checking booking overlap: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return true; // Assume overlap on error to prevent booking
+                }
+            }
+        }
 
     }
 
