@@ -34,9 +34,9 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         {
             // Package
             string packageName = _restoreData.PackageASelected ? "Package A" : "Package B";
-            decimal basePrice = _restoreData.PackageASelected ? 15000m : 20000m;
-            int maxGuests = _restoreData.PackageASelected ? 4 : 6;
-            decimal extraGuestRate = _restoreData.PackageASelected ? 2000m : 2500m;
+            decimal basePrice = _restoreData.PackageASelected ? 15000m : 12000m;
+            int maxGuests = _restoreData.PackageASelected ? 30 : 20;
+            decimal extraGuestRate = 100m;
 
             packageVal.Text = packageName;
             packageAmount.Text = $"(₱ {basePrice:N0})";
@@ -111,7 +111,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             }
 
             AccountManager manager = new AccountManager();
-            var (success, bookingID) = manager.CreateBooking(_restoreData, Session.CurrentUserID);
+            var (success, bookingID) = manager.CreateBooking(_restoreData, Session.CurrentUserID, paymentMethodCb.Text);
             if (success)
             {
                 MessageBox.Show($"Booking created successfully! Booking ID: {bookingID}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);

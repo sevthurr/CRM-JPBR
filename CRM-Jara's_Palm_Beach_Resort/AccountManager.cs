@@ -153,7 +153,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             }
         }
 
-        public (bool Success, int BookingID) CreateBooking(BookingFormData data, int userID)
+        public (bool Success, int BookingID) CreateBooking(BookingFormData data, int userID, string paymentMethod)
         {
             if (userID <= 0)
             {
@@ -180,7 +180,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                         guestCmd.Parameters.AddWithValue("@MName", (object)data.MiddleName ?? DBNull.Value);
                         guestCmd.Parameters.AddWithValue("@LName", data.LastName);
                         guestCmd.Parameters.AddWithValue("@Suffix", (object)data.Suffix ?? DBNull.Value);
-                        guestCmd.Parameters.AddWithValue("@Email", data.Email); // Mandatory, no DBNull
+                        guestCmd.Parameters.AddWithValue("@Email", data.Email);
                         guestCmd.Parameters.AddWithValue("@Phone", data.Contact);
                         guestCmd.Parameters.AddWithValue("@Address", data.Address);
                         guestCmd.Parameters.AddWithValue("@Contactable", 1);
@@ -189,9 +189,9 @@ namespace CRM_Jara_s_Palm_Beach_Resort
 
                     // Insert into BookingDetails table
                     string package = data.PackageASelected ? "Package A" : "Package B";
-                    string bookingDetailsQuery = @"INSERT INTO [dbo].[BookingDetails] (BookingDate, CheckInDate, CheckOutDate, BookingStatus, Pax, Package)
+                    string bookingDetailsQuery = @"INSERT INTO [dbo].[BookingDetails] (BookingDate, CheckInDate, CheckOutDate, BookingStatus, Pax, Package, PromoCode)
                                                  OUTPUT INSERTED.BookingDetailsID
-                                                 VALUES (@BookingDate, @CheckInDate, @CheckOutDate, @BookingStatus, @Pax, @Package)";
+                                                 VALUES (@BookingDate, @CheckInDate, @CheckOutDate, @BookingStatus, @Pax, @Package, @PromoCode)";
                     int bookingDetailsID;
                     using (SqlCommand bookingDetailsCmd = new SqlCommand(bookingDetailsQuery, conn, transaction))
                     {
@@ -201,13 +201,14 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                         bookingDetailsCmd.Parameters.AddWithValue("@BookingStatus", "Pending");
                         bookingDetailsCmd.Parameters.AddWithValue("@Pax", data.GuestQty);
                         bookingDetailsCmd.Parameters.AddWithValue("@Package", package);
+                        bookingDetailsCmd.Parameters.AddWithValue("@PromoCode", (object)data.PromoCode ?? DBNull.Value);
                         bookingDetailsID = (int)bookingDetailsCmd.ExecuteScalar();
                     }
 
                     // Calculate payment amount
-                    decimal basePrice = data.PackageASelected ? 15000m : 20000m;
-                    int maxGuests = data.PackageASelected ? 4 : 6;
-                    decimal extraGuestRate = data.PackageASelected ? 2000m : 2500m;
+                    decimal basePrice = data.PackageASelected ? 15000m : 12000m;
+                    int maxGuests = data.PackageASelected ? 30 : 20;
+                    decimal extraGuestRate = 100m;
                     int daysStaying = (data.CheckOut.Date - data.CheckIn.Date).Days;
                     int excessGuests = Math.Max(0, data.GuestQty - maxGuests);
                     decimal excessAmount = excessGuests * extraGuestRate * daysStaying;
@@ -225,7 +226,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                     {
                         paymentCmd.Parameters.AddWithValue("@PaymentDate", DateTime.Today);
                         paymentCmd.Parameters.AddWithValue("@Amount", totalAmount);
-                        paymentCmd.Parameters.AddWithValue("@PaymentMethod", "Pending"); // Update later
+                        paymentCmd.Parameters.AddWithValue("@PaymentMethod", paymentMethod);
                         paymentCmd.Parameters.AddWithValue("@PaymentStatus", "Pending");
                         paymentID = (int)paymentCmd.ExecuteScalar();
                     }

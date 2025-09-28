@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO.Packaging;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -25,6 +26,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             packageAPanel.Paint += packageAPanel_Paint;
             packageBPanel.Paint += packageBPanel_Paint;
             proceedPaymentBtn.Click += proceedPaymentBtn_Click;
+            guestQty.ValueChanged += guestQty_ValueChanged;
         }
 
         // Store form data in a serializable object
@@ -67,6 +69,23 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             textBox1.Text = data.PromoCode;
             packageARBtn.Checked = data.PackageASelected;
             packageBRbtn.Checked = data.PackageBSelected;
+        }
+
+        private void guestQty_ValueChanged(object sender, EventArgs e)
+        {
+            int maxGuests = packageARBtn.Checked ? 30 : packageBRbtn.Checked ? 20 : 0;
+
+            if (maxGuests > 0 && guestQty.Value > maxGuests)
+            {
+                string packageName = packageARBtn.Checked ? "Package A" : "Package B";
+                MessageBox.Show(
+                    $"Warning: Guest quantity exceeds the limit of {maxGuests} for {packageName}. " +
+                    "Excess guests will be charged ₱100 per person per night.",
+                    "Guest Limit",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+            }
         }
 
         private void proceedPaymentBtn_Click(object sender, EventArgs e)
