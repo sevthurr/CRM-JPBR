@@ -153,11 +153,23 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             }
         }
 
-        public (bool Success, int BookingID) CreateBooking(BookingFormData data, int userID, string paymentMethod)
+        public (bool Success, int BookingID) CreateBooking(BookingFormData data, int userID, string paymentMethod, string purpose, decimal amount)
         {
             if (userID <= 0)
             {
                 MessageBox.Show("You must be logged in to create a booking.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return (false, -1);
+            }
+
+            if (string.IsNullOrWhiteSpace(purpose))
+            {
+                MessageBox.Show("Payment purpose is required.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return (false, -1);
+            }
+
+            if (amount <= 0)
+            {
+                MessageBox.Show("Payment amount must be greater than zero.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return (false, -1);
             }
 
@@ -212,29 +224,18 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                         bookingDetailsID = (int)bookingDetailsCmd.ExecuteScalar();
                     }
 
-                    // Calculate payment amount
-                    decimal basePrice = data.PackageASelected ? 15000m : 12000m;
-                    int maxGuests = data.PackageASelected ? 30 : 20;
-                    decimal extraGuestRate = 100m;
-                    int daysStaying = (data.CheckOut.Date - data.CheckIn.Date).Days;
-                    int excessGuests = Math.Max(0, data.GuestQty - maxGuests);
-                    decimal excessAmount = excessGuests * extraGuestRate * daysStaying;
-                    decimal totalBeforeDiscount = (basePrice * daysStaying) + excessAmount;
-                    decimal discountPercentage = data.PromoCode == "SUMMER25" ? 25m : 0m;
-                    decimal discountAmount = totalBeforeDiscount * (discountPercentage / 100m);
-                    decimal totalAmount = totalBeforeDiscount - discountAmount;
-
-                    // Insert into PaymentDetails table
-                    string paymentQuery = @"INSERT INTO [dbo].[PaymentDetails] (PaymentDate, Amount, PaymentMethod, PaymentStatus)
+                    // Insert into PaymentDetails table with user-entered amount
+                    string paymentQuery = @"INSERT INTO [dbo].[PaymentDetails] (PaymentDate, Amount, PaymentMethod, PaymentStatus, Purpose)
                                           OUTPUT INSERTED.PaymentID
-                                          VALUES (@PaymentDate, @Amount, @PaymentMethod, @PaymentStatus)";
+                                          VALUES (@PaymentDate, @Amount, @PaymentMethod, @PaymentStatus, @Purpose)";
                     int paymentID;
                     using (SqlCommand paymentCmd = new SqlCommand(paymentQuery, conn, transaction))
                     {
                         paymentCmd.Parameters.AddWithValue("@PaymentDate", DateTime.Today);
-                        paymentCmd.Parameters.AddWithValue("@Amount", totalAmount);
+                        paymentCmd.Parameters.AddWithValue("@Amount", amount);
                         paymentCmd.Parameters.AddWithValue("@PaymentMethod", paymentMethod);
                         paymentCmd.Parameters.AddWithValue("@PaymentStatus", "Pending");
+                        paymentCmd.Parameters.AddWithValue("@Purpose", purpose);
                         paymentID = (int)paymentCmd.ExecuteScalar();
                     }
 
@@ -252,7 +253,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                     }
 
                     // Log the action
-                    LogAction(userID, "CreateBooking", $"Created booking ID {bookingID} for guest {data.FirstName} {data.LastName}");
+                    LogAction(userID, "CreateBooking", $"Created booking ID {bookingID} for guest {data.FirstName} {data.LastName} with purpose {purpose}");
                     transaction.Commit();
                     return (true, bookingID);
                 }
@@ -368,6 +369,41 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             }
         }
 
+        public DataTable GetPaymentHistory(int bookingID)
+        {
+            DataTable payments = new DataTable();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = @"
+                        SELECT 
+                            pd.PaymentID,
+                            pd.Amount,
+                            pd.Purpose,
+                            pd.PaymentDate,
+                            g.FName + ' ' + ISNULL(g.MName + ' ', '') + g.LName AS GuestName
+                        FROM [dbo].[PaymentDetails] pd
+                        JOIN [dbo].[Booking] b ON pd.PaymentID = b.PaymentID
+                        JOIN [dbo].[Guest] g ON b.GuestID = g.GuestID
+                        WHERE b.BookingID = @BookingID";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@BookingID", bookingID);
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            adapter.Fill(payments);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error fetching payment history: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                return payments;
+            }
+        }
     }
 
     public class BookingDetailsData

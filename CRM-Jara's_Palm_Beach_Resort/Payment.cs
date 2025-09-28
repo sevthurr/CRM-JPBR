@@ -12,9 +12,14 @@ namespace CRM_Jara_s_Palm_Beach_Resort
 {
     public partial class Payment : Form
     {
-        public Payment()
+        private readonly AccountManager _accountManager;
+        private readonly int _bookingID;
+
+        public Payment(int bookingID)
         {
             InitializeComponent();
+            _accountManager = new AccountManager();
+            _bookingID = bookingID;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -47,10 +52,18 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             paymentTable.RowTemplate.Height = 32;
             paymentTable.Size = new Size(750, 120);
 
-            // Sample data
-            paymentTable.Rows.Add("P001", "Php 2,000.00", "Downpayment", "2024-06-01", "John Doe");
-            paymentTable.Rows.Add("P002", "Php 1,500.00", "Full Payment", "2024-06-05", "Jane Smith");
-            paymentTable.Rows.Add("P003", "Php 3,000.00", "Downpayment", "2024-06-10", "Alice Brown");
+            // Load data from database
+            DataTable payments = _accountManager.GetPaymentHistory(_bookingID);
+            foreach (DataRow row in payments.Rows)
+            {
+                paymentTable.Rows.Add(
+                    row["PaymentID"],
+                    $"Php {Convert.ToDecimal(row["Amount"]):N2}",
+                    row["Purpose"],
+                    Convert.ToDateTime(row["PaymentDate"]).ToString("yyyy-MM-dd"),
+                    row["GuestName"]
+                );
+            }
         }
     }
 }

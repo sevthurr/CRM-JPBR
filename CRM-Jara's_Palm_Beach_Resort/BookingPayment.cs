@@ -87,11 +87,12 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 return;
             }
 
-            // Validate form data (basic check, as NewBookingForm validates most fields)
+            // Validate form data
             if (string.IsNullOrWhiteSpace(_restoreData.FirstName) ||
                 string.IsNullOrWhiteSpace(_restoreData.LastName) ||
                 string.IsNullOrWhiteSpace(_restoreData.Address) ||
                 string.IsNullOrWhiteSpace(_restoreData.Contact) ||
+                string.IsNullOrWhiteSpace(_restoreData.Email) ||
                 (!_restoreData.PackageASelected && !_restoreData.PackageBSelected))
             {
                 MessageBox.Show("Invalid booking data. Please go back and complete all required fields.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -100,18 +101,54 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 return;
             }
 
-            // TODO: Add payment field validation (e.g., amountTb, paymentMethodCb)
-            // Example:
-            if (string.IsNullOrWhiteSpace(amountTb.Text) || !decimal.TryParse(amountTb.Text, out decimal amount) || amount <= 0)
+            // Validate payment fields
+            if (string.IsNullOrWhiteSpace(paymentMethodCb.Text))
             {
-                MessageBox.Show("Please enter a valid payment amount.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                this.DialogResult = DialogResult.Retry;
-                this.Close();
+                MessageBox.Show("Please select a payment method.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (paymentMethodCb.Text != "Cash" && (string.IsNullOrWhiteSpace(accountNameTb.Text) || string.IsNullOrWhiteSpace(accountNumberTb.Text)))
+            {
+                MessageBox.Show("Please provide account name and number for non-cash payments.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (!decimal.TryParse(amountTb.Text, out decimal amount) || amount <= 0)
+            {
+                MessageBox.Show("Please enter a valid payment amount greater than zero.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(purposeCb.Text))
+            {
+                MessageBox.Show("Please select a payment purpose.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Calculate expected total
+            decimal basePrice = _restoreData.PackageASelected ? 15000m : 12000m;
+            int maxGuests = _restoreData.PackageASelected ? 30 : 20;
+            decimal extraGuestRate = 100m;
+            int daysStaying = (_restoreData.CheckOut.Date - _restoreData.CheckIn.Date).Days;
+            int excessGuests = Math.Max(0, _restoreData.GuestQty - maxGuests);
+            decimal excessAmount = excessGuests * extraGuestRate * daysStaying;
+            decimal totalBeforeDiscount = (basePrice * daysStaying) + excessAmount;
+            decimal discountPercentage = _restoreData.PromoCode == "SUMMER25" ? 25m : 0m;
+            decimal discountAmount = totalBeforeDiscount * (discountPercentage / 100m);
+            decimal expectedTotal = totalBeforeDiscount - discountAmount;
+
+            // Validate payment amount based on purpose
+            if (purposeCb.Text == "Full Payment" && amount != expectedTotal)
+            {
+                MessageBox.Show($"For Full Payment, the amount (₱ {amount:N0}) must equal the total due (₱ {expectedTotal:N0}).", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (purposeCb.Text == "Downpayment" && amount > expectedTotal)
+            {
+                MessageBox.Show($"For Downpayment, the amount (₱ {amount:N0}) cannot exceed the total due (₱ {expectedTotal:N0}).", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             AccountManager manager = new AccountManager();
-            var (success, bookingID) = manager.CreateBooking(_restoreData, Session.CurrentUserID, paymentMethodCb.Text);
+            var (success, bookingID) = manager.CreateBooking(_restoreData, Session.CurrentUserID, paymentMethodCb.Text, purposeCb.Text, amount);
             if (success)
             {
                 MessageBox.Show($"Booking created successfully! Booking ID: {bookingID}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);

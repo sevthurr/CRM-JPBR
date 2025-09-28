@@ -176,7 +176,14 @@ namespace CRM_Jara_s_Palm_Beach_Resort
 
         private void paymentHistoryBtn_Click(object sender, EventArgs e)
         {
-            using (var paymentForm = new Payment())
+            if (bookingsTable.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select a booking to view payment history.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int bookingID = Convert.ToInt32(bookingsTable.SelectedRows[0].Cells["BookingID"].Value);
+            using (var paymentForm = new Payment(bookingID))
             {
                 paymentForm.StartPosition = FormStartPosition.CenterParent;
                 paymentForm.FormBorderStyle = FormBorderStyle.FixedDialog;
