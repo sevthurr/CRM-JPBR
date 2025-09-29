@@ -70,7 +70,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         private void BookingManagement_Load(object sender, EventArgs e)
         {
             bookingsTable.Columns.Clear();
-            string[] headers = { "Booking ID", "Guest Name", "Date", "Status", "Payment"};
+            string[] headers = { "Booking ID", "Guest Name", "Date", "Status", "Payment" };
             foreach (var header in headers)
             {
                 bookingsTable.Columns.Add(header.Replace(" ", ""), header);
@@ -83,6 +83,8 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             bookingsTable.DefaultCellStyle.Font = new Font("Poppins", 10F, FontStyle.Regular);
             bookingsTable.DefaultCellStyle.ForeColor = Color.Black;
 
+            // New: Update statuses before loading
+            _accountManager.UpdateBookingStatuses();
             RefreshBookingsTable();
             ClearBookingInformation();
         }
@@ -125,6 +127,9 @@ namespace CRM_Jara_s_Palm_Beach_Resort
 
         private void RefreshBookingsTable()
         {
+            // New: Ensure statuses are up-to-date before refreshing
+            _accountManager.UpdateBookingStatuses();
+
             bookingsTable.Rows.Clear();
             DataTable bookings = _accountManager.GetBookingList();
             foreach (DataRow row in bookings.Rows)

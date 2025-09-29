@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CRM_Jara_s_Palm_Beach_Resort
 {
@@ -597,6 +598,37 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 {
                     MessageBox.Show($"Error calculating total paid: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return 0m;
+                }
+            }
+        }
+
+        public void UpdateBookingStatuses()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = @"
+                UPDATE [dbo].[BookingDetails]
+                SET BookingStatus = 
+                    CASE 
+                        WHEN CheckInDate > @CurrentDate THEN 'Booked'
+                        WHEN CheckInDate <= @CurrentDate AND CheckOutDate > @CurrentDate THEN 'Staying'
+                        WHEN CheckOutDate <= @CurrentDate THEN 'Completed'
+                        ELSE BookingStatus
+                    END
+                WHERE BookingStatus NOT IN ('Cancelled', 'Completed')";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@CurrentDate", DateTime.Now.Date);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error updating booking statuses: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
