@@ -341,7 +341,8 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 JOIN [dbo].[PaymentDetails] pd ON b.PaymentID = pd.PaymentID
                 GROUP BY 
                     b.BookingDetailsID,
-                    g.FName, g.MName, g.LName, bd.CheckInDate, bd.BookingStatus";
+                    g.FName, g.MName, g.LName, bd.CheckInDate, bd.BookingStatus
+                ORDER BY MIN(b.BookingID) DESC"; // Added ORDER BY
                     using (SqlDataAdapter adapter = new SqlDataAdapter(query, conn))
                     {
                         adapter.Fill(bookings);

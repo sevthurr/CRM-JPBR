@@ -127,7 +127,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
 
         private void RefreshBookingsTable()
         {
-            // New: Ensure statuses are up-to-date before refreshing
+            // Ensure statuses are up-to-date before refreshing
             _accountManager.UpdateBookingStatuses();
 
             bookingsTable.Rows.Clear();
