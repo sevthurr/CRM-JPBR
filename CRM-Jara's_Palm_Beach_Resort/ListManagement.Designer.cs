@@ -7,16 +7,16 @@ namespace CRM_Jara_s_Palm_Beach_Resort
     {
         private void InitializeComponent()
         {
-            this.SuspendLayout();
+            SuspendLayout();
             // 
             // ListManagement
             // 
-            this.AutoScaleDimensions = new SizeF(8F, 20F);
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = new Size(800, 450);
-            this.Name = "ListManagement";
-            this.Text = "List Management";
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1924, 977);
+            Name = "ListManagement";
+            Text = "List Management";
+            ResumeLayout(false);
         }
     }
 }

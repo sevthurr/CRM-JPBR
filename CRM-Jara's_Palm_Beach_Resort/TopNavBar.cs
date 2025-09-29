@@ -35,17 +35,19 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         private void InitUserMenu()
         {
             userMenu = new ContextMenuStrip();
+            var accountInfoItem = new ToolStripMenuItem("Account Information");
+            accountInfoItem.Click += (s, e) => OpenForm(new Account_Information());
             var accountItem = new ToolStripMenuItem("Account Management");
             accountItem.Click += (s, e) => OpenForm(new AccountManagement());
             var listItem = new ToolStripMenuItem("List Management");
             listItem.Click += (s, e) => OpenForm(new ListManagement());
             var logoutItem = new ToolStripMenuItem("Logout");
             logoutItem.Click += (s, e) => Logout();
-            userMenu.Items.AddRange(new ToolStripItem[] { accountItem, listItem, logoutItem });
+            userMenu.Items.AddRange(new ToolStripItem[] { accountInfoItem, accountItem, listItem, logoutItem });
 
             var bg = Color.FromArgb(40, 75, 83);
             var hover = Color.FromArgb(235, 197, 149); // requested hover color
-            userMenu.Font = new Font("Poppins", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            userMenu.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point);
             userMenu.BackColor = bg;
             userMenu.ForeColor = Color.White;
             userMenu.ShowImageMargin = false;
@@ -82,11 +84,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             {
                 var g = e.Graphics;
                 Rectangle rect = new Rectangle(Point.Empty, e.Item.Bounds.Size);
-                if (e.Item.Selected && !e.Item.IsOnDropDown)
-                {
-                    using (var b = new SolidBrush(_hover)) g.FillRectangle(b, rect);
-                }
-                else if (e.Item.Selected && e.Item.IsOnDropDown)
+                if (e.Item.Selected)
                 {
                     using (var b = new SolidBrush(_hover)) g.FillRectangle(b, rect);
                 }
