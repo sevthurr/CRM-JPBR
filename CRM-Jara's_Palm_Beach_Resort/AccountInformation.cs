@@ -16,5 +16,10 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         {
             InitializeComponent();
         }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

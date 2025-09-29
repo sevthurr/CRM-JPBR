@@ -28,18 +28,43 @@
         /// </summary>
         private void InitializeComponent()
         {
+            topNavBar1 = new TopNavBar();
+            contactManagementLbl = new Label();
             SuspendLayout();
+            // 
+            // topNavBar1
+            // 
+            topNavBar1.Location = new Point(0, 0);
+            topNavBar1.Name = "topNavBar1";
+            topNavBar1.Size = new Size(2394, 72);
+            topNavBar1.TabIndex = 0;
+            // 
+            // contactManagementLbl
+            // 
+            contactManagementLbl.AutoSize = true;
+            contactManagementLbl.Font = new Font("Poppins", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            contactManagementLbl.Location = new Point(55, 101);
+            contactManagementLbl.Name = "contactManagementLbl";
+            contactManagementLbl.Size = new Size(391, 60);
+            contactManagementLbl.TabIndex = 5;
+            contactManagementLbl.Text = "Account Information";
             // 
             // Account_Information
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1924, 977);
+            Controls.Add(contactManagementLbl);
+            Controls.Add(topNavBar1);
             Name = "Account_Information";
             Text = "Account Information";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private TopNavBar topNavBar1;
+        private Label contactManagementLbl;
     }
 }
