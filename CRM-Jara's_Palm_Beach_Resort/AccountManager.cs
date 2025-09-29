@@ -156,31 +156,6 @@ namespace CRM_Jara_s_Palm_Beach_Resort
 
         public (bool Success, int BookingID) CreateBooking(BookingFormData data, int userID, string paymentMethod, string purpose, decimal amount)
         {
-            if (userID <= 0)
-            {
-                MessageBox.Show("You must be logged in to create a booking.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return (false, -1);
-            }
-
-            if (string.IsNullOrWhiteSpace(purpose))
-            {
-                MessageBox.Show("Payment purpose is required.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return (false, -1);
-            }
-
-            if (amount <= 0)
-            {
-                MessageBox.Show("Payment amount must be greater than zero.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return (false, -1);
-            }
-
-            // Check for date overlap
-            if (CheckBookingOverlap(data.CheckIn, data.CheckOut))
-            {
-                MessageBox.Show("The selected dates are already booked. Please choose another date range.", "Booking Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return (false, -1);
-            }
-
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlTransaction transaction = null;
@@ -189,61 +164,81 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                     conn.Open();
                     transaction = conn.BeginTransaction();
 
-                    // Insert into Guest table
-                    string guestQuery = @"INSERT INTO [dbo].[Guest] (FName, MName, LName, Suffix, Email, Phone, Address, [Contact-able])
-                                         OUTPUT INSERTED.GuestID
-                                         VALUES (@FName, @MName, @LName, @Suffix, @Email, @Phone, @Address, @Contactable)";
+                    // Step 1: Insert into Guest table
+                    string guestQuery = @"
+    INSERT INTO [dbo].[Guest] (FName, MName, LName, Suffix, Email, Phone, Address, Platform, [Contact-able])
+    OUTPUT INSERTED.GuestID
+    VALUES (@FName, @MName, @LName, @Suffix, @Email, @Phone, @Address, @Platform, @ContactAble)";
                     int guestID;
                     using (SqlCommand guestCmd = new SqlCommand(guestQuery, conn, transaction))
                     {
                         guestCmd.Parameters.AddWithValue("@FName", data.FirstName);
-                        guestCmd.Parameters.AddWithValue("@MName", (object)data.MiddleName ?? DBNull.Value);
+                        guestCmd.Parameters.AddWithValue("@MName", string.IsNullOrWhiteSpace(data.MiddleName) ? (object)DBNull.Value : data.MiddleName);
                         guestCmd.Parameters.AddWithValue("@LName", data.LastName);
-                        guestCmd.Parameters.AddWithValue("@Suffix", (object)data.Suffix ?? DBNull.Value);
+                        guestCmd.Parameters.AddWithValue("@Suffix", string.IsNullOrWhiteSpace(data.Suffix) ? (object)DBNull.Value : data.Suffix);
                         guestCmd.Parameters.AddWithValue("@Email", data.Email);
                         guestCmd.Parameters.AddWithValue("@Phone", data.Contact);
                         guestCmd.Parameters.AddWithValue("@Address", data.Address);
-                        guestCmd.Parameters.AddWithValue("@Contactable", 1);
+                        guestCmd.Parameters.AddWithValue("@Platform", data.Platform);
+                        guestCmd.Parameters.AddWithValue("@ContactAble", 1); // Parameter for Contact-able
                         guestID = (int)guestCmd.ExecuteScalar();
                     }
 
-                    // Insert into BookingDetails table
+                    // Step 2: Calculate TotalDue (reuse logic from GetTotalDue)
                     string package = data.PackageASelected ? "Package A" : "Package B";
-                    string bookingDetailsQuery = @"INSERT INTO [dbo].[BookingDetails] (BookingDate, CheckInDate, CheckOutDate, BookingStatus, Pax, Package, PromoCode)
-                                                 OUTPUT INSERTED.BookingDetailsID
-                                                 VALUES (@BookingDate, @CheckInDate, @CheckOutDate, @BookingStatus, @Pax, @Package, @PromoCode)";
+                    decimal basePrice = data.PackageASelected ? 15000m : 12000m;
+                    int maxGuests = data.PackageASelected ? 30 : 20;
+                    decimal extraGuestRate = 100m;
+                    int daysStaying = (data.CheckOut.Date - data.CheckIn.Date).Days;
+                    if (daysStaying <= 0)
+                    {
+                        throw new Exception("Check-out date must be after check-in date.");
+                    }
+                    int excessGuests = Math.Max(0, data.GuestQty - maxGuests);
+                    decimal excessAmount = excessGuests * extraGuestRate * daysStaying;
+                    decimal totalBeforeDiscount = (basePrice * daysStaying) + excessAmount;
+                    decimal discountPercentage = data.PromoCode == "SUMMER25" ? 25m : 0m;
+                    decimal discountAmount = totalBeforeDiscount * (discountPercentage / 100m);
+                    decimal totalDue = totalBeforeDiscount - discountAmount;
+
+                    // Step 3: Insert into BookingDetails table (now including TotalDue)
+                    string bookingDetailsQuery = @"
+                INSERT INTO [dbo].[BookingDetails] (BookingDate, CheckInDate, CheckOutDate, BookingStatus, Pax, Package, PromoCode, TotalDue)
+                OUTPUT INSERTED.BookingDetailsID
+                VALUES (@BookingDate, @CheckInDate, @CheckOutDate, 'Booked', @Pax, @Package, @PromoCode, @TotalDue)";
                     int bookingDetailsID;
                     using (SqlCommand bookingDetailsCmd = new SqlCommand(bookingDetailsQuery, conn, transaction))
                     {
-                        bookingDetailsCmd.Parameters.AddWithValue("@BookingDate", data.BookingDate.Date);
-                        bookingDetailsCmd.Parameters.AddWithValue("@CheckInDate", data.CheckIn.Date);
-                        bookingDetailsCmd.Parameters.AddWithValue("@CheckOutDate", data.CheckOut.Date);
-                        bookingDetailsCmd.Parameters.AddWithValue("@BookingStatus", "Pending");
+                        bookingDetailsCmd.Parameters.AddWithValue("@BookingDate", data.BookingDate);
+                        bookingDetailsCmd.Parameters.AddWithValue("@CheckInDate", data.CheckIn);
+                        bookingDetailsCmd.Parameters.AddWithValue("@CheckOutDate", data.CheckOut);
                         bookingDetailsCmd.Parameters.AddWithValue("@Pax", data.GuestQty);
                         bookingDetailsCmd.Parameters.AddWithValue("@Package", package);
-                        bookingDetailsCmd.Parameters.AddWithValue("@PromoCode", (object)data.PromoCode ?? DBNull.Value);
+                        bookingDetailsCmd.Parameters.AddWithValue("@PromoCode", string.IsNullOrWhiteSpace(data.PromoCode) ? (object)DBNull.Value : data.PromoCode);
+                        bookingDetailsCmd.Parameters.AddWithValue("@TotalDue", totalDue);  // New: Insert calculated TotalDue
                         bookingDetailsID = (int)bookingDetailsCmd.ExecuteScalar();
                     }
 
-                    // Insert into PaymentDetails table with user-entered amount
-                    string paymentQuery = @"INSERT INTO [dbo].[PaymentDetails] (PaymentDate, Amount, PaymentMethod, PaymentStatus, Purpose)
-                                          OUTPUT INSERTED.PaymentID
-                                          VALUES (@PaymentDate, @Amount, @PaymentMethod, @PaymentStatus, @Purpose)";
+                    // Step 4: Insert into PaymentDetails table
+                    string paymentQuery = @"
+                INSERT INTO [dbo].[PaymentDetails] (PaymentDate, Amount, PaymentMethod, PaymentStatus, Purpose)
+                OUTPUT INSERTED.PaymentID
+                VALUES (@PaymentDate, @Amount, @PaymentMethod, 'Pending', @Purpose)";
                     int paymentID;
                     using (SqlCommand paymentCmd = new SqlCommand(paymentQuery, conn, transaction))
                     {
-                        paymentCmd.Parameters.AddWithValue("@PaymentDate", DateTime.Today);
+                        paymentCmd.Parameters.AddWithValue("@PaymentDate", DateTime.Now);
                         paymentCmd.Parameters.AddWithValue("@Amount", amount);
                         paymentCmd.Parameters.AddWithValue("@PaymentMethod", paymentMethod);
-                        paymentCmd.Parameters.AddWithValue("@PaymentStatus", "Pending");
                         paymentCmd.Parameters.AddWithValue("@Purpose", purpose);
                         paymentID = (int)paymentCmd.ExecuteScalar();
                     }
 
-                    // Insert into Booking table
-                    string bookingQuery = @"INSERT INTO [dbo].[Booking] (GuestID, BookingDetailsID, PaymentID)
-                                          OUTPUT INSERTED.BookingID
-                                          VALUES (@GuestID, @BookingDetailsID, @PaymentID)";
+                    // Step 5: Insert into Booking table
+                    string bookingQuery = @"
+                INSERT INTO [dbo].[Booking] (GuestID, BookingDetailsID, PaymentID)
+                OUTPUT INSERTED.BookingID
+                VALUES (@GuestID, @BookingDetailsID, @PaymentID)";
                     int bookingID;
                     using (SqlCommand bookingCmd = new SqlCommand(bookingQuery, conn, transaction))
                     {
@@ -254,7 +249,8 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                     }
 
                     // Log the action
-                    LogAction(userID, "CreateBooking", $"Created booking ID {bookingID} for guest {data.FirstName} {data.LastName} with purpose {purpose}");
+                    LogAction(userID, "CreateBooking", $"Created new booking with ID {bookingID} for guest ID {guestID}");
+
                     transaction.Commit();
                     return (true, bookingID);
                 }
