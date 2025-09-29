@@ -274,18 +274,21 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 {
                     conn.Open();
                     string query = @"
-                        SELECT 
-                            g.FName + ' ' + ISNULL(g.MName + ' ', '') + g.LName AS GuestName,
-                            bd.Package,
-                            bd.CheckInDate,
-                            bd.CheckOutDate,
-                            bd.Pax,
-                            pd.Amount
-                        FROM [dbo].[Booking] b
-                        JOIN [dbo].[Guest] g ON b.GuestID = g.GuestID
-                        JOIN [dbo].[BookingDetails] bd ON b.BookingDetailsID = bd.BookingDetailsID
-                        JOIN [dbo].[PaymentDetails] pd ON b.PaymentID = pd.PaymentID
-                        WHERE b.BookingID = @BookingID";
+                SELECT 
+                    g.FName + ' ' + ISNULL(g.MName + ' ', '') + g.LName AS GuestName,
+                    bd.Package,
+                    bd.CheckInDate,
+                    bd.CheckOutDate,
+                    bd.Pax,
+                    SUM(pd.Amount) AS Amount
+                FROM [dbo].[Booking] b
+                JOIN [dbo].[Guest] g ON b.GuestID = g.GuestID
+                JOIN [dbo].[BookingDetails] bd ON b.BookingDetailsID = bd.BookingDetailsID
+                JOIN [dbo].[PaymentDetails] pd ON b.PaymentID = pd.PaymentID
+                WHERE b.BookingDetailsID = (SELECT BookingDetailsID FROM [dbo].[Booking] WHERE BookingID = @BookingID)
+                GROUP BY 
+                    g.FName, g.MName, g.LName, 
+                    bd.Package, bd.CheckInDate, bd.CheckOutDate, bd.Pax";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@BookingID", bookingID);
@@ -324,7 +327,20 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 try
                 {
                     conn.Open();
-                    string query = "SELECT BookingID, GuestName, [Date], [Status], [Payment] FROM [dbo].[BookingListView]";
+                    string query = @"
+                SELECT 
+                    MIN(b.BookingID) AS BookingID,
+                    g.FName + ' ' + ISNULL(g.MName + ' ', '') + g.LName AS GuestName,
+                    bd.CheckInDate AS [Date],
+                    bd.BookingStatus AS [Status],
+                    SUM(pd.Amount) AS [Payment]
+                FROM [dbo].[Booking] b
+                JOIN [dbo].[Guest] g ON b.GuestID = g.GuestID
+                JOIN [dbo].[BookingDetails] bd ON b.BookingDetailsID = bd.BookingDetailsID
+                JOIN [dbo].[PaymentDetails] pd ON b.PaymentID = pd.PaymentID
+                GROUP BY 
+                    b.BookingDetailsID,
+                    g.FName, g.MName, g.LName, bd.CheckInDate, bd.BookingStatus";
                     using (SqlDataAdapter adapter = new SqlDataAdapter(query, conn))
                     {
                         adapter.Fill(bookings);
@@ -387,7 +403,11 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                         FROM [dbo].[PaymentDetails] pd
                         JOIN [dbo].[Booking] b ON pd.PaymentID = b.PaymentID
                         JOIN [dbo].[Guest] g ON b.GuestID = g.GuestID
-                        WHERE b.BookingID = @BookingID";
+                        WHERE b.BookingDetailsID = (
+                            SELECT BookingDetailsID
+                            FROM [dbo].[Booking]
+                            WHERE BookingID = @BookingID
+                        )";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@BookingID", bookingID);
@@ -396,12 +416,188 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                             adapter.Fill(payments);
                         }
                     }
+                    if (payments.Rows.Count == 0)
+                    {
+                        LogAction(0, "GetPaymentHistory", $"No payments found for BookingID {bookingID}");
+                    }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Error fetching payment history: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    LogAction(0, "GetPaymentHistoryError", $"Error for BookingID {bookingID}: {ex.Message}");
                 }
                 return payments;
+            }
+        }
+
+        public bool AddPayment(int bookingID, int userID, string paymentMethod, string purpose, decimal amount)
+        {
+            if (userID <= 0)
+            {
+                MessageBox.Show("You must be logged in to add a payment.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(purpose))
+            {
+                MessageBox.Show("Payment purpose is required.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            if (amount <= 0)
+            {
+                MessageBox.Show("Payment amount must be greater than zero.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlTransaction transaction = null;
+                try
+                {
+                    conn.Open();
+                    transaction = conn.BeginTransaction();
+
+                    // Get GuestID and BookingDetailsID from Booking table
+                    string idsQuery = @"
+                        SELECT GuestID, BookingDetailsID
+                        FROM [dbo].[Booking]
+                        WHERE BookingID = @BookingID";
+                    int guestID = 0, bookingDetailsID = 0;
+                    using (SqlCommand idsCmd = new SqlCommand(idsQuery, conn, transaction))
+                    {
+                        idsCmd.Parameters.AddWithValue("@BookingID", bookingID);
+                        using (SqlDataReader reader = idsCmd.ExecuteReader())
+                        {
+                            if (!reader.Read())
+                            {
+                                MessageBox.Show("Booking not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                transaction?.Rollback();
+                                return false;
+                            }
+                            guestID = (int)reader["GuestID"];
+                            bookingDetailsID = (int)reader["BookingDetailsID"];
+                        }
+                    }
+
+                    // Insert into PaymentDetails table
+                    string paymentQuery = @"
+                        INSERT INTO [dbo].[PaymentDetails] (PaymentDate, Amount, PaymentMethod, PaymentStatus, Purpose)
+                        OUTPUT INSERTED.PaymentID
+                        VALUES (@PaymentDate, @Amount, @PaymentMethod, @PaymentStatus, @Purpose)";
+                    int paymentID;
+                    using (SqlCommand paymentCmd = new SqlCommand(paymentQuery, conn, transaction))
+                    {
+                        paymentCmd.Parameters.AddWithValue("@PaymentDate", DateTime.Today);
+                        paymentCmd.Parameters.AddWithValue("@Amount", amount);
+                        paymentCmd.Parameters.AddWithValue("@PaymentMethod", paymentMethod);
+                        paymentCmd.Parameters.AddWithValue("@PaymentStatus", "Pending");
+                        paymentCmd.Parameters.AddWithValue("@Purpose", purpose);
+                        paymentID = (int)paymentCmd.ExecuteScalar();
+                    }
+
+                    // Insert into Booking table to link the new payment
+                    string bookingQuery = @"
+                        INSERT INTO [dbo].[Booking] (GuestID, BookingDetailsID, PaymentID)
+                        VALUES (@GuestID, @BookingDetailsID, @PaymentID)";
+                    using (SqlCommand bookingCmd = new SqlCommand(bookingQuery, conn, transaction))
+                    {
+                        bookingCmd.Parameters.AddWithValue("@GuestID", guestID);
+                        bookingCmd.Parameters.AddWithValue("@BookingDetailsID", bookingDetailsID);
+                        bookingCmd.Parameters.AddWithValue("@PaymentID", paymentID);
+                        bookingCmd.ExecuteNonQuery();
+                    }
+
+                    // Log the action
+                    LogAction(userID, "AddPayment", $"Added payment of ₱{amount:N2} with purpose {purpose} for booking ID {bookingID}");
+                    transaction.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transaction?.Rollback();
+                    MessageBox.Show($"Error adding payment: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+        }
+
+        public decimal GetTotalDue(int bookingID)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = @"
+                        SELECT bd.Pax, bd.Package, bd.PromoCode, bd.CheckInDate, bd.CheckOutDate
+                        FROM [dbo].[Booking] b
+                        JOIN [dbo].[BookingDetails] bd ON b.BookingDetailsID = bd.BookingDetailsID
+                        WHERE b.BookingID = @BookingID";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@BookingID", bookingID);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                int pax = Convert.ToInt32(reader["Pax"]);
+                                string package = reader["Package"].ToString();
+                                string promoCode = reader["PromoCode"] != DBNull.Value ? reader["PromoCode"].ToString() : null;
+                                DateTime checkIn = Convert.ToDateTime(reader["CheckInDate"]);
+                                DateTime checkOut = Convert.ToDateTime(reader["CheckOutDate"]);
+
+                                decimal basePrice = package == "Package A" ? 15000m : 12000m;
+                                int maxGuests = package == "Package A" ? 30 : 20;
+                                decimal extraGuestRate = 100m;
+                                int daysStaying = (checkOut.Date - checkIn.Date).Days;
+                                int excessGuests = Math.Max(0, pax - maxGuests);
+                                decimal excessAmount = excessGuests * extraGuestRate * daysStaying;
+                                decimal totalBeforeDiscount = (basePrice * daysStaying) + excessAmount;
+                                decimal discountPercentage = promoCode == "SUMMER25" ? 25m : 0m;
+                                decimal discountAmount = totalBeforeDiscount * (discountPercentage / 100m);
+                                return totalBeforeDiscount - discountAmount;
+                            }
+                        }
+                    }
+                    return 0m;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error calculating total due: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return 0m;
+                }
+            }
+        }
+
+        public decimal GetTotalPaid(int bookingID)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = @"
+                        SELECT SUM(pd.Amount)
+                        FROM [dbo].[PaymentDetails] pd
+                        JOIN [dbo].[Booking] b ON pd.PaymentID = b.PaymentID
+                        WHERE b.BookingDetailsID = (
+                            SELECT BookingDetailsID
+                            FROM [dbo].[Booking]
+                            WHERE BookingID = @BookingID
+                        )";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@BookingID", bookingID);
+                        object result = cmd.ExecuteScalar();
+                        return result != DBNull.Value ? Convert.ToDecimal(result) : 0m;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error calculating total paid: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return 0m;
+                }
             }
         }
     }

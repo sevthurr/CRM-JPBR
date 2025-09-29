@@ -139,7 +139,6 @@
             // accountNumberTb
             // 
             accountNumberTb.BackColor = Color.White;
-            accountNumberTb.Enabled = false;
             accountNumberTb.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             accountNumberTb.ForeColor = Color.Black;
             accountNumberTb.Location = new Point(305, 161);
@@ -152,7 +151,6 @@
             // accountNameTb
             // 
             accountNameTb.BackColor = Color.White;
-            accountNameTb.Enabled = false;
             accountNameTb.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             accountNameTb.ForeColor = Color.Black;
             accountNameTb.Location = new Point(30, 160);
@@ -165,7 +163,6 @@
             // amountTb
             // 
             amountTb.BackColor = Color.White;
-            amountTb.Enabled = false;
             amountTb.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             amountTb.ForeColor = Color.Black;
             amountTb.Location = new Point(518, 82);
