@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             topNavBar1 = new TopNavBar();
             accountManagementLbl = new Label();
             accountsPanel = new Panel();
@@ -158,8 +158,8 @@
             // 
             accountsTable.AllowUserToAddRows = false;
             accountsTable.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(235, 197, 149);
-            accountsTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 197, 149);
+            accountsTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             accountsTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             accountsTable.BackgroundColor = Color.White;
             accountsTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
