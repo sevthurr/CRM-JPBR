@@ -60,6 +60,7 @@
             topnav.Name = "topnav";
             topnav.Size = new Size(1915, 70);
             topnav.TabIndex = 3;
+            topnav.Paint += topnav_Paint;
             // 
             // chevronDownBtn
             // 
