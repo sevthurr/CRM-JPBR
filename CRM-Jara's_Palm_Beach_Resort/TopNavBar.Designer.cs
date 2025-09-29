@@ -60,6 +60,7 @@
             topnav.Name = "topnav";
             topnav.Size = new Size(1915, 70);
             topnav.TabIndex = 3;
+            topnav.Paint += topnav_Paint;
             // 
             // chevronDownBtn
             // 
@@ -68,7 +69,7 @@
             chevronDownBtn.IconColor = Color.White;
             chevronDownBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             chevronDownBtn.IconSize = 27;
-            chevronDownBtn.Location = new Point(1825, 22);
+            chevronDownBtn.Location = new Point(1845, 22);
             chevronDownBtn.Name = "chevronDownBtn";
             chevronDownBtn.Size = new Size(27, 33);
             chevronDownBtn.TabIndex = 2;
@@ -79,7 +80,7 @@
             supportBtn.AutoSize = true;
             supportBtn.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             supportBtn.ForeColor = Color.White;
-            supportBtn.Location = new Point(1672, 20);
+            supportBtn.Location = new Point(1692, 20);
             supportBtn.Name = "supportBtn";
             supportBtn.Size = new Size(95, 36);
             supportBtn.TabIndex = 10;
@@ -90,7 +91,7 @@
             marketingBtn.AutoSize = true;
             marketingBtn.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             marketingBtn.ForeColor = Color.White;
-            marketingBtn.Location = new Point(1503, 19);
+            marketingBtn.Location = new Point(1523, 19);
             marketingBtn.Name = "marketingBtn";
             marketingBtn.Size = new Size(114, 36);
             marketingBtn.TabIndex = 9;
@@ -101,7 +102,7 @@
             guestsBtn.AutoSize = true;
             guestsBtn.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             guestsBtn.ForeColor = Color.White;
-            guestsBtn.Location = new Point(1358, 19);
+            guestsBtn.Location = new Point(1378, 19);
             guestsBtn.Name = "guestsBtn";
             guestsBtn.Size = new Size(83, 36);
             guestsBtn.TabIndex = 8;
@@ -112,7 +113,7 @@
             bookingsBtn.AutoSize = true;
             bookingsBtn.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             bookingsBtn.ForeColor = Color.White;
-            bookingsBtn.Location = new Point(1188, 19);
+            bookingsBtn.Location = new Point(1208, 19);
             bookingsBtn.Name = "bookingsBtn";
             bookingsBtn.Size = new Size(105, 36);
             bookingsBtn.TabIndex = 7;
@@ -123,7 +124,7 @@
             dashboardBtn.AutoSize = true;
             dashboardBtn.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dashboardBtn.ForeColor = Color.White;
-            dashboardBtn.Location = new Point(996, 19);
+            dashboardBtn.Location = new Point(1016, 19);
             dashboardBtn.Name = "dashboardBtn";
             dashboardBtn.Size = new Size(128, 36);
             dashboardBtn.TabIndex = 6;
