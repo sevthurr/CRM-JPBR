@@ -16,6 +16,8 @@ namespace CRM_Jara_s_Palm_Beach_Resort
 
         private readonly AccountManager _accountManager;
         private bool _isOpeningModal = false; // To prevent multiple modals
+        private string _currentSearchText = "";
+        private string _currentFilterStatus = "";
 
         public BookingManagement()
         {
@@ -27,6 +29,10 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             bookingsTable.SelectionChanged += bookingsTable_SelectionChanged;
 
             cancelBtn.Click += cancelBtn_Click;
+
+            // Add event handlers for search and filter
+            searchBoxLbl.TextChanged += searchBoxLbl_TextChanged;
+            filterComboBox.SelectedIndexChanged += filterComboBox_SelectedIndexChanged;
         }
 
         private void dashboardBtn_Click(object sender, EventArgs e)
@@ -134,7 +140,29 @@ namespace CRM_Jara_s_Palm_Beach_Resort
 
             bookingsTable.Rows.Clear();
             DataTable bookings = _accountManager.GetBookingList();
-            foreach (DataRow row in bookings.Rows)
+
+            // Apply search and filter
+            var filteredRows = bookings.AsEnumerable();
+
+            // Apply search filter
+            if (!string.IsNullOrWhiteSpace(_currentSearchText))
+            {
+                filteredRows = filteredRows.Where(row =>
+                    row["BookingID"].ToString().Contains(_currentSearchText, StringComparison.OrdinalIgnoreCase) ||
+                    row["GuestName"].ToString().Contains(_currentSearchText, StringComparison.OrdinalIgnoreCase) ||
+                    row["Status"].ToString().Contains(_currentSearchText, StringComparison.OrdinalIgnoreCase) ||
+                    row["Payment"].ToString().Contains(_currentSearchText, StringComparison.OrdinalIgnoreCase));
+            }
+
+            // Apply status filter only if a specific status is selected (not "All" or empty)
+            if (!string.IsNullOrWhiteSpace(_currentFilterStatus))
+            {
+                filteredRows = filteredRows.Where(row =>
+                    row["Status"].ToString().Equals(_currentFilterStatus, StringComparison.OrdinalIgnoreCase));
+            }
+
+            // Populate the table with filtered results
+            foreach (DataRow row in filteredRows)
             {
                 bookingsTable.Rows.Add(
                     row["BookingID"],
@@ -143,6 +171,13 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                     row["Status"],
                     row["Payment"]
                 );
+            }
+
+            // Show message if no results found
+            if (bookingsTable.Rows.Count == 0)
+            {
+                // Optional: You can show a message or just leave it blank
+                MessageBox.Show("No bookings found matching your criteria.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -290,6 +325,25 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         private void totalDueLbl_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void searchBoxLbl_TextChanged(object sender, EventArgs e)
+        {
+            _currentSearchText = searchBoxLbl.Text.Trim();
+            RefreshBookingsTable();
+        }
+
+        private void filterComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _currentFilterStatus = filterComboBox.SelectedItem?.ToString();
+
+            // If "All" is selected, clear the filter
+            if (_currentFilterStatus == "All")
+            {
+                _currentFilterStatus = "";
+            }
+
+            RefreshBookingsTable();
         }
     }
 }

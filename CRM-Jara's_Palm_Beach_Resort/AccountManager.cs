@@ -332,15 +332,15 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                     g.FName + ' ' + ISNULL(g.MName + ' ', '') + g.LName AS GuestName,
                     bd.CheckInDate AS [Date],
                     bd.BookingStatus AS [Status],
-                    SUM(pd.Amount) AS [Payment]
+                    ISNULL(SUM(pd.Amount), 0) AS [Payment]
                 FROM [dbo].[Booking] b
                 JOIN [dbo].[Guest] g ON b.GuestID = g.GuestID
                 JOIN [dbo].[BookingDetails] bd ON b.BookingDetailsID = bd.BookingDetailsID
-                JOIN [dbo].[PaymentDetails] pd ON b.PaymentID = pd.PaymentID
+                LEFT JOIN [dbo].[PaymentDetails] pd ON b.PaymentID = pd.PaymentID
                 GROUP BY 
                     b.BookingDetailsID,
                     g.FName, g.MName, g.LName, bd.CheckInDate, bd.BookingStatus
-                ORDER BY MIN(b.BookingID) DESC"; // Added ORDER BY
+                ORDER BY MIN(b.BookingID) DESC";
                     using (SqlDataAdapter adapter = new SqlDataAdapter(query, conn))
                     {
                         adapter.Fill(bookings);

@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             bookingListsPanel = new Panel();
             sortComboBox = new ComboBox();
             sortIcon = new FontAwesome.Sharp.IconPictureBox();
@@ -44,6 +44,8 @@
             newBookingBtn = new Button();
             bookingsTable = new DataGridView();
             bookingInformationPanel = new Panel();
+            totalDueVal = new Label();
+            totalDueLbl = new Label();
             moneyIcon = new FontAwesome.Sharp.IconPictureBox();
             paymentHistoryBtn = new Button();
             paymentAmountVal = new Label();
@@ -67,8 +69,6 @@
             bookinglistsLbl = new Label();
             iconDropDownButton1 = new FontAwesome.Sharp.IconDropDownButton();
             topNavBar1 = new TopNavBar();
-            totalDueLbl = new Label();
-            totalDueVal = new Label();
             bookingListsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)sortIcon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filterIcon).BeginInit();
@@ -153,12 +153,13 @@
             filterComboBox.ForeColor = SystemColors.WindowFrame;
             filterComboBox.FormattingEnabled = true;
             filterComboBox.ItemHeight = 26;
-            filterComboBox.Items.AddRange(new object[] { "Booked", "Staying", "Completed", "Cancelled", "Fully Paid", "Partial", "Downpayment" });
+            filterComboBox.Items.AddRange(new object[] { "All", "Booked", "Staying", "Completed", "Cancelled", "Fully Paid", "Partial", "Downpayment" });
             filterComboBox.Location = new Point(694, 32);
             filterComboBox.Name = "filterComboBox";
             filterComboBox.Size = new Size(132, 34);
             filterComboBox.TabIndex = 21;
-            filterComboBox.Text = "Filter";
+            filterComboBox.Text = "All";
+            filterComboBox.SelectedIndexChanged += filterComboBox_SelectedIndexChanged;
             // 
             // searchIcon
             // 
@@ -185,6 +186,7 @@
             searchBoxLbl.PlaceholderText = "Search ID, guests, tags, etc.";
             searchBoxLbl.Size = new Size(307, 34);
             searchBoxLbl.TabIndex = 19;
+            searchBoxLbl.TextChanged += searchBoxLbl_TextChanged;
             // 
             // filterPanel
             // 
@@ -249,19 +251,19 @@
             bookingsTable.AllowUserToDeleteRows = false;
             bookingsTable.AllowUserToResizeColumns = false;
             bookingsTable.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 197, 149);
-            bookingsTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(235, 197, 149);
+            bookingsTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             bookingsTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             bookingsTable.BackgroundColor = Color.White;
             bookingsTable.BorderStyle = BorderStyle.Fixed3D;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            bookingsTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            bookingsTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             bookingsTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             bookingsTable.GridColor = Color.White;
             bookingsTable.Location = new Point(39, 96);
@@ -308,6 +310,27 @@
             bookingInformationPanel.Size = new Size(470, 775);
             bookingInformationPanel.TabIndex = 6;
             bookingInformationPanel.Paint += panel4_Paint;
+            // 
+            // totalDueVal
+            // 
+            totalDueVal.AutoSize = true;
+            totalDueVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            totalDueVal.Location = new Point(256, 643);
+            totalDueVal.Name = "totalDueVal";
+            totalDueVal.Size = new Size(91, 30);
+            totalDueVal.TabIndex = 35;
+            totalDueVal.Text = "Php. 0.00";
+            // 
+            // totalDueLbl
+            // 
+            totalDueLbl.AutoSize = true;
+            totalDueLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            totalDueLbl.Location = new Point(78, 643);
+            totalDueLbl.Name = "totalDueLbl";
+            totalDueLbl.Size = new Size(104, 30);
+            totalDueLbl.TabIndex = 34;
+            totalDueLbl.Text = "Total Due: ";
+            totalDueLbl.Click += totalDueLbl_Click;
             // 
             // moneyIcon
             // 
@@ -557,27 +580,6 @@
             topNavBar1.Name = "topNavBar1";
             topNavBar1.Size = new Size(1915, 70);
             topNavBar1.TabIndex = 7;
-            // 
-            // totalDueLbl
-            // 
-            totalDueLbl.AutoSize = true;
-            totalDueLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            totalDueLbl.Location = new Point(78, 643);
-            totalDueLbl.Name = "totalDueLbl";
-            totalDueLbl.Size = new Size(104, 30);
-            totalDueLbl.TabIndex = 34;
-            totalDueLbl.Text = "Total Due: ";
-            totalDueLbl.Click += totalDueLbl_Click;
-            // 
-            // totalDueVal
-            // 
-            totalDueVal.AutoSize = true;
-            totalDueVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            totalDueVal.Location = new Point(256, 643);
-            totalDueVal.Name = "totalDueVal";
-            totalDueVal.Size = new Size(91, 30);
-            totalDueVal.TabIndex = 35;
-            totalDueVal.Text = "Php. 0.00";
             // 
             // BookingManagement
             // 
