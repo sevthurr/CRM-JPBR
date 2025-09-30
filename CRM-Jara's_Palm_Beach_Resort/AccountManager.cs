@@ -730,6 +730,120 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 }
             }
         }
+
+        // Methods for the Account Management
+
+        public bool CreateAccount(string firstName, string lastName, string userName, string password, string position)
+        {
+            if (string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName) ||
+                string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("All fields are required.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    // Check if username already exists
+                    string checkQuery = "SELECT COUNT(1) FROM [dbo].[Account] WHERE UserName = @UserName";
+                    using (SqlCommand checkCmd = new SqlCommand(checkQuery, conn))
+                    {
+                        checkCmd.Parameters.AddWithValue("@UserName", userName);
+                        int count = (int)checkCmd.ExecuteScalar();
+                        if (count > 0)
+                        {
+                            MessageBox.Show("Username already exists. Please choose a different username.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return false;
+                        }
+                    }
+
+                    // Insert new account
+                    string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
+                    string insertQuery = @"
+                INSERT INTO [dbo].[Account] (FirstName, LastName, UserName, HashedPassword, UserPosition, UserStatus, DateCreated)
+                VALUES (@FirstName, @LastName, @UserName, @HashedPassword, @UserPosition, 'Active', @DateCreated)";
+
+                    using (SqlCommand insertCmd = new SqlCommand(insertQuery, conn))
+                    {
+                        insertCmd.Parameters.AddWithValue("@FirstName", firstName);
+                        insertCmd.Parameters.AddWithValue("@LastName", lastName);
+                        insertCmd.Parameters.AddWithValue("@UserName", userName);
+                        insertCmd.Parameters.AddWithValue("@HashedPassword", hashedPassword);
+                        insertCmd.Parameters.AddWithValue("@UserPosition", position);
+                        insertCmd.Parameters.AddWithValue("@DateCreated", DateTime.Now);
+
+                        int rowsAffected = insertCmd.ExecuteNonQuery();
+                        return rowsAffected > 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error creating account: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+        }
+
+        public DataTable GetAccounts()
+        {
+            DataTable accounts = new DataTable();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = @"
+                SELECT 
+                    UserID,
+                    FirstName + ' ' + LastName AS AccountName,
+                    UserPosition AS Role,
+                    UserName,
+                    DateCreated,
+                    UserStatus AS Status
+                FROM [dbo].[Account]
+                ORDER BY UserID DESC";
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(query, conn))
+                    {
+                        adapter.Fill(accounts);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading accounts: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            return accounts;
+        }
+
+        public bool UpdateAccountStatus(int userID, string status)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = @"UPDATE [dbo].[Account] SET UserStatus = @Status WHERE UserID = @UserID";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@UserID", userID);
+                        cmd.Parameters.AddWithValue("@Status", status);
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        return rowsAffected > 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error updating account status: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+        }
     }
 
     public class BookingDetailsData

@@ -37,12 +37,6 @@
             activateAccountBtn = new Button();
             disableAccountBtn = new Button();
             accountsTable = new DataGridView();
-            accountID = new DataGridViewTextBoxColumn();
-            accountName = new DataGridViewTextBoxColumn();
-            accountRole = new DataGridViewTextBoxColumn();
-            userName = new DataGridViewTextBoxColumn();
-            dateCreated = new DataGridViewTextBoxColumn();
-            accountStatus = new DataGridViewTextBoxColumn();
             accountTableLbl = new Label();
             addAccountPanel = new Panel();
             addUserIcon = new FontAwesome.Sharp.IconPictureBox();
@@ -63,6 +57,12 @@
             firstNameTb = new TextBox();
             firstNameLbl = new Label();
             addAccountLbl = new Label();
+            accountID = new DataGridViewTextBoxColumn();
+            accountName = new DataGridViewTextBoxColumn();
+            accountRole = new DataGridViewTextBoxColumn();
+            userName = new DataGridViewTextBoxColumn();
+            dateCreated = new DataGridViewTextBoxColumn();
+            accountStatus = new DataGridViewTextBoxColumn();
             accountsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox4).BeginInit();
@@ -171,48 +171,6 @@
             accountsTable.RowHeadersWidth = 51;
             accountsTable.Size = new Size(1113, 578);
             accountsTable.TabIndex = 43;
-            // 
-            // accountID
-            // 
-            accountID.HeaderText = "Account ID";
-            accountID.MinimumWidth = 6;
-            accountID.Name = "accountID";
-            accountID.ReadOnly = true;
-            // 
-            // accountName
-            // 
-            accountName.HeaderText = "Name";
-            accountName.MinimumWidth = 6;
-            accountName.Name = "accountName";
-            accountName.ReadOnly = true;
-            // 
-            // accountRole
-            // 
-            accountRole.HeaderText = "Role";
-            accountRole.MinimumWidth = 6;
-            accountRole.Name = "accountRole";
-            accountRole.ReadOnly = true;
-            // 
-            // userName
-            // 
-            userName.HeaderText = "User Name";
-            userName.MinimumWidth = 6;
-            userName.Name = "userName";
-            userName.ReadOnly = true;
-            // 
-            // dateCreated
-            // 
-            dateCreated.HeaderText = "Date Created";
-            dateCreated.MinimumWidth = 6;
-            dateCreated.Name = "dateCreated";
-            dateCreated.ReadOnly = true;
-            // 
-            // accountStatus
-            // 
-            accountStatus.HeaderText = "Status";
-            accountStatus.MinimumWidth = 6;
-            accountStatus.Name = "accountStatus";
-            accountStatus.ReadOnly = true;
             // 
             // accountTableLbl
             // 
@@ -445,6 +403,54 @@
             addAccountLbl.Size = new Size(170, 40);
             addAccountLbl.TabIndex = 8;
             addAccountLbl.Text = "Add Account";
+            // 
+            // accountID
+            // 
+            accountID.DataPropertyName = "UserID";
+            accountID.HeaderText = "Account ID";
+            accountID.MinimumWidth = 6;
+            accountID.Name = "accountID";
+            accountID.ReadOnly = true;
+            // 
+            // accountName
+            // 
+            accountName.DataPropertyName = "AccountName";
+            accountName.HeaderText = "Name";
+            accountName.MinimumWidth = 6;
+            accountName.Name = "accountName";
+            accountName.ReadOnly = true;
+            // 
+            // accountRole
+            // 
+            accountRole.DataPropertyName = "Role";
+            accountRole.HeaderText = "Role";
+            accountRole.MinimumWidth = 6;
+            accountRole.Name = "accountRole";
+            accountRole.ReadOnly = true;
+            // 
+            // userName
+            // 
+            userName.DataPropertyName = "UserName";
+            userName.HeaderText = "User Name";
+            userName.MinimumWidth = 6;
+            userName.Name = "userName";
+            userName.ReadOnly = true;
+            // 
+            // dateCreated
+            // 
+            dateCreated.DataPropertyName = "DateCreated";
+            dateCreated.HeaderText = "Date Created";
+            dateCreated.MinimumWidth = 6;
+            dateCreated.Name = "dateCreated";
+            dateCreated.ReadOnly = true;
+            // 
+            // accountStatus
+            // 
+            accountStatus.DataPropertyName = "Status";
+            accountStatus.HeaderText = "Status";
+            accountStatus.MinimumWidth = 6;
+            accountStatus.Name = "accountStatus";
+            accountStatus.ReadOnly = true;
             // 
             // AccountManagement
             // 
