@@ -25,6 +25,8 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             topNavBar1.Dock = DockStyle.Top;
             paymentHistoryBtn.Click += paymentHistoryBtn_Click;
             bookingsTable.SelectionChanged += bookingsTable_SelectionChanged;
+
+            cancelBtn.Click += cancelBtn_Click;
         }
 
         private void dashboardBtn_Click(object sender, EventArgs e)
@@ -213,9 +215,11 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                     checkOutDateVal.Text = details.CheckOutDate.ToString("MM-dd-yyyy");
                     paxVal.Text = $"{details.Pax} guest{(details.Pax > 1 ? "s" : "")}";
                     paymentAmountVal.Text = $"₱ {details.Amount:N0}";
+                    totalDueVal.Text = $"₱ {details.TotalDue:N0}";  // Add this line
+
                     // Enable action buttons
                     editBtn.Enabled = true;
-                    deleteBtn.Enabled = true;
+                    cancelBtn.Enabled = true;
                 }
                 else
                 {
@@ -237,8 +241,55 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             paxVal.Text = string.Empty;
             paymentAmountVal.Text = string.Empty;
             editBtn.Enabled = false;
-            deleteBtn.Enabled = false;
+            cancelBtn.Enabled = false;
         }
 
+
+        private void cancelBtn_Click(object sender, EventArgs e)
+        {
+            if (bookingsTable.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select a booking to cancel.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int bookingID = Convert.ToInt32(bookingsTable.SelectedRows[0].Cells["BookingID"].Value);
+
+            // Get booking details to show confirmation message
+            var (success, details) = _accountManager.GetBookingDetails(bookingID);
+            if (!success)
+            {
+                MessageBox.Show("Could not retrieve booking details.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Show confirmation dialog
+            var result = MessageBox.Show(
+                $"Are you sure you want to cancel the booking for {details.GuestName}?\n\n" +
+                $"Package: {details.Package}\n" +
+                $"Check-in: {details.CheckInDate:MM-dd-yyyy}\n" +
+                $"Check-out: {details.CheckOutDate:MM-dd-yyyy}\n\n" +
+                "This action cannot be undone.",
+                "Confirm Cancellation",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning,
+                MessageBoxDefaultButton.Button2);
+
+            if (result == DialogResult.Yes)
+            {
+                bool cancelled = _accountManager.CancelBooking(bookingID, Session.CurrentUserID);
+                if (cancelled)
+                {
+                    // Refresh the bookings table to reflect the cancellation
+                    RefreshBookingsTable();
+                    ClearBookingInformation();
+                }
+            }
+        }
+
+        private void totalDueLbl_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

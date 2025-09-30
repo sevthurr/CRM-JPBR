@@ -277,6 +277,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                     bd.CheckInDate,
                     bd.CheckOutDate,
                     bd.Pax,
+                    ISNULL(bd.TotalDue, 0) AS TotalDue,  -- Handle NULL values
                     SUM(pd.Amount) AS Amount
                 FROM [dbo].[Booking] b
                 JOIN [dbo].[Guest] g ON b.GuestID = g.GuestID
@@ -285,7 +286,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 WHERE b.BookingDetailsID = (SELECT BookingDetailsID FROM [dbo].[Booking] WHERE BookingID = @BookingID)
                 GROUP BY 
                     g.FName, g.MName, g.LName, 
-                    bd.Package, bd.CheckInDate, bd.CheckOutDate, bd.Pax";
+                    bd.Package, bd.CheckInDate, bd.CheckOutDate, bd.Pax, bd.TotalDue";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@BookingID", bookingID);
@@ -300,6 +301,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                                     CheckInDate = Convert.ToDateTime(reader["CheckInDate"]),
                                     CheckOutDate = Convert.ToDateTime(reader["CheckOutDate"]),
                                     Pax = Convert.ToInt32(reader["Pax"]),
+                                    TotalDue = Convert.ToDecimal(reader["TotalDue"]),
                                     Amount = Convert.ToDecimal(reader["Amount"])
                                 };
                                 return (true, details);
@@ -361,13 +363,13 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 {
                     conn.Open();
                     string query = @"
-                        SELECT COUNT(1)
-                        FROM [dbo].[BookingDetails] bd
-                        JOIN [dbo].[Booking] b ON bd.BookingDetailsID = b.BookingDetailsID
-                        WHERE bd.BookingStatus != 'Canceled'
-                        AND (
-                            (@CheckIn <= bd.CheckOutDate AND @CheckOut >= bd.CheckInDate)
-                        )";
+                SELECT COUNT(1)
+                FROM [dbo].[BookingDetails] bd
+                JOIN [dbo].[Booking] b ON bd.BookingDetailsID = b.BookingDetailsID
+                WHERE bd.BookingStatus NOT IN ('Cancelled', 'Completed')  -- Exclude cancelled and completed bookings
+                AND (
+                    (@CheckIn <= bd.CheckOutDate AND @CheckOut >= bd.CheckInDate)
+                )";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@CheckIn", checkIn.Date);
@@ -629,6 +631,105 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 }
             }
         }
+
+        // Add this method to your AccountManager class
+        public bool CancelBooking(int bookingID, int userID)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlTransaction transaction = null;
+                try
+                {
+                    conn.Open();
+                    transaction = conn.BeginTransaction();
+
+                    // First, check if the booking exists and get its current status
+                    string checkQuery = @"
+                SELECT bd.BookingStatus, bd.CheckInDate
+                FROM [dbo].[BookingDetails] bd
+                JOIN [dbo].[Booking] b ON bd.BookingDetailsID = b.BookingDetailsID
+                WHERE b.BookingID = @BookingID";
+
+                    string currentStatus = "";
+                    DateTime checkInDate = DateTime.MinValue;
+
+                    using (SqlCommand checkCmd = new SqlCommand(checkQuery, conn, transaction))
+                    {
+                        checkCmd.Parameters.AddWithValue("@BookingID", bookingID);
+                        using (SqlDataReader reader = checkCmd.ExecuteReader())
+                        {
+                            if (!reader.Read())
+                            {
+                                MessageBox.Show("Booking not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                transaction?.Rollback();
+                                return false;
+                            }
+                            currentStatus = reader["BookingStatus"].ToString();
+                            checkInDate = Convert.ToDateTime(reader["CheckInDate"]);
+                        }
+                    }
+
+                    // Validate if booking can be cancelled
+                    if (currentStatus == "Cancelled")
+                    {
+                        MessageBox.Show("This booking is already cancelled.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        transaction?.Rollback();
+                        return false;
+                    }
+
+                    if (currentStatus == "Completed")
+                    {
+                        MessageBox.Show("Cannot cancel a completed booking.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        transaction?.Rollback();
+                        return false;
+                    }
+
+                    // Check if check-in date has already passed
+                    if (checkInDate.Date <= DateTime.Today.Date && currentStatus == "Staying")
+                    {
+                        MessageBox.Show("Cannot cancel a booking that has already started.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        transaction?.Rollback();
+                        return false;
+                    }
+
+                    // Update the booking status to "Cancelled"
+                    string updateQuery = @"
+                UPDATE [dbo].[BookingDetails] 
+                SET BookingStatus = 'Cancelled'
+                WHERE BookingDetailsID = (
+                    SELECT BookingDetailsID 
+                    FROM [dbo].[Booking] 
+                    WHERE BookingID = @BookingID
+                )";
+
+                    using (SqlCommand updateCmd = new SqlCommand(updateQuery, conn, transaction))
+                    {
+                        updateCmd.Parameters.AddWithValue("@BookingID", bookingID);
+                        int rowsAffected = updateCmd.ExecuteNonQuery();
+
+                        if (rowsAffected == 0)
+                        {
+                            MessageBox.Show("Failed to cancel booking.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            transaction?.Rollback();
+                            return false;
+                        }
+                    }
+
+                    // Log the action
+                    LogAction(userID, "CancelBooking", $"Cancelled booking with ID {bookingID}. Previous status: {currentStatus}");
+
+                    transaction.Commit();
+                    MessageBox.Show("Booking cancelled successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transaction?.Rollback();
+                    MessageBox.Show($"Error cancelling booking: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+        }
     }
 
     public class BookingDetailsData
@@ -638,6 +739,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }
         public int Pax { get; set; }
+        public decimal TotalDue { get; set; }
         public decimal Amount { get; set; }
     }
 }

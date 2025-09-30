@@ -56,7 +56,7 @@
             paxVal = new Label();
             deleteButton = new FontAwesome.Sharp.IconPictureBox();
             editButton = new FontAwesome.Sharp.IconPictureBox();
-            deleteBtn = new Button();
+            cancelBtn = new Button();
             editBtn = new Button();
             guestImage = new Panel();
             checkInDateLbl = new Label();
@@ -67,6 +67,8 @@
             bookinglistsLbl = new Label();
             iconDropDownButton1 = new FontAwesome.Sharp.IconDropDownButton();
             topNavBar1 = new TopNavBar();
+            totalDueLbl = new Label();
+            totalDueVal = new Label();
             bookingListsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)sortIcon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)filterIcon).BeginInit();
@@ -105,14 +107,14 @@
             // sortComboBox
             // 
             sortComboBox.BackColor = Color.White;
-            sortComboBox.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            sortComboBox.Font = new Font("Poppins", 9F);
             sortComboBox.ForeColor = SystemColors.WindowFrame;
             sortComboBox.FormattingEnabled = true;
-            sortComboBox.ItemHeight = 18;
+            sortComboBox.ItemHeight = 26;
             sortComboBox.Items.AddRange(new object[] { "Name (Asc)", "Name (Dsc)", "Date (Asc)", "Date (Dsc)" });
             sortComboBox.Location = new Point(892, 33);
             sortComboBox.Name = "sortComboBox";
-            sortComboBox.Size = new Size(132, 26);
+            sortComboBox.Size = new Size(132, 34);
             sortComboBox.TabIndex = 24;
             sortComboBox.Text = "Sort";
             // 
@@ -147,14 +149,14 @@
             // filterComboBox
             // 
             filterComboBox.BackColor = Color.White;
-            filterComboBox.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            filterComboBox.Font = new Font("Poppins", 9F);
             filterComboBox.ForeColor = SystemColors.WindowFrame;
             filterComboBox.FormattingEnabled = true;
-            filterComboBox.ItemHeight = 18;
+            filterComboBox.ItemHeight = 26;
             filterComboBox.Items.AddRange(new object[] { "Booked", "Staying", "Completed", "Cancelled", "Fully Paid", "Partial", "Downpayment" });
             filterComboBox.Location = new Point(694, 32);
             filterComboBox.Name = "filterComboBox";
-            filterComboBox.Size = new Size(132, 26);
+            filterComboBox.Size = new Size(132, 34);
             filterComboBox.TabIndex = 21;
             filterComboBox.Text = "Filter";
             // 
@@ -175,7 +177,7 @@
             // searchBoxLbl
             // 
             searchBoxLbl.BackColor = Color.White;
-            searchBoxLbl.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            searchBoxLbl.Font = new Font("Poppins", 10.2F);
             searchBoxLbl.ForeColor = SystemColors.WindowFrame;
             searchBoxLbl.Location = new Point(327, 33);
             searchBoxLbl.Multiline = true;
@@ -195,11 +197,11 @@
             // bookingListLbl
             // 
             bookingListLbl.AutoSize = true;
-            bookingListLbl.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bookingListLbl.Font = new Font("Poppins", 13.8F, FontStyle.Bold);
             bookingListLbl.ForeColor = Color.Black;
             bookingListLbl.Location = new Point(39, 29);
             bookingListLbl.Name = "bookingListLbl";
-            bookingListLbl.Size = new Size(170, 29);
+            bookingListLbl.Size = new Size(172, 40);
             bookingListLbl.TabIndex = 8;
             bookingListLbl.Text = "Booking Lists";
             bookingListLbl.Click += label4_Click;
@@ -231,7 +233,7 @@
             // newBookingBtn
             // 
             newBookingBtn.BackColor = Color.FromArgb(40, 75, 83);
-            newBookingBtn.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            newBookingBtn.Font = new Font("Poppins", 10.8F);
             newBookingBtn.ForeColor = Color.White;
             newBookingBtn.Location = new Point(1064, 23);
             newBookingBtn.Name = "newBookingBtn";
@@ -278,6 +280,8 @@
             // 
             bookingInformationPanel.BackColor = Color.White;
             bookingInformationPanel.BorderStyle = BorderStyle.FixedSingle;
+            bookingInformationPanel.Controls.Add(totalDueVal);
+            bookingInformationPanel.Controls.Add(totalDueLbl);
             bookingInformationPanel.Controls.Add(moneyIcon);
             bookingInformationPanel.Controls.Add(paymentHistoryBtn);
             bookingInformationPanel.Controls.Add(paymentAmountVal);
@@ -290,7 +294,7 @@
             bookingInformationPanel.Controls.Add(paxVal);
             bookingInformationPanel.Controls.Add(deleteButton);
             bookingInformationPanel.Controls.Add(editButton);
-            bookingInformationPanel.Controls.Add(deleteBtn);
+            bookingInformationPanel.Controls.Add(cancelBtn);
             bookingInformationPanel.Controls.Add(editBtn);
             bookingInformationPanel.Controls.Add(guestImage);
             bookingInformationPanel.Controls.Add(checkInDateLbl);
@@ -321,7 +325,7 @@
             // paymentHistoryBtn
             // 
             paymentHistoryBtn.BackColor = Color.FromArgb(38, 176, 112);
-            paymentHistoryBtn.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            paymentHistoryBtn.Font = new Font("Poppins", 9F);
             paymentHistoryBtn.ForeColor = Color.White;
             paymentHistoryBtn.Location = new Point(287, 326);
             paymentHistoryBtn.Name = "paymentHistoryBtn";
@@ -334,7 +338,7 @@
             // 
             paymentAmountVal.AutoSize = true;
             paymentAmountVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            paymentAmountVal.Location = new Point(215, 646);
+            paymentAmountVal.Location = new Point(256, 688);
             paymentAmountVal.Name = "paymentAmountVal";
             paymentAmountVal.Size = new Size(91, 30);
             paymentAmountVal.TabIndex = 34;
@@ -344,40 +348,40 @@
             // 
             paymentLbl.AutoSize = true;
             paymentLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            paymentLbl.Location = new Point(78, 645);
+            paymentLbl.Location = new Point(78, 688);
             paymentLbl.Name = "paymentLbl";
-            paymentLbl.Size = new Size(102, 30);
+            paymentLbl.Size = new Size(172, 30);
             paymentLbl.TabIndex = 33;
-            paymentLbl.Text = "Payment: ";
+            paymentLbl.Text = "Current Payment: ";
             // 
             // checkOutDateVal
             // 
             checkOutDateVal.AutoSize = true;
-            checkOutDateVal.Font = new Font("Microsoft Sans Serif", 9F);
-            checkOutDateVal.Location = new Point(215, 498);
+            checkOutDateVal.Font = new Font("Poppins", 9F);
+            checkOutDateVal.Location = new Point(256, 500);
             checkOutDateVal.Name = "checkOutDateVal";
-            checkOutDateVal.Size = new Size(86, 18);
+            checkOutDateVal.Size = new Size(108, 26);
             checkOutDateVal.TabIndex = 32;
             checkOutDateVal.Text = "mm/dd/yyyy";
             // 
             // checkOutDateLbl
             // 
             checkOutDateLbl.AutoSize = true;
-            checkOutDateLbl.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            checkOutDateLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold);
             checkOutDateLbl.Location = new Point(78, 498);
             checkOutDateLbl.Name = "checkOutDateLbl";
-            checkOutDateLbl.Size = new Size(103, 20);
+            checkOutDateLbl.Size = new Size(108, 30);
             checkOutDateLbl.TabIndex = 31;
             checkOutDateLbl.Text = "Check Out:";
             // 
             // guestNameLnkLbl
             // 
             guestNameLnkLbl.AutoSize = true;
-            guestNameLnkLbl.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            guestNameLnkLbl.Font = new Font("Poppins", 9F);
             guestNameLnkLbl.LinkColor = Color.FromArgb(40, 75, 83);
-            guestNameLnkLbl.Location = new Point(215, 400);
+            guestNameLnkLbl.Location = new Point(256, 402);
             guestNameLnkLbl.Name = "guestNameLnkLbl";
-            guestNameLnkLbl.Size = new Size(92, 18);
+            guestNameLnkLbl.Size = new Size(105, 26);
             guestNameLnkLbl.TabIndex = 30;
             guestNameLnkLbl.TabStop = true;
             guestNameLnkLbl.Text = "Guest Name";
@@ -386,11 +390,11 @@
             // packageVal
             // 
             packageVal.AutoSize = true;
-            packageVal.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            packageVal.Font = new Font("Poppins", 10.2F);
             packageVal.LinkColor = Color.FromArgb(40, 75, 83);
-            packageVal.Location = new Point(215, 548);
+            packageVal.Location = new Point(256, 550);
             packageVal.Name = "packageVal";
-            packageVal.Size = new Size(20, 20);
+            packageVal.Size = new Size(24, 30);
             packageVal.TabIndex = 28;
             packageVal.TabStop = true;
             packageVal.Text = "A";
@@ -399,20 +403,20 @@
             // checkInDateVal
             // 
             checkInDateVal.AutoSize = true;
-            checkInDateVal.Font = new Font("Microsoft Sans Serif", 9F);
-            checkInDateVal.Location = new Point(215, 448);
+            checkInDateVal.Font = new Font("Poppins", 9F);
+            checkInDateVal.Location = new Point(256, 450);
             checkInDateVal.Name = "checkInDateVal";
-            checkInDateVal.Size = new Size(86, 18);
+            checkInDateVal.Size = new Size(108, 26);
             checkInDateVal.TabIndex = 26;
             checkInDateVal.Text = "mm/dd/yyyy";
             // 
             // paxVal
             // 
             paxVal.AutoSize = true;
-            paxVal.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            paxVal.Location = new Point(215, 598);
+            paxVal.Font = new Font("Poppins", 10.2F);
+            paxVal.Location = new Point(256, 600);
             paxVal.Name = "paxVal";
-            paxVal.Size = new Size(18, 20);
+            paxVal.Size = new Size(24, 30);
             paxVal.TabIndex = 24;
             paxVal.Text = "0";
             // 
@@ -442,22 +446,23 @@
             editButton.TabIndex = 18;
             editButton.TabStop = false;
             // 
-            // deleteBtn
+            // cancelBtn
             // 
-            deleteBtn.BackColor = Color.Red;
-            deleteBtn.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            deleteBtn.ForeColor = Color.White;
-            deleteBtn.Location = new Point(182, 326);
-            deleteBtn.Name = "deleteBtn";
-            deleteBtn.Size = new Size(99, 31);
-            deleteBtn.TabIndex = 20;
-            deleteBtn.Text = "    Cancel";
-            deleteBtn.UseVisualStyleBackColor = false;
+            cancelBtn.BackColor = Color.Red;
+            cancelBtn.Font = new Font("Poppins", 9F);
+            cancelBtn.ForeColor = Color.White;
+            cancelBtn.Location = new Point(182, 326);
+            cancelBtn.Name = "cancelBtn";
+            cancelBtn.Size = new Size(99, 31);
+            cancelBtn.TabIndex = 20;
+            cancelBtn.Text = "    Cancel";
+            cancelBtn.UseVisualStyleBackColor = false;
+            cancelBtn.Click += cancelBtn_Click;
             // 
             // editBtn
             // 
             editBtn.BackColor = Color.FromArgb(255, 173, 70);
-            editBtn.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            editBtn.Font = new Font("Poppins", 9F);
             editBtn.ForeColor = Color.White;
             editBtn.Location = new Point(77, 326);
             editBtn.Name = "editBtn";
@@ -478,61 +483,61 @@
             // checkInDateLbl
             // 
             checkInDateLbl.AutoSize = true;
-            checkInDateLbl.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            checkInDateLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold);
             checkInDateLbl.Location = new Point(78, 448);
             checkInDateLbl.Name = "checkInDateLbl";
-            checkInDateLbl.Size = new Size(88, 20);
+            checkInDateLbl.Size = new Size(93, 30);
             checkInDateLbl.TabIndex = 15;
             checkInDateLbl.Text = "Check In:";
             // 
             // paxLbl
             // 
             paxLbl.AutoSize = true;
-            paxLbl.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            paxLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold);
             paxLbl.Location = new Point(78, 598);
             paxLbl.Name = "paxLbl";
-            paxLbl.Size = new Size(46, 20);
+            paxLbl.Size = new Size(51, 30);
             paxLbl.TabIndex = 13;
             paxLbl.Text = "Pax:";
             // 
             // packageLbl
             // 
             packageLbl.AutoSize = true;
-            packageLbl.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            packageLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold);
             packageLbl.Location = new Point(78, 548);
             packageLbl.Name = "packageLbl";
-            packageLbl.Size = new Size(86, 20);
+            packageLbl.Size = new Size(96, 30);
             packageLbl.TabIndex = 12;
             packageLbl.Text = "Package:";
             // 
             // guestNameLbl
             // 
             guestNameLbl.AutoSize = true;
-            guestNameLbl.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guestNameLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold);
             guestNameLbl.Location = new Point(78, 398);
             guestNameLbl.Name = "guestNameLbl";
-            guestNameLbl.Size = new Size(119, 20);
+            guestNameLbl.Size = new Size(125, 30);
             guestNameLbl.TabIndex = 10;
             guestNameLbl.Text = "Guest Name:";
             // 
             // bookingInformationLbl
             // 
             bookingInformationLbl.AutoSize = true;
-            bookingInformationLbl.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bookingInformationLbl.Font = new Font("Poppins", 13.8F, FontStyle.Bold);
             bookingInformationLbl.ForeColor = Color.Black;
             bookingInformationLbl.Location = new Point(112, 24);
             bookingInformationLbl.Name = "bookingInformationLbl";
-            bookingInformationLbl.Size = new Size(246, 29);
+            bookingInformationLbl.Size = new Size(260, 40);
             bookingInformationLbl.TabIndex = 8;
             bookingInformationLbl.Text = "Booking Information";
             // 
             // bookinglistsLbl
             // 
             bookinglistsLbl.AutoSize = true;
-            bookinglistsLbl.Font = new Font("Microsoft Sans Serif", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bookinglistsLbl.Font = new Font("Poppins", 19.8000011F, FontStyle.Bold);
             bookinglistsLbl.Location = new Point(55, 101);
             bookinglistsLbl.Name = "bookinglistsLbl";
-            bookinglistsLbl.Size = new Size(366, 39);
+            bookinglistsLbl.Size = new Size(413, 60);
             bookinglistsLbl.TabIndex = 3;
             bookinglistsLbl.Text = "Booking Management";
             bookinglistsLbl.Click += welcomeLbl_Click;
@@ -552,6 +557,27 @@
             topNavBar1.Name = "topNavBar1";
             topNavBar1.Size = new Size(1915, 70);
             topNavBar1.TabIndex = 7;
+            // 
+            // totalDueLbl
+            // 
+            totalDueLbl.AutoSize = true;
+            totalDueLbl.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            totalDueLbl.Location = new Point(78, 643);
+            totalDueLbl.Name = "totalDueLbl";
+            totalDueLbl.Size = new Size(104, 30);
+            totalDueLbl.TabIndex = 34;
+            totalDueLbl.Text = "Total Due: ";
+            totalDueLbl.Click += totalDueLbl_Click;
+            // 
+            // totalDueVal
+            // 
+            totalDueVal.AutoSize = true;
+            totalDueVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            totalDueVal.Location = new Point(256, 643);
+            totalDueVal.Name = "totalDueVal";
+            totalDueVal.Size = new Size(91, 30);
+            totalDueVal.TabIndex = 35;
+            totalDueVal.Text = "Php. 0.00";
             // 
             // BookingManagement
             // 
@@ -599,7 +625,7 @@
         private Label packageLbl;
         private FontAwesome.Sharp.IconPictureBox editButton;
         private FontAwesome.Sharp.IconPictureBox deleteButton;
-        private Button deleteBtn;
+        private Button cancelBtn;
         private Button editBtn;
         private FontAwesome.Sharp.IconDropDownButton iconDropDownButton1;
         private ComboBox sortComboBox;
@@ -620,5 +646,7 @@
         private Label paymentLbl;
         private FontAwesome.Sharp.IconPictureBox moneyIcon;
         private Button paymentHistoryBtn;
+        private Label totalDueLbl;
+        private Label totalDueVal;
     }
 }    
