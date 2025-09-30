@@ -47,11 +47,11 @@
             accountNameLbl = new Label();
             paymentInfoLbl = new Label();
             paymentTable = new DataGridView();
-            Amount = new DataGridViewTextBoxColumn();
+            paymentPanel = new Panel();
             paymentID = new DataGridViewTextBoxColumn();
+            Amount = new DataGridViewTextBoxColumn();
             Purpose = new DataGridViewTextBoxColumn();
             PaymentDate = new DataGridViewTextBoxColumn();
-            paymentPanel = new Panel();
             paymentHistoryPanel.SuspendLayout();
             paymentInfoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)moneyIcon).BeginInit();
@@ -264,7 +264,7 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             paymentTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             paymentTable.ColumnHeadersHeight = 29;
-            paymentTable.Columns.AddRange(new DataGridViewColumn[] { Amount, paymentID, Purpose, PaymentDate });
+            paymentTable.Columns.AddRange(new DataGridViewColumn[] { paymentID, Amount, Purpose, PaymentDate });
             paymentTable.Location = new Point(0, 13);
             paymentTable.Name = "paymentTable";
             paymentTable.ReadOnly = true;
@@ -273,13 +273,14 @@
             paymentTable.TabIndex = 0;
             paymentTable.CellContentClick += dataGridView1_CellContentClick;
             // 
-            // Amount
+            // paymentPanel
             // 
-            Amount.HeaderText = "Amount";
-            Amount.MinimumWidth = 6;
-            Amount.Name = "Amount";
-            Amount.ReadOnly = true;
-            Amount.Width = 125;
+            paymentPanel.BackColor = Color.White;
+            paymentPanel.Controls.Add(paymentTable);
+            paymentPanel.Location = new Point(19, 79);
+            paymentPanel.Name = "paymentPanel";
+            paymentPanel.Size = new Size(770, 313);
+            paymentPanel.TabIndex = 23;
             // 
             // paymentID
             // 
@@ -288,6 +289,14 @@
             paymentID.Name = "paymentID";
             paymentID.ReadOnly = true;
             paymentID.Width = 125;
+            // 
+            // Amount
+            // 
+            Amount.HeaderText = "Amount";
+            Amount.MinimumWidth = 6;
+            Amount.Name = "Amount";
+            Amount.ReadOnly = true;
+            Amount.Width = 125;
             // 
             // Purpose
             // 
@@ -304,15 +313,6 @@
             PaymentDate.Name = "PaymentDate";
             PaymentDate.ReadOnly = true;
             PaymentDate.Width = 125;
-            // 
-            // paymentPanel
-            // 
-            paymentPanel.BackColor = Color.White;
-            paymentPanel.Controls.Add(paymentTable);
-            paymentPanel.Location = new Point(19, 79);
-            paymentPanel.Name = "paymentPanel";
-            paymentPanel.Size = new Size(770, 313);
-            paymentPanel.TabIndex = 23;
             // 
             // Payment
             // 
@@ -355,11 +355,11 @@
         private Panel panel1;
         private Button addPaymentBtn;
         private DataGridView paymentTable;
-        private DataGridViewTextBoxColumn Amount;
-        private DataGridViewTextBoxColumn paymentID;
-        private DataGridViewTextBoxColumn Purpose;
-        private DataGridViewTextBoxColumn PaymentDate;
         private Panel paymentPanel;
         private FontAwesome.Sharp.IconPictureBox moneyIcon;
+        private DataGridViewTextBoxColumn paymentID;
+        private DataGridViewTextBoxColumn Amount;
+        private DataGridViewTextBoxColumn Purpose;
+        private DataGridViewTextBoxColumn PaymentDate;
     }
 }

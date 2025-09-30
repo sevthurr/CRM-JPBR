@@ -21,6 +21,8 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             _accountManager = new AccountManager();
             _bookingID = bookingID;
 
+            purposeCb.SelectedItem = "Downpayment";
+
             addPaymentBtn.Click += addPaymentBtn_Click;
         }
 

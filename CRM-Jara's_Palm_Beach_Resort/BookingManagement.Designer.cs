@@ -451,7 +451,7 @@
             deleteBtn.Name = "deleteBtn";
             deleteBtn.Size = new Size(99, 31);
             deleteBtn.TabIndex = 20;
-            deleteBtn.Text = "    Delete";
+            deleteBtn.Text = "    Cancel";
             deleteBtn.UseVisualStyleBackColor = false;
             // 
             // editBtn

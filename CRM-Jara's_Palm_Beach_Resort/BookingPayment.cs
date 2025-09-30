@@ -27,6 +27,8 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             this.ShowInTaskbar = false;
             this.MinimizeBox = true;
 
+            purposeCb.SelectedItem = "Downpayment";
+
             PopulateSummary();
         }
 
