@@ -52,14 +52,14 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 return;
             }
 
-            var (success, userID, position) = manager.Authenticate(userName, password);
+            var (success, userID, position, firstName, lastName) = manager.Authenticate(userName, password);
             if (success)
             {
                 Session.CurrentUserID = userID;
                 Session.CurrentPosition = position;
                 manager.LogAction(userID, "Login", $"User {userName} logged in successfully");
 
-                var dashboard = new Dashboard();
+                var dashboard = new Dashboard(firstName, lastName, position);
                 dashboard.StartPosition = FormStartPosition.CenterScreen;
                 dashboard.WindowState = FormWindowState.Maximized;
                 dashboard.Show();

@@ -15,14 +15,14 @@ namespace CRM_Jara_s_Palm_Beach_Resort
     {
         private readonly string connectionString = @"Server=localhost;Database=JPBR;Trusted_Connection=True;TrustServerCertificate=True;";
 
-        public (bool Success, int UserID, string Position) Authenticate(string userName, string password)
+        public (bool Success, int UserID, string Position, string FirstName, string LastName) Authenticate(string userName, string password)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 try
                 {
                     conn.Open();
-                    string query = "SELECT UserID, HashedPassword, UserPosition FROM [dbo].[Account] WHERE UserName = @UserName";
+                    string query = "SELECT UserID, HashedPassword, UserPosition, FirstName, LastName FROM [dbo].[Account] WHERE UserName = @UserName";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@UserName", userName);
@@ -35,7 +35,9 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                                 {
                                     int userID = (int)reader["UserID"];
                                     string position = reader["UserPosition"].ToString();
-                                    return (true, userID, position);
+                                    string firstName = reader["FirstName"].ToString();
+                                    string lastName = reader["LastName"].ToString();
+                                    return (true, userID, position, firstName, lastName);
                                 }
                             }
                         }
@@ -45,7 +47,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 {
                     MessageBox.Show($"Authentication error: {ex.Message}");
                 }
-                return (false, -1, null);
+                return (false, -1, null, null, null);
             }
         }
 
@@ -732,7 +734,6 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         }
 
         // Methods for the Account Management
-
         public bool CreateAccount(string firstName, string lastName, string userName, string password, string position)
         {
             if (string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName) ||
@@ -843,6 +844,84 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                     return false;
                 }
             }
+        }
+
+        // Method for Dashboard
+        public DataTable GetUpcomingCheckIns()
+        {
+            DataTable checkIns = new DataTable();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = @"
+        SELECT 
+            g.FName + ' ' + ISNULL(g.MName + ' ', '') + g.LName AS GuestName,
+            bd.Package,
+            bd.Pax,
+            bd.CheckInDate,
+            bd.BookingStatus AS Status
+        FROM [dbo].[Booking] b
+        JOIN [dbo].[Guest] g ON b.GuestID = g.GuestID
+        JOIN [dbo].[BookingDetails] bd ON b.BookingDetailsID = bd.BookingDetailsID
+        WHERE bd.CheckInDate >= @Today
+        AND bd.BookingStatus IN ('Booked', 'Staying')
+        ORDER BY bd.CheckInDate";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Today", DateTime.Today);
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            adapter.Fill(checkIns);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error fetching today's check-ins: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            return checkIns;
+        }
+
+        public DataTable GetUpcomingCheckOuts()
+        {
+            DataTable checkOuts = new DataTable();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = @"
+        SELECT 
+            g.FName + ' ' + ISNULL(g.MName + ' ', '') + g.LName AS GuestName,
+            bd.Package,
+            bd.Pax,
+            bd.CheckOutDate
+        FROM [dbo].[Booking] b
+        JOIN [dbo].[Guest] g ON b.GuestID = g.GuestID
+        JOIN [dbo].[BookingDetails] bd ON b.BookingDetailsID = bd.BookingDetailsID
+        WHERE bd.CheckOutDate >= @Today
+        AND bd.BookingStatus IN ('Staying', 'Completed', 'Booked')
+        ORDER BY bd.CheckOutDate";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Today", DateTime.Today);
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            adapter.Fill(checkOuts);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error fetching today's check-outs: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            return checkOuts;
         }
     }
 
