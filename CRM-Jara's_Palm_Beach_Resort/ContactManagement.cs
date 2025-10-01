@@ -14,6 +14,8 @@ namespace CRM_Jara_s_Palm_Beach_Resort
     {
         private string currentSearch = "";
         private string currentFilter = "All";
+        private string currentSelectedGuestID = null;
+        private bool isUpdatingUI;
 
         public ContactManagement()
         {
@@ -45,9 +47,15 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             // Add event handlers
             searchBoxLbl.TextChanged += searchBoxLbl_TextChanged;
             filterComboBox.SelectedIndexChanged += filterComboBox_SelectedIndexChanged;
+            guestTable.CellClick += guestTable_CellClick;
+            marketingConsentOnChkbx.CheckedChanged += MarketingConsentRadio_CheckedChanged;
+            marketingConsentOffChkbx.CheckedChanged += MarketingConsentRadio_CheckedChanged;
 
             // Populate guestTable with all guests initially
             LoadGuestTable(currentSearch, currentFilter);
+
+            // Initialize bookingInformationPanel with default values
+            UpdateBookingInformationPanel(null);
         }
 
 
@@ -146,6 +154,67 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                     row["Tag"].ToString(),
                     lastBooking
                 );
+            }
+        }
+
+        private void guestTable_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                currentSelectedGuestID = guestTable.Rows[e.RowIndex].Cells["GuestID"].Value.ToString(); // NEW: Track ID
+                string guestID = currentSelectedGuestID;
+                AccountManager accountManager = new AccountManager();
+                GuestDetails details = accountManager.GetGuestDetails(guestID);
+                UpdateBookingInformationPanel(details);
+            }
+        }
+
+        private void UpdateBookingInformationPanel(GuestDetails details)
+        {
+            isUpdatingUI = true; // NEW: Set flag to suppress CheckedChanged
+            try
+            {
+                if (details == null)
+                {
+                    guestName.Text = "N/A";
+                    contactNumber.Text = "N/A";
+                    tagVal.Text = "N/A";
+                    bookingHistoryLinkLbl.Text = "N/A";
+                    marketingConsentOnChkbx.Checked = false;
+                    marketingConsentOffChkbx.Checked = false;
+                }
+                else
+                {
+                    guestName.Text = details.FullName;
+                    contactNumber.Text = details.Phone;
+                    tagVal.Text = details.Tag;
+                    bookingHistoryLinkLbl.Text = details.BookingCount.ToString();
+                    marketingConsentOnChkbx.Checked = details.MarketingConsent;
+                    marketingConsentOffChkbx.Checked = !details.MarketingConsent;
+                }
+            }
+            finally
+            {
+                isUpdatingUI = false; // NEW: Reset flag after UI update
+            }
+        }
+
+        private void MarketingConsentRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (isUpdatingUI || currentSelectedGuestID == null) return; // NEW: Skip if updating UI or no guest selected
+
+            if (marketingConsentOnChkbx.Checked || marketingConsentOffChkbx.Checked)
+            {
+                bool newConsent = marketingConsentOnChkbx.Checked;
+                AccountManager accountManager = new AccountManager();
+                bool success = accountManager.UpdateGuestMarketingConsent(currentSelectedGuestID, newConsent);
+                if (success)
+                {
+                    MessageBox.Show("Marketing consent updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Refresh to confirm
+                    GuestDetails details = accountManager.GetGuestDetails(currentSelectedGuestID);
+                    UpdateBookingInformationPanel(details);
+                }
             }
         }
     }

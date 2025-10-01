@@ -839,6 +839,104 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             return tags;
         }
 
+        public GuestDetails GetGuestDetails(string guestID)
+        {
+            GuestDetails details = null;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = @"
+                        SELECT 
+                            g.GuestID,
+                            g.FName + ' ' + ISNULL(g.MName + ' ', '') + g.LName AS FullName,
+                            g.Phone,
+                            ISNULL(g.Tag, 'None') AS Tag,
+                            COUNT(b.BookingID) AS BookingCount,
+                            g.MarketingConsent -- NEW: Fetch MarketingConsent
+                        FROM [dbo].[Guest] g
+                        LEFT JOIN [dbo].[Booking] b ON g.GuestID = b.GuestID
+                        WHERE g.GuestID = @GuestID
+                        GROUP BY g.GuestID, g.FName, g.MName, g.LName, g.Phone, g.Tag, g.MarketingConsent"; // UPDATED: Include in GROUP BY
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@GuestID", guestID);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                details = new GuestDetails
+                                {
+                                    GuestID = reader["GuestID"].ToString(),
+                                    FullName = reader["FullName"].ToString(),
+                                    Phone = reader["Phone"].ToString(),
+                                    Tag = reader["Tag"].ToString(),
+                                    BookingCount = Convert.ToInt32(reader["BookingCount"]),
+                                    MarketingConsent = Convert.ToBoolean(reader["MarketingConsent"]) // NEW: Convert BIT/TINYINT to bool
+                                };
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading guest details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            return details;
+        }
+
+        public bool UpdateGuestMarketingConsent(string guestID, bool consentValue)
+        {
+            if (string.IsNullOrEmpty(guestID))
+            {
+                MessageBox.Show("Invalid Guest ID.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    // Verify GuestID exists
+                    string verifyQuery = "SELECT COUNT(1) FROM [dbo].[Guest] WHERE GuestID = @GuestID";
+                    using (SqlCommand verifyCmd = new SqlCommand(verifyQuery, conn))
+                    {
+                        verifyCmd.Parameters.AddWithValue("@GuestID", guestID);
+                        int count = (int)verifyCmd.ExecuteScalar();
+                        if (count == 0)
+                        {
+                            MessageBox.Show("Guest ID not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return false;
+                        }
+                    }
+
+                    // Update MarketingConsent
+                    string updateQuery = "UPDATE [dbo].[Guest] SET MarketingConsent = @MarketingConsent WHERE GuestID = @GuestID";
+                    using (SqlCommand updateCmd = new SqlCommand(updateQuery, conn))
+                    {
+                        updateCmd.Parameters.AddWithValue("@GuestID", guestID);
+                        updateCmd.Parameters.AddWithValue("@MarketingConsent", consentValue ? 1 : 0); // Convert bool to 1/0 for BIT/TINYINT
+                        int rowsAffected = updateCmd.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            // Optional: Log the action (pass current UserID if available, e.g., from session)
+                            // LogAction(currentUserID, "UpdateMarketingConsent", $"Guest {guestID} marketing consent set to {(consentValue ? "On" : "Off")}");
+                            return true;
+                        }
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error updating marketing consent: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+        }
+
         // Methods for the Account Management
         public bool CreateAccount(string firstName, string lastName, string userName, string password, string position)
         {
@@ -1040,5 +1138,15 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         public int Pax { get; set; }
         public decimal TotalDue { get; set; }
         public decimal Amount { get; set; }
+    }
+
+    public class GuestDetails
+    {
+        public string GuestID { get; set; }
+        public string FullName { get; set; }
+        public string Phone { get; set; }
+        public string Tag { get; set; }
+        public int BookingCount { get; set; }
+        public bool MarketingConsent { get; set; }
     }
 }

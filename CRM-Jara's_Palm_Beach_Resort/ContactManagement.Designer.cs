@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             contactManagementLbl = new Label();
             topNavBar1 = new TopNavBar();
             contactListPanel = new Panel();
@@ -57,12 +57,12 @@
             bookingInformationPanel = new Panel();
             tagVal = new Label();
             label4 = new Label();
-            linkLabel2 = new LinkLabel();
+            bookingHistoryLinkLbl = new LinkLabel();
             linkLabel1 = new LinkLabel();
-            radioButton2 = new RadioButton();
-            radioButton1 = new RadioButton();
+            marketingConsentOffChkbx = new RadioButton();
+            marketingConsentOnChkbx = new RadioButton();
             label2 = new Label();
-            label1 = new Label();
+            contactNumber = new Label();
             guestName = new Label();
             paymentLbl = new Label();
             iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
@@ -128,8 +128,8 @@
             // 
             guestTable.AllowUserToAddRows = false;
             guestTable.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 197, 149);
-            guestTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(235, 197, 149);
+            guestTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             guestTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             guestTable.BackgroundColor = Color.White;
             guestTable.BorderStyle = BorderStyle.Fixed3D;
@@ -402,12 +402,12 @@
             bookingInformationPanel.BorderStyle = BorderStyle.FixedSingle;
             bookingInformationPanel.Controls.Add(tagVal);
             bookingInformationPanel.Controls.Add(label4);
-            bookingInformationPanel.Controls.Add(linkLabel2);
+            bookingInformationPanel.Controls.Add(bookingHistoryLinkLbl);
             bookingInformationPanel.Controls.Add(linkLabel1);
-            bookingInformationPanel.Controls.Add(radioButton2);
-            bookingInformationPanel.Controls.Add(radioButton1);
+            bookingInformationPanel.Controls.Add(marketingConsentOffChkbx);
+            bookingInformationPanel.Controls.Add(marketingConsentOnChkbx);
             bookingInformationPanel.Controls.Add(label2);
-            bookingInformationPanel.Controls.Add(label1);
+            bookingInformationPanel.Controls.Add(contactNumber);
             bookingInformationPanel.Controls.Add(guestName);
             bookingInformationPanel.Controls.Add(paymentLbl);
             bookingInformationPanel.Controls.Add(iconPictureBox1);
@@ -446,18 +446,18 @@
             label4.TabIndex = 42;
             label4.Text = "Tag:";
             // 
-            // linkLabel2
+            // bookingHistoryLinkLbl
             // 
-            linkLabel2.AutoSize = true;
-            linkLabel2.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            linkLabel2.LinkColor = Color.FromArgb(40, 75, 83);
-            linkLabel2.Location = new Point(242, 649);
-            linkLabel2.Name = "linkLabel2";
-            linkLabel2.Size = new Size(19, 23);
-            linkLabel2.TabIndex = 41;
-            linkLabel2.TabStop = true;
-            linkLabel2.Text = "1";
-            linkLabel2.VisitedLinkColor = Color.FromArgb(235, 197, 149);
+            bookingHistoryLinkLbl.AutoSize = true;
+            bookingHistoryLinkLbl.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            bookingHistoryLinkLbl.LinkColor = Color.FromArgb(40, 75, 83);
+            bookingHistoryLinkLbl.Location = new Point(242, 649);
+            bookingHistoryLinkLbl.Name = "bookingHistoryLinkLbl";
+            bookingHistoryLinkLbl.Size = new Size(19, 23);
+            bookingHistoryLinkLbl.TabIndex = 41;
+            bookingHistoryLinkLbl.TabStop = true;
+            bookingHistoryLinkLbl.Text = "1";
+            bookingHistoryLinkLbl.VisitedLinkColor = Color.FromArgb(235, 197, 149);
             // 
             // linkLabel1
             // 
@@ -471,30 +471,30 @@
             linkLabel1.Text = "+ Add Contact";
             linkLabel1.VisitedLinkColor = Color.FromArgb(235, 197, 149);
             // 
-            // radioButton2
+            // marketingConsentOffChkbx
             // 
-            radioButton2.AutoSize = true;
-            radioButton2.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            radioButton2.Location = new Point(337, 708);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(49, 22);
-            radioButton2.TabIndex = 39;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "Off";
-            radioButton2.TextAlign = ContentAlignment.MiddleCenter;
-            radioButton2.UseVisualStyleBackColor = true;
+            marketingConsentOffChkbx.AutoSize = true;
+            marketingConsentOffChkbx.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            marketingConsentOffChkbx.Location = new Point(337, 708);
+            marketingConsentOffChkbx.Name = "marketingConsentOffChkbx";
+            marketingConsentOffChkbx.Size = new Size(49, 22);
+            marketingConsentOffChkbx.TabIndex = 39;
+            marketingConsentOffChkbx.TabStop = true;
+            marketingConsentOffChkbx.Text = "Off";
+            marketingConsentOffChkbx.TextAlign = ContentAlignment.MiddleCenter;
+            marketingConsentOffChkbx.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // marketingConsentOnChkbx
             // 
-            radioButton1.AutoSize = true;
-            radioButton1.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            radioButton1.Location = new Point(276, 708);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(49, 22);
-            radioButton1.TabIndex = 38;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "On";
-            radioButton1.UseVisualStyleBackColor = true;
+            marketingConsentOnChkbx.AutoSize = true;
+            marketingConsentOnChkbx.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            marketingConsentOnChkbx.Location = new Point(276, 708);
+            marketingConsentOnChkbx.Name = "marketingConsentOnChkbx";
+            marketingConsentOnChkbx.Size = new Size(49, 22);
+            marketingConsentOnChkbx.TabIndex = 38;
+            marketingConsentOnChkbx.TabStop = true;
+            marketingConsentOnChkbx.Text = "On";
+            marketingConsentOnChkbx.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -506,15 +506,15 @@
             label2.TabIndex = 37;
             label2.Text = "facebook.com/guest";
             // 
-            // label1
+            // contactNumber
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(204, 447);
-            label1.Name = "label1";
-            label1.Size = new Size(121, 20);
-            label1.TabIndex = 36;
-            label1.Text = "+639-000-0000";
+            contactNumber.AutoSize = true;
+            contactNumber.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            contactNumber.Location = new Point(204, 447);
+            contactNumber.Name = "contactNumber";
+            contactNumber.Size = new Size(121, 20);
+            contactNumber.TabIndex = 36;
+            contactNumber.Text = "+639-000-0000";
             // 
             // guestName
             // 
@@ -725,11 +725,11 @@
         private Label nameLbl;
         private Label guestInformationLbl;
         private Label guestName;
-        private Label label1;
-        private LinkLabel linkLabel2;
+        private Label contactNumber;
+        private LinkLabel bookingHistoryLinkLbl;
         private LinkLabel linkLabel1;
-        private RadioButton radioButton2;
-        private RadioButton radioButton1;
+        private RadioButton marketingConsentOffChkbx;
+        private RadioButton marketingConsentOnChkbx;
         private Label label2;
         private DataGridView guestTable;
         private Label tagVal;
