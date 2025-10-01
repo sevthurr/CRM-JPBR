@@ -1127,6 +1127,236 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             }
             return checkOuts;
         }
+
+        // Method for Account Information
+        public UserDetails GetUserDetails(int userID)
+        {
+            UserDetails details = null;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = @"
+                        SELECT FirstName, LastName, UserName, UserPosition AS Position, Email, Phone
+                        FROM [dbo].[Account]
+                        WHERE UserID = @UserID";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@UserID", userID);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                details = new UserDetails
+                                {
+                                    FirstName = reader["FirstName"].ToString(),
+                                    LastName = reader["LastName"].ToString(),
+                                    UserName = reader["UserName"].ToString(),
+                                    Position = reader["Position"].ToString(),
+                                    Email = reader.IsDBNull(reader.GetOrdinal("Email")) ? null : reader["Email"].ToString(),
+                                    Phone = reader.IsDBNull(reader.GetOrdinal("Phone")) ? null : reader["Phone"].ToString()
+                                };
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading user details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            return details;
+        }
+
+        public bool UpdateUserInfo(int userID, string firstName, string lastName, string userName, string email, string phone, string newPassword)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = @"
+                        UPDATE [dbo].[Account]
+                        SET FirstName = @FirstName,
+                            LastName = @LastName,
+                            UserName = @UserName,
+                            Email = @Email,
+                            Phone = @Phone";
+                    if (!string.IsNullOrEmpty(newPassword))
+                    {
+                        query += ", HashedPassword = @HashedPassword";
+                    }
+                    query += " WHERE UserID = @UserID";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@UserID", userID);
+                        cmd.Parameters.AddWithValue("@FirstName", firstName);
+                        cmd.Parameters.AddWithValue("@LastName", lastName);
+                        cmd.Parameters.AddWithValue("@UserName", userName);
+                        cmd.Parameters.AddWithValue("@Email", string.IsNullOrEmpty(email) ? DBNull.Value : email);
+                        cmd.Parameters.AddWithValue("@Phone", string.IsNullOrEmpty(phone) ? DBNull.Value : phone);
+                        if (!string.IsNullOrEmpty(newPassword))
+                        {
+                            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(newPassword);
+                            cmd.Parameters.AddWithValue("@HashedPassword", hashedPassword);
+                        }
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            LogAction(userID, "UpdateAccountInfo", "User updated their account information.");
+                            return true;
+                        }
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error updating user information: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+        }
+
+        // Method for Campaigns
+        public int? CreatePromoCode(string code, string discountType, int usageLimit, DateTime expiryDate, decimal discountValue)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    // Check if code already exists
+                    string checkQuery = "SELECT COUNT(1) FROM [dbo].[PromoCode] WHERE Code = @Code";
+                    using (SqlCommand checkCmd = new SqlCommand(checkQuery, conn))
+                    {
+                        checkCmd.Parameters.AddWithValue("@Code", code);
+                        int count = (int)checkCmd.ExecuteScalar();
+                        if (count > 0)
+                        {
+                            MessageBox.Show("Promo code already exists.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return null;
+                        }
+                    }
+
+                    // Insert promo code
+                    string insertQuery = @"
+                INSERT INTO [dbo].[PromoCode] (Code, DiscountType, UsageLimit, ExpiryDate, DiscountValue)
+                OUTPUT INSERTED.PromoCodeID
+                VALUES (@Code, @DiscountType, @UsageLimit, @ExpiryDate, @DiscountValue)";
+
+                    using (SqlCommand insertCmd = new SqlCommand(insertQuery, conn))
+                    {
+                        insertCmd.Parameters.AddWithValue("@Code", code);
+                        insertCmd.Parameters.AddWithValue("@DiscountType", discountType);
+                        insertCmd.Parameters.AddWithValue("@UsageLimit", usageLimit);
+                        insertCmd.Parameters.AddWithValue("@ExpiryDate", expiryDate);
+                        insertCmd.Parameters.AddWithValue("@DiscountValue", discountValue);
+                        return (int)insertCmd.ExecuteScalar();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error creating promo code: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+                }
+            }
+        }
+
+        public int? CreateCampaign(string headline, string description, string type, string emailMessage, int? promoCodeID, DateTime startDate, DateTime endDate, string status, string tag)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string insertQuery = @"
+                INSERT INTO [dbo].[Campaign] (Headline, Description, Type, EmailMessage, PromoCodeID, StartDate, EndDate, Status, Tag)
+                OUTPUT INSERTED.CampaignID
+                VALUES (@Headline, @Description, @Type, @EmailMessage, @PromoCodeID, @StartDate, @EndDate, @Status, @Tag)";
+
+                    using (SqlCommand insertCmd = new SqlCommand(insertQuery, conn))
+                    {
+                        insertCmd.Parameters.AddWithValue("@Headline", headline);
+                        insertCmd.Parameters.AddWithValue("@Description", description);
+                        insertCmd.Parameters.AddWithValue("@Type", type);
+                        insertCmd.Parameters.AddWithValue("@EmailMessage", emailMessage);
+                        insertCmd.Parameters.AddWithValue("@PromoCodeID", promoCodeID.HasValue ? (object)promoCodeID.Value : DBNull.Value);
+                        insertCmd.Parameters.AddWithValue("@StartDate", startDate);
+                        insertCmd.Parameters.AddWithValue("@EndDate", endDate);
+                        insertCmd.Parameters.AddWithValue("@Status", status);
+                        insertCmd.Parameters.AddWithValue("@Tag", tag);
+                        return (int)insertCmd.ExecuteScalar();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error creating campaign: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+                }
+            }
+        }
+
+        public bool AssignGuestsToCampaign(int campaignID, string[] tags)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    // Build the IN clause for tags
+                    string tagsInClause = string.Join(",", tags.Select(t => $"'{t}'"));
+
+                    // Select eligible guests: MarketingConsent = 1, Email not null, Tag in tags
+                    string selectGuestsQuery = $@"
+                SELECT GuestID
+                FROM [dbo].[Guest]
+                WHERE MarketingConsent = 1
+                AND Email IS NOT NULL
+                AND Tag IN ({tagsInClause})";
+
+                    DataTable guests = new DataTable();
+                    using (SqlCommand selectCmd = new SqlCommand(selectGuestsQuery, conn))
+                    {
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(selectCmd))
+                        {
+                            adapter.Fill(guests);
+                        }
+                    }
+
+                    if (guests.Rows.Count == 0)
+                    {
+                        return true; // No guests to assign, but not an error
+                    }
+
+                    // Insert into CampaignGuest for each guest
+                    string insertQuery = @"
+                INSERT INTO [dbo].[CampaignGuest] (CampaignID, GuestID, DeliveredCount, DeliveryStatus)
+                VALUES (@CampaignID, @GuestID, 0, 'Pending')";
+
+                    foreach (DataRow row in guests.Rows)
+                    {
+                        int guestID = (int)row["GuestID"];
+                        using (SqlCommand insertCmd = new SqlCommand(insertQuery, conn))
+                        {
+                            insertCmd.Parameters.AddWithValue("@CampaignID", campaignID);
+                            insertCmd.Parameters.AddWithValue("@GuestID", guestID);
+                            insertCmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error assigning guests to campaign: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+        }
     }
 
     public class BookingDetailsData
@@ -1148,5 +1378,15 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         public string Tag { get; set; }
         public int BookingCount { get; set; }
         public bool MarketingConsent { get; set; }
+    }
+
+    public class UserDetails
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string UserName { get; set; }
+        public string Position { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
     }
 }

@@ -36,7 +36,17 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         {
             userMenu = new ContextMenuStrip();
             var accountInfoItem = new ToolStripMenuItem("Account Information");
-            accountInfoItem.Click += (s, e) => OpenForm(new Account_Information());
+            accountInfoItem.Click += (s, e) =>
+            {
+                if (Session.CurrentUserID > 0)
+                {
+                    OpenForm(new Account_Information(Session.CurrentUserID));
+                }
+                else
+                {
+                    MessageBox.Show("No user is logged in. Please log in to view account information.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            };
             var accountItem = new ToolStripMenuItem("Account Management");
             accountItem.Click += (s, e) => OpenForm(new AccountManagement());
             var listItem = new ToolStripMenuItem("List Management");

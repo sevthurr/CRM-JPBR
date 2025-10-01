@@ -38,24 +38,28 @@
             campaignDescLbl = new Label();
             campaignDescTb = new TextBox();
             guestInfoPanel = new Panel();
-            tagsLbl = new Label();
+            emailMessageTb = new TextBox();
+            emailMessageLbl = new Label();
+            promoCodeLbl = new Label();
+            promoCodeTb = new TextBox();
+            soloCb = new CheckBox();
+            coupleCb = new CheckBox();
+            groupCb = new CheckBox();
+            familyCb = new CheckBox();
             endDateDtp = new DateTimePicker();
             endDateLbl = new Label();
             startDateDtp = new DateTimePicker();
             startDateLbl = new Label();
-            familyCb = new CheckBox();
-            groupCb = new CheckBox();
-            coupleCb = new CheckBox();
-            soloCb = new CheckBox();
+            tagsLbl = new Label();
             messagePanel = new Panel();
-            messageTxt = new Label();
             infoIcon = new FontAwesome.Sharp.IconPictureBox();
+            messageTxt = new Label();
             plusIcon = new FontAwesome.Sharp.IconPictureBox();
             addCampaignBtn = new Button();
-            promoCodeLbl = new Label();
-            promoCodeTb = new TextBox();
-            emailMessageTb = new TextBox();
-            emailMessageLbl = new Label();
+            userLimitLbl = new Label();
+            usageLimitTb = new TextBox();
+            discountValueLbl = new Label();
+            discountValueTb = new TextBox();
             newBookingPanel.SuspendLayout();
             guestInfoPanel.SuspendLayout();
             messagePanel.SuspendLayout();
@@ -164,6 +168,10 @@
             // guestInfoPanel
             // 
             guestInfoPanel.BackColor = Color.White;
+            guestInfoPanel.Controls.Add(discountValueLbl);
+            guestInfoPanel.Controls.Add(discountValueTb);
+            guestInfoPanel.Controls.Add(userLimitLbl);
+            guestInfoPanel.Controls.Add(usageLimitTb);
             guestInfoPanel.Controls.Add(emailMessageTb);
             guestInfoPanel.Controls.Add(emailMessageLbl);
             guestInfoPanel.Controls.Add(promoCodeLbl);
@@ -189,16 +197,95 @@
             guestInfoPanel.Size = new Size(790, 683);
             guestInfoPanel.TabIndex = 22;
             // 
-            // tagsLbl
+            // emailMessageTb
             // 
-            tagsLbl.AutoSize = true;
-            tagsLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tagsLbl.ForeColor = Color.DimGray;
-            tagsLbl.Location = new Point(26, 500);
-            tagsLbl.Name = "tagsLbl";
-            tagsLbl.Size = new Size(54, 23);
-            tagsLbl.TabIndex = 14;
-            tagsLbl.Text = "Tag(s)";
+            emailMessageTb.BackColor = Color.White;
+            emailMessageTb.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            emailMessageTb.ForeColor = Color.Black;
+            emailMessageTb.Location = new Point(28, 301);
+            emailMessageTb.Multiline = true;
+            emailMessageTb.Name = "emailMessageTb";
+            emailMessageTb.PlaceholderText = "Write email message...";
+            emailMessageTb.Size = new Size(730, 86);
+            emailMessageTb.TabIndex = 32;
+            // 
+            // emailMessageLbl
+            // 
+            emailMessageLbl.AutoSize = true;
+            emailMessageLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            emailMessageLbl.ForeColor = Color.DimGray;
+            emailMessageLbl.Location = new Point(28, 275);
+            emailMessageLbl.Name = "emailMessageLbl";
+            emailMessageLbl.Size = new Size(107, 23);
+            emailMessageLbl.TabIndex = 31;
+            emailMessageLbl.Text = "Email Message";
+            // 
+            // promoCodeLbl
+            // 
+            promoCodeLbl.AutoSize = true;
+            promoCodeLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            promoCodeLbl.ForeColor = Color.DimGray;
+            promoCodeLbl.Location = new Point(31, 421);
+            promoCodeLbl.Name = "promoCodeLbl";
+            promoCodeLbl.Size = new Size(160, 23);
+            promoCodeLbl.TabIndex = 30;
+            promoCodeLbl.Text = "Promo Code (Optional)";
+            // 
+            // promoCodeTb
+            // 
+            promoCodeTb.BackColor = Color.White;
+            promoCodeTb.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            promoCodeTb.ForeColor = Color.Black;
+            promoCodeTb.Location = new Point(31, 447);
+            promoCodeTb.Multiline = true;
+            promoCodeTb.Name = "promoCodeTb";
+            promoCodeTb.PlaceholderText = "Write promo code";
+            promoCodeTb.Size = new Size(239, 32);
+            promoCodeTb.TabIndex = 29;
+            // 
+            // soloCb
+            // 
+            soloCb.AutoSize = true;
+            soloCb.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            soloCb.Location = new Point(347, 541);
+            soloCb.Name = "soloCb";
+            soloCb.Size = new Size(67, 30);
+            soloCb.TabIndex = 28;
+            soloCb.Text = "Solo";
+            soloCb.UseVisualStyleBackColor = true;
+            // 
+            // coupleCb
+            // 
+            coupleCb.AutoSize = true;
+            coupleCb.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            coupleCb.Location = new Point(243, 541);
+            coupleCb.Name = "coupleCb";
+            coupleCb.Size = new Size(89, 30);
+            coupleCb.TabIndex = 27;
+            coupleCb.Text = "Couple";
+            coupleCb.UseVisualStyleBackColor = true;
+            // 
+            // groupCb
+            // 
+            groupCb.AutoSize = true;
+            groupCb.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            groupCb.Location = new Point(140, 541);
+            groupCb.Name = "groupCb";
+            groupCb.Size = new Size(82, 30);
+            groupCb.TabIndex = 26;
+            groupCb.Text = "Group";
+            groupCb.UseVisualStyleBackColor = true;
+            // 
+            // familyCb
+            // 
+            familyCb.AutoSize = true;
+            familyCb.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            familyCb.Location = new Point(35, 541);
+            familyCb.Name = "familyCb";
+            familyCb.Size = new Size(83, 30);
+            familyCb.TabIndex = 25;
+            familyCb.Text = "Family";
+            familyCb.UseVisualStyleBackColor = true;
             // 
             // endDateDtp
             // 
@@ -246,49 +333,16 @@
             startDateLbl.TabIndex = 21;
             startDateLbl.Text = "Start Date";
             // 
-            // familyCb
+            // tagsLbl
             // 
-            familyCb.AutoSize = true;
-            familyCb.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            familyCb.Location = new Point(35, 541);
-            familyCb.Name = "familyCb";
-            familyCb.Size = new Size(83, 30);
-            familyCb.TabIndex = 25;
-            familyCb.Text = "Family";
-            familyCb.UseVisualStyleBackColor = true;
-            // 
-            // groupCb
-            // 
-            groupCb.AutoSize = true;
-            groupCb.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            groupCb.Location = new Point(140, 541);
-            groupCb.Name = "groupCb";
-            groupCb.Size = new Size(82, 30);
-            groupCb.TabIndex = 26;
-            groupCb.Text = "Group";
-            groupCb.UseVisualStyleBackColor = true;
-            // 
-            // coupleCb
-            // 
-            coupleCb.AutoSize = true;
-            coupleCb.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            coupleCb.Location = new Point(243, 541);
-            coupleCb.Name = "coupleCb";
-            coupleCb.Size = new Size(89, 30);
-            coupleCb.TabIndex = 27;
-            coupleCb.Text = "Couple";
-            coupleCb.UseVisualStyleBackColor = true;
-            // 
-            // soloCb
-            // 
-            soloCb.AutoSize = true;
-            soloCb.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            soloCb.Location = new Point(347, 541);
-            soloCb.Name = "soloCb";
-            soloCb.Size = new Size(67, 30);
-            soloCb.TabIndex = 28;
-            soloCb.Text = "Solo";
-            soloCb.UseVisualStyleBackColor = true;
+            tagsLbl.AutoSize = true;
+            tagsLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tagsLbl.ForeColor = Color.DimGray;
+            tagsLbl.Location = new Point(26, 512);
+            tagsLbl.Name = "tagsLbl";
+            tagsLbl.Size = new Size(54, 23);
+            tagsLbl.TabIndex = 14;
+            tagsLbl.Text = "Tag(s)";
             // 
             // messagePanel
             // 
@@ -299,17 +353,6 @@
             messagePanel.Name = "messagePanel";
             messagePanel.Size = new Size(790, 50);
             messagePanel.TabIndex = 23;
-            // 
-            // messageTxt
-            // 
-            messageTxt.AutoSize = true;
-            messageTxt.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            messageTxt.ForeColor = Color.FromArgb(40, 75, 83);
-            messageTxt.Location = new Point(54, 13);
-            messageTxt.Name = "messageTxt";
-            messageTxt.Size = new Size(480, 23);
-            messageTxt.TabIndex = 29;
-            messageTxt.Text = "This campaign will be delivered directly to your selected guests via email.";
             // 
             // infoIcon
             // 
@@ -325,6 +368,17 @@
             infoIcon.Size = new Size(20, 23);
             infoIcon.TabIndex = 38;
             infoIcon.TabStop = false;
+            // 
+            // messageTxt
+            // 
+            messageTxt.AutoSize = true;
+            messageTxt.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            messageTxt.ForeColor = Color.FromArgb(40, 75, 83);
+            messageTxt.Location = new Point(54, 13);
+            messageTxt.Name = "messageTxt";
+            messageTxt.Size = new Size(480, 23);
+            messageTxt.TabIndex = 29;
+            messageTxt.Text = "This campaign will be delivered directly to your selected guests via email.";
             // 
             // plusIcon
             // 
@@ -351,51 +405,51 @@
             addCampaignBtn.Text = "    Add Campaign";
             addCampaignBtn.UseVisualStyleBackColor = false;
             // 
-            // promoCodeLbl
+            // userLimitLbl
             // 
-            promoCodeLbl.AutoSize = true;
-            promoCodeLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            promoCodeLbl.ForeColor = Color.DimGray;
-            promoCodeLbl.Location = new Point(31, 421);
-            promoCodeLbl.Name = "promoCodeLbl";
-            promoCodeLbl.Size = new Size(160, 23);
-            promoCodeLbl.TabIndex = 30;
-            promoCodeLbl.Text = "Promo Code (Optional)";
+            userLimitLbl.AutoSize = true;
+            userLimitLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            userLimitLbl.ForeColor = Color.DimGray;
+            userLimitLbl.Location = new Point(291, 421);
+            userLimitLbl.Name = "userLimitLbl";
+            userLimitLbl.Size = new Size(85, 23);
+            userLimitLbl.TabIndex = 34;
+            userLimitLbl.Text = "Usage Limit";
             // 
-            // promoCodeTb
+            // usageLimitTb
             // 
-            promoCodeTb.BackColor = Color.White;
-            promoCodeTb.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            promoCodeTb.ForeColor = Color.Black;
-            promoCodeTb.Location = new Point(31, 447);
-            promoCodeTb.Multiline = true;
-            promoCodeTb.Name = "promoCodeTb";
-            promoCodeTb.PlaceholderText = "Write promo code";
-            promoCodeTb.Size = new Size(344, 32);
-            promoCodeTb.TabIndex = 29;
+            usageLimitTb.BackColor = Color.White;
+            usageLimitTb.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            usageLimitTb.ForeColor = Color.Black;
+            usageLimitTb.Location = new Point(291, 447);
+            usageLimitTb.Multiline = true;
+            usageLimitTb.Name = "usageLimitTb";
+            usageLimitTb.PlaceholderText = "Enter usage limit";
+            usageLimitTb.Size = new Size(177, 32);
+            usageLimitTb.TabIndex = 33;
             // 
-            // emailMessageTb
+            // discountValueLbl
             // 
-            emailMessageTb.BackColor = Color.White;
-            emailMessageTb.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            emailMessageTb.ForeColor = Color.Black;
-            emailMessageTb.Location = new Point(28, 301);
-            emailMessageTb.Multiline = true;
-            emailMessageTb.Name = "emailMessageTb";
-            emailMessageTb.PlaceholderText = "Write email message...";
-            emailMessageTb.Size = new Size(730, 86);
-            emailMessageTb.TabIndex = 32;
+            discountValueLbl.AutoSize = true;
+            discountValueLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            discountValueLbl.ForeColor = Color.DimGray;
+            discountValueLbl.Location = new Point(487, 421);
+            discountValueLbl.Name = "discountValueLbl";
+            discountValueLbl.Size = new Size(106, 23);
+            discountValueLbl.TabIndex = 36;
+            discountValueLbl.Text = "Discount Value";
             // 
-            // emailMessageLbl
+            // discountValueTb
             // 
-            emailMessageLbl.AutoSize = true;
-            emailMessageLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            emailMessageLbl.ForeColor = Color.DimGray;
-            emailMessageLbl.Location = new Point(28, 275);
-            emailMessageLbl.Name = "emailMessageLbl";
-            emailMessageLbl.Size = new Size(107, 23);
-            emailMessageLbl.TabIndex = 31;
-            emailMessageLbl.Text = "Email Message";
+            discountValueTb.BackColor = Color.White;
+            discountValueTb.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            discountValueTb.ForeColor = Color.Black;
+            discountValueTb.Location = new Point(487, 447);
+            discountValueTb.Multiline = true;
+            discountValueTb.Name = "discountValueTb";
+            discountValueTb.PlaceholderText = "Enter discount value";
+            discountValueTb.Size = new Size(177, 32);
+            discountValueTb.TabIndex = 35;
             // 
             // NewCampaign
             // 
@@ -450,5 +504,9 @@
         private TextBox promoCodeTb;
         private TextBox emailMessageTb;
         private Label emailMessageLbl;
+        private Label discountValueLbl;
+        private TextBox discountValueTb;
+        private Label userLimitLbl;
+        private TextBox usageLimitTb;
     }
 }
