@@ -15,6 +15,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
     {
         private readonly string connectionString = @"Server=localhost;Database=JPBR;Trusted_Connection=True;TrustServerCertificate=True;";
 
+        // Method for Login
         public (bool Success, int UserID, string Position, string FirstName, string LastName) Authenticate(string userName, string password)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -156,6 +157,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             }
         }
 
+        // Method for Booking
         public (bool Success, int BookingID) CreateBooking(BookingFormData data, int userID, string paymentMethod, string purpose, decimal amount)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -221,17 +223,21 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                         bookingDetailsID = (int)bookingDetailsCmd.ExecuteScalar();
                     }
 
-                    // Step 4: Insert into PaymentDetails table
+                    // Step 4: Insert into PaymentDetails table with dynamic status
+                    string paymentStatus = purpose?.ToLower() == "full payment" ? "Fully Paid" :
+                                          purpose?.ToLower() == "downpayment" ? "Partially Paid" : "Pending";
+
                     string paymentQuery = @"
-                INSERT INTO [dbo].[PaymentDetails] (PaymentDate, Amount, PaymentMethod, PaymentStatus, Purpose)
-                OUTPUT INSERTED.PaymentID
-                VALUES (@PaymentDate, @Amount, @PaymentMethod, 'Pending', @Purpose)";
+                        INSERT INTO [dbo].[PaymentDetails] (PaymentDate, Amount, PaymentMethod, PaymentStatus, Purpose)
+                        OUTPUT INSERTED.PaymentID
+                        VALUES (@PaymentDate, @Amount, @PaymentMethod, @PaymentStatus, @Purpose)";
                     int paymentID;
                     using (SqlCommand paymentCmd = new SqlCommand(paymentQuery, conn, transaction))
                     {
                         paymentCmd.Parameters.AddWithValue("@PaymentDate", DateTime.Now);
                         paymentCmd.Parameters.AddWithValue("@Amount", amount);
                         paymentCmd.Parameters.AddWithValue("@PaymentMethod", paymentMethod);
+                        paymentCmd.Parameters.AddWithValue("@PaymentStatus", paymentStatus);
                         paymentCmd.Parameters.AddWithValue("@Purpose", purpose);
                         paymentID = (int)paymentCmd.ExecuteScalar();
                     }
@@ -356,7 +362,6 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             }
         }
 
-        // Method to check for date conflicts
         public bool CheckBookingOverlap(DateTime checkIn, DateTime checkOut)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -386,7 +391,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 }
             }
         }
-
+        
         public DataTable GetPaymentHistory(int bookingID)
         {
             DataTable payments = new DataTable();
@@ -483,6 +488,10 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                     }
 
                     // Insert into PaymentDetails table
+
+                    string paymentStatus = purpose?.ToLower() == "full payment" ? "Fully Paid" :
+                      purpose?.ToLower() == "downpayment" ? "Partially Paid" : "Pending";
+
                     string paymentQuery = @"
                         INSERT INTO [dbo].[PaymentDetails] (PaymentDate, Amount, PaymentMethod, PaymentStatus, Purpose)
                         OUTPUT INSERTED.PaymentID
@@ -493,7 +502,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                         paymentCmd.Parameters.AddWithValue("@PaymentDate", DateTime.Today);
                         paymentCmd.Parameters.AddWithValue("@Amount", amount);
                         paymentCmd.Parameters.AddWithValue("@PaymentMethod", paymentMethod);
-                        paymentCmd.Parameters.AddWithValue("@PaymentStatus", "Pending");
+                        paymentCmd.Parameters.AddWithValue("@PaymentStatus", paymentStatus);
                         paymentCmd.Parameters.AddWithValue("@Purpose", purpose);
                         paymentID = (int)paymentCmd.ExecuteScalar();
                     }
@@ -634,7 +643,6 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             }
         }
 
-        // Add this method to your AccountManager class
         public bool CancelBooking(int bookingID, int userID)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -731,6 +739,104 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                     return false;
                 }
             }
+        }
+
+        // Methods for Guest / Conact Management
+        public DataTable GetGuests(string searchTerm = "", string filter = "")
+        {
+            DataTable guests = new DataTable();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string baseQuery = @"
+                SELECT 
+                    g.GuestID,
+                    g.FName + ' ' + ISNULL(g.MName + ' ', '') + g.LName AS GuestName,
+                    ISNULL(g.Tag, 'None') AS Tag,
+                    MAX(bd.CheckInDate) AS LastBooking
+                FROM [dbo].[Guest] g
+                LEFT JOIN [dbo].[Booking] b ON g.GuestID = b.GuestID
+                LEFT JOIN [dbo].[BookingDetails] bd ON b.BookingDetailsID = bd.BookingDetailsID
+            ";
+
+                    string whereClause = "";
+                    List<SqlParameter> parameters = new List<SqlParameter>();
+
+                    if (!string.IsNullOrEmpty(searchTerm))
+                    {
+                        if (!string.IsNullOrEmpty(whereClause)) whereClause += " AND ";
+                        whereClause += @"(
+                    g.GuestID LIKE @SearchTerm 
+                    OR g.FName + ' ' + ISNULL(g.MName + ' ', '') + g.LName LIKE @SearchTerm 
+                    OR ISNULL(g.Tag, 'None') LIKE @SearchTerm
+                )";
+                        parameters.Add(new SqlParameter("@SearchTerm", "%" + searchTerm + "%"));
+                    }
+
+                    if (!string.IsNullOrEmpty(filter) && filter != "All")
+                    {
+                        if (!string.IsNullOrEmpty(whereClause)) whereClause += " AND ";
+                        whereClause += "ISNULL(g.Tag, 'None') = @Filter";
+                        parameters.Add(new SqlParameter("@Filter", filter));
+                    }
+
+                    if (!string.IsNullOrEmpty(whereClause)) whereClause = " WHERE " + whereClause;
+
+                    string groupByOrderBy = @"
+                GROUP BY 
+                    g.GuestID, g.FName, g.MName, g.LName, g.Tag
+                ORDER BY g.GuestID DESC";
+
+                    string query = baseQuery + whereClause + groupByOrderBy;
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddRange(parameters.ToArray());
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            adapter.Fill(guests);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading guests: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            return guests;
+        }
+
+        public List<string> GetDistinctTags()
+        {
+            List<string> tags = new List<string>();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = @"
+                SELECT DISTINCT ISNULL(Tag, 'None') AS Tag
+                FROM [dbo].[Guest]
+                ORDER BY Tag";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                tags.Add(reader["Tag"].ToString());
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading distinct tags: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            return tags;
         }
 
         // Methods for the Account Management

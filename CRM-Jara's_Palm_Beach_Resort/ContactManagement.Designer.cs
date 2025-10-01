@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             contactManagementLbl = new Label();
             topNavBar1 = new TopNavBar();
             contactListPanel = new Panel();
@@ -55,6 +55,8 @@
             imgPanel = new Panel();
             guestInfoLbl = new Label();
             bookingInformationPanel = new Panel();
+            tagVal = new Label();
+            label4 = new Label();
             linkLabel2 = new LinkLabel();
             linkLabel1 = new LinkLabel();
             radioButton2 = new RadioButton();
@@ -73,8 +75,6 @@
             paxLbl = new Label();
             nameLbl = new Label();
             guestInformationLbl = new Label();
-            tagVal = new Label();
-            label4 = new Label();
             contactListPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)guestTable).BeginInit();
             ((System.ComponentModel.ISupportInitialize)sortIcon).BeginInit();
@@ -128,8 +128,8 @@
             // 
             guestTable.AllowUserToAddRows = false;
             guestTable.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(235, 197, 149);
-            guestTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(235, 197, 149);
+            guestTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             guestTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             guestTable.BackgroundColor = Color.White;
             guestTable.BorderStyle = BorderStyle.Fixed3D;
@@ -213,7 +213,7 @@
             filterComboBox.ForeColor = SystemColors.WindowFrame;
             filterComboBox.FormattingEnabled = true;
             filterComboBox.ItemHeight = 18;
-            filterComboBox.Items.AddRange(new object[] { "Booked", "Staying", "Completed", "Cancelled", "", "Fully Paid", "Partial", "Downpayment" });
+            filterComboBox.Items.AddRange(new object[] { "Group", "Family", "Solo", "Couple" });
             filterComboBox.Location = new Point(888, 33);
             filterComboBox.Name = "filterComboBox";
             filterComboBox.Size = new Size(132, 26);
@@ -426,6 +426,26 @@
             bookingInformationPanel.Size = new Size(470, 775);
             bookingInformationPanel.TabIndex = 18;
             // 
+            // tagVal
+            // 
+            tagVal.AutoSize = true;
+            tagVal.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tagVal.Location = new Point(216, 588);
+            tagVal.Name = "tagVal";
+            tagVal.Size = new Size(48, 20);
+            tagVal.TabIndex = 43;
+            tagVal.Text = "None";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.Location = new Point(79, 588);
+            label4.Name = "label4";
+            label4.Size = new Size(46, 20);
+            label4.TabIndex = 42;
+            label4.Text = "Tag:";
+            // 
             // linkLabel2
             // 
             linkLabel2.AutoSize = true;
@@ -627,26 +647,6 @@
             guestInformationLbl.TabIndex = 8;
             guestInformationLbl.Text = "Guest Information";
             guestInformationLbl.Click += bookingInformationLbl_Click;
-            // 
-            // tagVal
-            // 
-            tagVal.AutoSize = true;
-            tagVal.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tagVal.Location = new Point(216, 588);
-            tagVal.Name = "tagVal";
-            tagVal.Size = new Size(48, 20);
-            tagVal.TabIndex = 43;
-            tagVal.Text = "None";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(79, 588);
-            label4.Name = "label4";
-            label4.Size = new Size(46, 20);
-            label4.TabIndex = 42;
-            label4.Text = "Tag:";
             // 
             // ContactManagement
             // 

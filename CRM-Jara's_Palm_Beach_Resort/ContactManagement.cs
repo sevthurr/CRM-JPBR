@@ -12,13 +12,16 @@ namespace CRM_Jara_s_Palm_Beach_Resort
 {
     public partial class ContactManagement : Form
     {
+        private string currentSearch = "";
+        private string currentFilter = "All";
+
         public ContactManagement()
         {
             InitializeComponent();
             topNavBar1.SetActive("ContactManagement");
             topNavBar1.Dock = DockStyle.Top;
 
-            // Initialize guestTable columns and sample data
+            // Initialize guestTable columns
             guestTable.Columns.Clear();
             string[] headers = { "Guest ID", "Guest Name", "Tag", "Last Booking" };
             foreach (var header in headers)
@@ -31,13 +34,22 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             guestTable.DefaultCellStyle.Font = new Font("Poppins", 10F, FontStyle.Regular);
             guestTable.DefaultCellStyle.ForeColor = Color.Black;
 
-            // Sample data
-            guestTable.Rows.Add("G001", "John Doe", "Family", "06-23-2025");
-            guestTable.Rows.Add("G002", "Jane Smith", "Group", "05-06-2025");
-            guestTable.Rows.Add("G003", "Alice Brown", "Couple", "05-01-2025");
-            guestTable.Rows.Add("G004", "Bob Lee", "Solo", "04-30-2025");
+            // Dynamically load distinct tags into filterComboBox
+            AccountManager accountManager = new AccountManager();
+            List<string> tags = accountManager.GetDistinctTags();
+            filterComboBox.Items.Clear();
+            filterComboBox.Items.Add("All");
+            filterComboBox.Items.AddRange(tags.ToArray());
+            filterComboBox.SelectedIndex = 0; // Default to "All"
 
+            // Add event handlers
+            searchBoxLbl.TextChanged += searchBoxLbl_TextChanged;
+            filterComboBox.SelectedIndexChanged += filterComboBox_SelectedIndexChanged;
+
+            // Populate guestTable with all guests initially
+            LoadGuestTable(currentSearch, currentFilter);
         }
+
 
 
         private void label2_Click(object sender, EventArgs e)
@@ -103,6 +115,38 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         private void paxLbl_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void searchBoxLbl_TextChanged(object sender, EventArgs e)
+        {
+            currentSearch = searchBoxLbl.Text.Trim();
+            LoadGuestTable(currentSearch, currentFilter);
+        }
+
+        private void filterComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            currentFilter = filterComboBox.Text;
+            LoadGuestTable(currentSearch, currentFilter);
+        }
+
+        private void LoadGuestTable(string searchTerm, string filter)
+        {
+            guestTable.Rows.Clear();
+            AccountManager accountManager = new AccountManager();
+            DataTable guestData = accountManager.GetGuests(searchTerm, filter);
+
+            foreach (DataRow row in guestData.Rows)
+            {
+                string lastBooking = row["LastBooking"] != DBNull.Value
+                    ? Convert.ToDateTime(row["LastBooking"]).ToString("MM-dd-yyyy")
+                    : "No Bookings";
+                guestTable.Rows.Add(
+                    row["GuestID"].ToString(),
+                    row["GuestName"].ToString(),
+                    row["Tag"].ToString(),
+                    lastBooking
+                );
+            }
         }
     }
 }
