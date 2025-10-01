@@ -168,96 +168,114 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                     conn.Open();
                     transaction = conn.BeginTransaction();
 
-                    // Step 1: Insert into Guest table
-                    string guestQuery = @"
-    INSERT INTO [dbo].[Guest] (FName, MName, LName, Suffix, Email, Phone, Address, Platform, [Contact-able])
-    OUTPUT INSERTED.GuestID
-    VALUES (@FName, @MName, @LName, @Suffix, @Email, @Phone, @Address, @Platform, @ContactAble)";
+                    // Insert Guest
+                    string insertGuest = @"
+                INSERT INTO [dbo].[Guest] (FName, MName, LName, Suffix, Email, Phone, Address, [Contact-able], Platform, Tag, MarketingConsent)
+                OUTPUT INSERTED.GuestID
+                VALUES (@FName, @MName, @LName, @Suffix, @Email, @Phone, @Address, @Contactable, @Platform, @Tag, @MarketingConsent)";
                     int guestID;
-                    using (SqlCommand guestCmd = new SqlCommand(guestQuery, conn, transaction))
+                    using (SqlCommand cmd = new SqlCommand(insertGuest, conn, transaction))
                     {
-                        guestCmd.Parameters.AddWithValue("@FName", data.FirstName);
-                        guestCmd.Parameters.AddWithValue("@MName", string.IsNullOrWhiteSpace(data.MiddleName) ? (object)DBNull.Value : data.MiddleName);
-                        guestCmd.Parameters.AddWithValue("@LName", data.LastName);
-                        guestCmd.Parameters.AddWithValue("@Suffix", string.IsNullOrWhiteSpace(data.Suffix) ? (object)DBNull.Value : data.Suffix);
-                        guestCmd.Parameters.AddWithValue("@Email", data.Email);
-                        guestCmd.Parameters.AddWithValue("@Phone", data.Contact);
-                        guestCmd.Parameters.AddWithValue("@Address", data.Address);
-                        guestCmd.Parameters.AddWithValue("@Platform", data.Platform);
-                        guestCmd.Parameters.AddWithValue("@ContactAble", 1); // Parameter for Contact-able
-                        guestID = (int)guestCmd.ExecuteScalar();
+                        cmd.Parameters.AddWithValue("@FName", data.FirstName);
+                        cmd.Parameters.AddWithValue("@MName", string.IsNullOrEmpty(data.MiddleName) ? DBNull.Value : data.MiddleName);
+                        cmd.Parameters.AddWithValue("@LName", data.LastName);
+                        cmd.Parameters.AddWithValue("@Suffix", string.IsNullOrEmpty(data.Suffix) ? DBNull.Value : data.Suffix);
+                        cmd.Parameters.AddWithValue("@Email", data.Email);
+                        cmd.Parameters.AddWithValue("@Phone", data.Contact);
+                        cmd.Parameters.AddWithValue("@Address", data.Address);
+                        cmd.Parameters.AddWithValue("@Contactable", true); // Assuming default true
+                        cmd.Parameters.AddWithValue("@Platform", data.Platform);
+                        cmd.Parameters.AddWithValue("@Tag", DBNull.Value); // Assuming null for now
+                        cmd.Parameters.AddWithValue("@MarketingConsent", false); // Assuming default false
+                        guestID = (int)cmd.ExecuteScalar();
                     }
 
-                    // Step 2: Calculate TotalDue (reuse logic from GetTotalDue)
+                    // Calculate totals
                     string package = data.PackageASelected ? "Package A" : "Package B";
                     decimal basePrice = data.PackageASelected ? 15000m : 12000m;
                     int maxGuests = data.PackageASelected ? 30 : 20;
                     decimal extraGuestRate = 100m;
                     int daysStaying = (data.CheckOut.Date - data.CheckIn.Date).Days;
-                    if (daysStaying <= 0)
-                    {
-                        throw new Exception("Check-out date must be after check-in date.");
-                    }
                     int excessGuests = Math.Max(0, data.GuestQty - maxGuests);
                     decimal excessAmount = excessGuests * extraGuestRate * daysStaying;
                     decimal totalBeforeDiscount = (basePrice * daysStaying) + excessAmount;
-                    decimal discountPercentage = data.PromoCode == "SUMMER25" ? 25m : 0m;
-                    decimal discountAmount = totalBeforeDiscount * (discountPercentage / 100m);
-                    decimal totalDue = totalBeforeDiscount - discountAmount;
 
-                    // Step 3: Insert into BookingDetails table (now including TotalDue)
-                    string bookingDetailsQuery = @"
+                    decimal discountAmountCalc = 0m;
+                    string promoCode = data.PromoCode;
+
+                    if (!string.IsNullOrWhiteSpace(promoCode))
+                    {
+                        var (valid, type, value) = ValidatePromoCode(promoCode, data.BookingDate);
+                        if (valid)
+                        {
+                            if (type == "Percentage")
+                            {
+                                discountAmountCalc = totalBeforeDiscount * (value / 100m);
+                            }
+                            else if (type == "Fixed")
+                            {
+                                discountAmountCalc = value;
+                            }
+                        }
+                        else
+                        {
+                            throw new Exception("Invalid promo code.");
+                        }
+                    }
+
+                    decimal totalDue = totalBeforeDiscount - discountAmountCalc;
+
+                    // Insert BookingDetails
+                    string insertBookingDetails = @"
                 INSERT INTO [dbo].[BookingDetails] (BookingDate, CheckInDate, CheckOutDate, BookingStatus, Pax, Package, PromoCode, TotalDue)
                 OUTPUT INSERTED.BookingDetailsID
-                VALUES (@BookingDate, @CheckInDate, @CheckOutDate, 'Booked', @Pax, @Package, @PromoCode, @TotalDue)";
+                VALUES (@BookingDate, @CheckInDate, @CheckOutDate, @BookingStatus, @Pax, @Package, @PromoCode, @TotalDue)";
                     int bookingDetailsID;
-                    using (SqlCommand bookingDetailsCmd = new SqlCommand(bookingDetailsQuery, conn, transaction))
+                    using (SqlCommand cmd = new SqlCommand(insertBookingDetails, conn, transaction))
                     {
-                        bookingDetailsCmd.Parameters.AddWithValue("@BookingDate", data.BookingDate);
-                        bookingDetailsCmd.Parameters.AddWithValue("@CheckInDate", data.CheckIn);
-                        bookingDetailsCmd.Parameters.AddWithValue("@CheckOutDate", data.CheckOut);
-                        bookingDetailsCmd.Parameters.AddWithValue("@Pax", data.GuestQty);
-                        bookingDetailsCmd.Parameters.AddWithValue("@Package", package);
-                        bookingDetailsCmd.Parameters.AddWithValue("@PromoCode", string.IsNullOrWhiteSpace(data.PromoCode) ? (object)DBNull.Value : data.PromoCode);
-                        bookingDetailsCmd.Parameters.AddWithValue("@TotalDue", totalDue);  // New: Insert calculated TotalDue
-                        bookingDetailsID = (int)bookingDetailsCmd.ExecuteScalar();
+                        cmd.Parameters.AddWithValue("@BookingDate", data.BookingDate);
+                        cmd.Parameters.AddWithValue("@CheckInDate", data.CheckIn);
+                        cmd.Parameters.AddWithValue("@CheckOutDate", data.CheckOut);
+                        cmd.Parameters.AddWithValue("@BookingStatus", "Booked"); // Initial status
+                        cmd.Parameters.AddWithValue("@Pax", data.GuestQty);
+                        cmd.Parameters.AddWithValue("@Package", package);
+                        cmd.Parameters.AddWithValue("@PromoCode", string.IsNullOrEmpty(promoCode) ? DBNull.Value : promoCode);
+                        cmd.Parameters.AddWithValue("@TotalDue", totalDue);
+                        bookingDetailsID = (int)cmd.ExecuteScalar();
                     }
 
-                    // Step 4: Insert into PaymentDetails table with dynamic status
-                    string paymentStatus = purpose?.ToLower() == "full payment" ? "Fully Paid" :
-                                          purpose?.ToLower() == "downpayment" ? "Partially Paid" : "Pending";
-
-                    string paymentQuery = @"
-                        INSERT INTO [dbo].[PaymentDetails] (PaymentDate, Amount, PaymentMethod, PaymentStatus, Purpose)
-                        OUTPUT INSERTED.PaymentID
-                        VALUES (@PaymentDate, @Amount, @PaymentMethod, @PaymentStatus, @Purpose)";
+                    // Insert PaymentDetails
+                    string insertPayment = @"
+                INSERT INTO [dbo].[PaymentDetails] (PaymentDate, Amount, PaymentMethod, PaymentStatus, Purpose)
+                OUTPUT INSERTED.PaymentID
+                VALUES (@PaymentDate, @Amount, @PaymentMethod, @PaymentStatus, @Purpose)";
                     int paymentID;
-                    using (SqlCommand paymentCmd = new SqlCommand(paymentQuery, conn, transaction))
+                    using (SqlCommand cmd = new SqlCommand(insertPayment, conn, transaction))
                     {
-                        paymentCmd.Parameters.AddWithValue("@PaymentDate", DateTime.Now);
-                        paymentCmd.Parameters.AddWithValue("@Amount", amount);
-                        paymentCmd.Parameters.AddWithValue("@PaymentMethod", paymentMethod);
-                        paymentCmd.Parameters.AddWithValue("@PaymentStatus", paymentStatus);
-                        paymentCmd.Parameters.AddWithValue("@Purpose", purpose);
-                        paymentID = (int)paymentCmd.ExecuteScalar();
+                        cmd.Parameters.AddWithValue("@PaymentDate", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@Amount", amount);
+                        cmd.Parameters.AddWithValue("@PaymentMethod", paymentMethod);
+                        cmd.Parameters.AddWithValue("@PaymentStatus", "Paid"); // Assume paid
+                        cmd.Parameters.AddWithValue("@Purpose", purpose);
+                        paymentID = (int)cmd.ExecuteScalar();
                     }
 
-                    // Step 5: Insert into Booking table
-                    string bookingQuery = @"
+                    // Insert Booking
+                    string insertBooking = @"
                 INSERT INTO [dbo].[Booking] (GuestID, BookingDetailsID, PaymentID)
                 OUTPUT INSERTED.BookingID
                 VALUES (@GuestID, @BookingDetailsID, @PaymentID)";
                     int bookingID;
-                    using (SqlCommand bookingCmd = new SqlCommand(bookingQuery, conn, transaction))
+                    using (SqlCommand cmd = new SqlCommand(insertBooking, conn, transaction))
                     {
-                        bookingCmd.Parameters.AddWithValue("@GuestID", guestID);
-                        bookingCmd.Parameters.AddWithValue("@BookingDetailsID", bookingDetailsID);
-                        bookingCmd.Parameters.AddWithValue("@PaymentID", paymentID);
-                        bookingID = (int)bookingCmd.ExecuteScalar();
+                        cmd.Parameters.AddWithValue("@GuestID", guestID);
+                        cmd.Parameters.AddWithValue("@BookingDetailsID", bookingDetailsID);
+                        cmd.Parameters.AddWithValue("@PaymentID", paymentID);
+                        bookingID = (int)cmd.ExecuteScalar();
                     }
 
-                    // Log the action
-                    LogAction(userID, "CreateBooking", $"Created new booking with ID {bookingID} for guest ID {guestID}");
+                    // Log action
+                    LogAction(userID, "CreateBooking", $"Created booking {bookingID} for guest {guestID}");
 
                     transaction.Commit();
                     return (true, bookingID);
@@ -737,6 +755,56 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                     transaction?.Rollback();
                     MessageBox.Show($"Error cancelling booking: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
+                }
+            }
+        }
+
+        public (bool Valid, string DiscountType, decimal DiscountValue) ValidatePromoCode(string code, DateTime referenceDate)
+        {
+            if (string.IsNullOrWhiteSpace(code)) return (false, null, 0m);
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = @"
+                SELECT DiscountType, DiscountValue, UsageLimit, ExpiryDate
+                FROM [dbo].[PromoCode]
+                WHERE Code = @Code";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Code", code);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (!reader.Read()) return (false, null, 0m);
+
+                            string type = reader["DiscountType"].ToString();
+                            decimal value = (decimal)reader["DiscountValue"];
+                            int limit = (int)reader["UsageLimit"];
+                            DateTime expiry = (DateTime)reader["ExpiryDate"];
+
+                            reader.Close();
+
+                            if (expiry < referenceDate.Date) return (false, null, 0m);
+
+                            // Check usage
+                            string usageQuery = "SELECT COUNT(*) FROM [dbo].[BookingDetails] WHERE PromoCode = @Code";
+                            using (SqlCommand usageCmd = new SqlCommand(usageQuery, conn))
+                            {
+                                usageCmd.Parameters.AddWithValue("@Code", code);
+                                int used = (int)usageCmd.ExecuteScalar();
+                                if (used >= limit) return (false, null, 0m);
+                            }
+
+                            return (true, type, value);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error validating promo code: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return (false, null, 0m);
                 }
             }
         }

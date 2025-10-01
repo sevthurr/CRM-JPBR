@@ -55,19 +55,50 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             excessPersonAmount.Text = $"(₱ {excessAmount:N0})";
 
             // Promo discount
-            decimal discountPercentage = 0m;
-            if (_restoreData.PromoCode == "SUMMER25")
+            string promoCode = _restoreData.PromoCode;
+            decimal discountValue = 0m;
+            string discountType = "";
+            bool isValidPromo = false;
+
+            if (!string.IsNullOrWhiteSpace(promoCode))
             {
-                discountPercentage = 25m;
+                AccountManager manager = new AccountManager();
+                var (valid, type, value) = manager.ValidatePromoCode(promoCode, _restoreData.BookingDate);
+                if (valid)
+                {
+                    isValidPromo = true;
+                    discountType = type;
+                    discountValue = value;
+                }
             }
+
             decimal totalBeforeDiscount = (basePrice * daysStaying) + excessAmount;
-            decimal discountAmount = totalBeforeDiscount * (discountPercentage / 100m);
-            promoDiscountLbl.Text = string.IsNullOrWhiteSpace(_restoreData.PromoCode) ? "No Promo Code" : _restoreData.PromoCode;
-            this.discountPercentage.Text = discountPercentage > 0 ? $"{discountPercentage}%" : "0%";
-            this.discountAmount.Text = $"(₱ {discountAmount:N0})";
+            decimal discountAmountCalc = 0m;
+
+            if (isValidPromo)
+            {
+                if (discountType == "Percentage")
+                {
+                    discountAmountCalc = totalBeforeDiscount * (discountValue / 100m);
+                    this.discountPercentage.Text = $"{(int)discountValue}%"; // Display as integer with % symbol
+                }
+                else if (discountType == "Fixed")
+                {
+                    discountAmountCalc = discountValue;
+                    this.discountPercentage.Text = "Fixed";
+                }
+            }
+            else
+            {
+                this.discountPercentage.Text = "0%";
+            }
+
+            promoDiscountLbl.Text = string.IsNullOrWhiteSpace(promoCode) ? "No Promo Code" : (isValidPromo ? promoCode : $"{promoCode} (Invalid)");
+
+            this.discountAmount.Text = $"(₱ {discountAmountCalc:N0})";
 
             // Total amount
-            decimal totalAmount = totalBeforeDiscount - discountAmount;
+            decimal totalAmount = totalBeforeDiscount - discountAmountCalc;
             totalAmountVal.Text = $"₱ {totalAmount:N0}";
         }
 
@@ -133,9 +164,33 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             int excessGuests = Math.Max(0, _restoreData.GuestQty - maxGuests);
             decimal excessAmount = excessGuests * extraGuestRate * daysStaying;
             decimal totalBeforeDiscount = (basePrice * daysStaying) + excessAmount;
-            decimal discountPercentage = _restoreData.PromoCode == "SUMMER25" ? 25m : 0m;
-            decimal discountAmount = totalBeforeDiscount * (discountPercentage / 100m);
-            decimal expectedTotal = totalBeforeDiscount - discountAmount;
+
+            decimal discountAmountCalc = 0m;
+            string promoCode = _restoreData.PromoCode;
+            AccountManager manager = new AccountManager();
+
+            if (!string.IsNullOrWhiteSpace(promoCode))
+            {
+                var (valid, type, value) = manager.ValidatePromoCode(promoCode, _restoreData.BookingDate);
+                if (valid)
+                {
+                    if (type == "Percentage")
+                    {
+                        discountAmountCalc = totalBeforeDiscount * (value / 100m);
+                    }
+                    else if (type == "Fixed")
+                    {
+                        discountAmountCalc = value;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("The promo code is invalid, expired, or usage limit exceeded.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+
+            decimal expectedTotal = totalBeforeDiscount - discountAmountCalc;
 
             // Validate payment amount based on purpose
             if (purposeCb.Text == "Full Payment" && amount != expectedTotal)
@@ -149,7 +204,6 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 return;
             }
 
-            AccountManager manager = new AccountManager();
             var (success, bookingID) = manager.CreateBooking(_restoreData, Session.CurrentUserID, paymentMethodCb.Text, purposeCb.Text, amount);
             if (success)
             {
