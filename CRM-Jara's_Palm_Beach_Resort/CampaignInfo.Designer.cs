@@ -130,6 +130,7 @@
             descriptionVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             descriptionVal.ForeColor = Color.Black;
             descriptionVal.Location = new Point(284, 232);
+
             descriptionVal.Name = "descriptionVal";
             descriptionVal.Size = new Size(482, 90);
             descriptionVal.TabIndex = 28;

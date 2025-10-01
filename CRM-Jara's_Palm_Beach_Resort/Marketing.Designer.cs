@@ -163,7 +163,7 @@
             filterComboBox.ForeColor = SystemColors.WindowFrame;
             filterComboBox.FormattingEnabled = true;
             filterComboBox.ItemHeight = 26;
-            filterComboBox.Items.AddRange(new object[] { "Booked", "Staying", "Completed", "Cancelled", "", "Fully Paid", "Partial", "Downpayment" });
+            filterComboBox.Items.AddRange(new object[] { "Seasonal Offer", "Limited-Time Discount", "Event" });
             filterComboBox.Location = new Point(436, 9);
             filterComboBox.Name = "filterComboBox";
             filterComboBox.Size = new Size(178, 34);
@@ -178,7 +178,7 @@
             searchBoxLbl.Location = new Point(377, 31);
             searchBoxLbl.Multiline = true;
             searchBoxLbl.Name = "searchBoxLbl";
-            searchBoxLbl.PlaceholderText = "Search ID, guests, tags, etc.";
+            searchBoxLbl.PlaceholderText = "Search promo code and headline";
             searchBoxLbl.Size = new Size(307, 34);
             searchBoxLbl.TabIndex = 33;
             // 
@@ -231,7 +231,7 @@
             comboBox1.ForeColor = SystemColors.WindowFrame;
             comboBox1.FormattingEnabled = true;
             comboBox1.ItemHeight = 26;
-            comboBox1.Items.AddRange(new object[] { "Booked", "Staying", "Completed", "Cancelled", "", "Fully Paid", "Partial", "Downpayment" });
+            comboBox1.Items.AddRange(new object[] { "Family", "Group", "Solo", "Couple" });
             comboBox1.Location = new Point(676, 10);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(178, 34);
@@ -478,7 +478,7 @@
             endCampaignLbl.AutoSize = true;
             endCampaignLbl.Font = new Font("Poppins", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             endCampaignLbl.ForeColor = SystemColors.ControlDarkDark;
-            endCampaignLbl.Location = new Point(149, 35);
+            endCampaignLbl.Location = new Point(146, 35);
             endCampaignLbl.Name = "endCampaignLbl";
             endCampaignLbl.Size = new Size(122, 23);
             endCampaignLbl.TabIndex = 48;

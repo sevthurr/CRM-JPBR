@@ -1425,6 +1425,172 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 }
             }
         }
+
+        public List<CampaignData> GetCampaigns()
+        {
+            List<CampaignData> campaigns = new List<CampaignData>();
+            DateTime now = new DateTime(2025, 10, 1); // Use the provided current date
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    // Update statuses first
+                    string updateStatusQuery = @"
+                UPDATE [dbo].[Campaign]
+                SET Status = 'Completed'
+                WHERE Status = 'Active' AND EndDate < @Now";
+                    using (SqlCommand updateCmd = new SqlCommand(updateStatusQuery, conn))
+                    {
+                        updateCmd.Parameters.AddWithValue("@Now", now);
+                        updateCmd.ExecuteNonQuery();
+                    }
+
+                    // Fetch campaigns
+                    string query = @"
+                SELECT c.*, pc.Code AS PromoCode
+                FROM [dbo].[Campaign] c
+                LEFT JOIN [dbo].[PromoCode] pc ON c.PromoCodeID = pc.PromoCodeID
+                ORDER BY c.StartDate DESC";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                CampaignData data = new CampaignData
+                                {
+                                    CampaignID = (int)reader["CampaignID"],
+                                    Headline = reader["Headline"].ToString(),
+                                    Description = reader["Description"].ToString(),
+                                    Type = reader["Type"].ToString(),
+                                    EmailMessage = reader["EmailMessage"].ToString(),
+                                    StartDate = (DateTime)reader["StartDate"],
+                                    EndDate = (DateTime)reader["EndDate"],
+                                    Status = reader["Status"].ToString(),
+                                    Tag = reader["Tag"].ToString(),
+                                    PromoCode = reader.IsDBNull(reader.GetOrdinal("PromoCode")) ? null : reader["PromoCode"].ToString()
+                                };
+                                campaigns.Add(data);
+                            }
+                        }
+                    }
+
+                    // Fetch delivered and total for each campaign
+                    foreach (var data in campaigns)
+                    {
+                        string guestQuery = @"
+                    SELECT COUNT(*) AS TotalAssigned, 
+                           SUM(DeliveredCount) AS Delivered
+                    FROM [dbo].[CampaignGuest]
+                    WHERE CampaignID = @CampaignID";
+                        using (SqlCommand guestCmd = new SqlCommand(guestQuery, conn))
+                        {
+                            guestCmd.Parameters.AddWithValue("@CampaignID", data.CampaignID);
+                            using (SqlDataReader guestReader = guestCmd.ExecuteReader())
+                            {
+                                if (guestReader.Read())
+                                {
+                                    data.TotalAssigned = guestReader.GetInt32("TotalAssigned");
+                                    data.Delivered = guestReader.GetInt32("Delivered");
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading campaigns: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            return campaigns;
+        }
+
+        public CampaignData GetCampaignByID(int campaignID)
+        {
+            CampaignData data = null;
+            DateTime now = new DateTime(2025, 10, 1); // Use the provided current date
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    // Update status if needed
+                    string updateStatusQuery = @"
+                UPDATE [dbo].[Campaign]
+                SET Status = 'Completed'
+                WHERE CampaignID = @CampaignID AND Status = 'Active' AND EndDate < @Now";
+                    using (SqlCommand updateCmd = new SqlCommand(updateStatusQuery, conn))
+                    {
+                        updateCmd.Parameters.AddWithValue("@CampaignID", campaignID);
+                        updateCmd.Parameters.AddWithValue("@Now", now);
+                        updateCmd.ExecuteNonQuery();
+                    }
+
+                    // Fetch campaign
+                    string query = @"
+                SELECT c.*, pc.Code AS PromoCode
+                FROM [dbo].[Campaign] c
+                LEFT JOIN [dbo].[PromoCode] pc ON c.PromoCodeID = pc.PromoCodeID
+                WHERE c.CampaignID = @CampaignID";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@CampaignID", campaignID);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                data = new CampaignData
+                                {
+                                    CampaignID = (int)reader["CampaignID"],
+                                    Headline = reader["Headline"].ToString(),
+                                    Description = reader["Description"].ToString(),
+                                    Type = reader["Type"].ToString(),
+                                    EmailMessage = reader["EmailMessage"].ToString(),
+                                    StartDate = (DateTime)reader["StartDate"],
+                                    EndDate = (DateTime)reader["EndDate"],
+                                    Status = reader["Status"].ToString(),
+                                    Tag = reader["Tag"].ToString(),
+                                    PromoCode = reader.IsDBNull(reader.GetOrdinal("PromoCode")) ? null : reader["PromoCode"].ToString()
+                                };
+                            }
+                        }
+                    }
+
+                    if (data != null)
+                    {
+                        // Fetch delivered and total
+                        string guestQuery = @"
+                    SELECT COUNT(*) AS TotalAssigned, 
+                           SUM(DeliveredCount) AS Delivered
+                    FROM [dbo].[CampaignGuest]
+                    WHERE CampaignID = @CampaignID";
+                        using (SqlCommand guestCmd = new SqlCommand(guestQuery, conn))
+                        {
+                            guestCmd.Parameters.AddWithValue("@CampaignID", campaignID);
+                            using (SqlDataReader guestReader = guestCmd.ExecuteReader())
+                            {
+                                if (guestReader.Read())
+                                {
+                                    data.TotalAssigned = guestReader.GetInt32("TotalAssigned");
+                                    data.Delivered = guestReader.GetInt32("Delivered");
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading campaign: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+                }
+            }
+            return data;
+        }
     }
 
     public class BookingDetailsData
@@ -1456,5 +1622,21 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         public string Position { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+    }
+
+    public class CampaignData
+    {
+        public int CampaignID { get; set; }
+        public string Headline { get; set; }
+        public string Description { get; set; }
+        public string Type { get; set; }
+        public string EmailMessage { get; set; }
+        public string PromoCode { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string Status { get; set; }
+        public string Tag { get; set; }
+        public int Delivered { get; set; }
+        public int TotalAssigned { get; set; }
     }
 }
