@@ -126,15 +126,17 @@
             // 
             // descriptionVal
             // 
-            descriptionVal.AutoSize = true;
+            descriptionVal.AutoSize = false;
             descriptionVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             descriptionVal.ForeColor = Color.Black;
             descriptionVal.Location = new Point(284, 232);
-
             descriptionVal.Name = "descriptionVal";
-            descriptionVal.Size = new Size(482, 90);
+            descriptionVal.Size = new Size(482, 40); // Start with a minimum height
             descriptionVal.TabIndex = 28;
             descriptionVal.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\r\nMauris hendrerit velit non est mattis lacinia.\r\nCurabitur quis lacinia orci, tristique ornare dui..";
+            // Enable text wrapping
+            descriptionVal.MaximumSize = new Size(482, 0); // Width fixed, height unlimited
+            descriptionVal.AutoSize = true; // Let it auto-size vertically
             // 
             // targetSegmentLbl
             // 
@@ -182,14 +184,18 @@
             // 
             // emailMessageVal
             // 
-            emailMessageVal.AutoSize = true;
+            emailMessageVal.AutoSize = false;
             emailMessageVal.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             emailMessageVal.ForeColor = Color.Black;
             emailMessageVal.Location = new Point(284, 349);
             emailMessageVal.Name = "emailMessageVal";
-            emailMessageVal.Size = new Size(482, 90);
+            emailMessageVal.Size = new Size(482, 40); // Start with a minimum height
             emailMessageVal.TabIndex = 34;
             emailMessageVal.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\r\nMauris hendrerit velit non est mattis lacinia.\r\nCurabitur quis lacinia orci, tristique ornare dui..";
+
+            // Enable text wrapping
+            emailMessageVal.MaximumSize = new Size(482, 0); // Width fixed, height unlimited
+            emailMessageVal.AutoSize = true; // Let it auto-size vertically
             // 
             // emailMessageLbl
             // 
