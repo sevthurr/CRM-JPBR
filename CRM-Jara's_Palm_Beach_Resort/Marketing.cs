@@ -14,6 +14,8 @@ namespace CRM_Jara_s_Palm_Beach_Resort
     {
 
         private AccountManager accountManager = new AccountManager();
+        private List<CampaignData> allCampaigns = new List<CampaignData>();
+        private System.Windows.Forms.Timer searchTimer;
 
         public Marketing()
         {
@@ -22,6 +24,19 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             topNavBar1.Dock = DockStyle.Top;
             newCampaignBtn.Click += newCampaignBtn_Click;
             viewDetailsBtn.Click += ViewDetailsBtn_Click;
+
+            // Initialize search timer
+            searchTimer = new System.Windows.Forms.Timer();
+            searchTimer.Interval = 300; // 300ms delay
+            searchTimer.Tick += (s, e) => {
+                searchTimer.Stop();
+                LoadCampaigns();
+            };
+
+            // Add event handlers for filtering
+            searchBoxLbl.TextChanged += SearchBoxLbl_TextChanged;
+            filterComboBox.SelectedIndexChanged += FilterComboBox_SelectedIndexChanged;
+            comboBox1.SelectedIndexChanged += ComboBox1_SelectedIndexChanged;
 
             // Clear the static campaign card
             campaignCardsPanel.Controls.Clear();
@@ -96,22 +111,75 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         {
             campaignCardsPanel.Controls.Clear();
 
-            var campaigns = accountManager.GetCampaigns();
+            allCampaigns = accountManager.GetCampaigns();
 
-            // Update status counts
-            activeVal.Text = $"({campaigns.Count(c => c.Status == "Active").ToString()})";
-            completedVal.Text = $"({campaigns.Count(c => c.Status == "Completed").ToString()})";
-            draftVal.Text = $"({campaigns.Count(c => c.Status == "Draft").ToString()})";
+            // Apply filters
+            var filteredCampaigns = ApplyFilters(allCampaigns);
+
+            // Update status counts based on ALL campaigns (not filtered)
+            activeVal.Text = $"({allCampaigns.Count(c => c.Status == "Active").ToString()})";
+            completedVal.Text = $"({allCampaigns.Count(c => c.Status == "Completed").ToString()})";
+            draftVal.Text = $"({allCampaigns.Count(c => c.Status == "Draft").ToString()})";
 
             int yPosition = 3; // Starting Y position
             int cardHeight = 210; // Card height + margin (204 height + 6 margin)
 
-            foreach (var campaign in campaigns)
+            foreach (var campaign in filteredCampaigns)
             {
                 var card = CreateCampaignCard(campaign, yPosition);
                 campaignCardsPanel.Controls.Add(card);
                 yPosition += cardHeight; // Move down for next card
             }
+        }
+
+        private void SearchBoxLbl_TextChanged(object sender, EventArgs e)
+        {
+            // Restart timer on each keystroke
+            searchTimer.Stop();
+            searchTimer.Start();
+            LoadCampaigns();
+        }
+
+        private void FilterComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadCampaigns();
+        }
+
+        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadCampaigns();
+        }
+
+        private List<CampaignData> ApplyFilters(List<CampaignData> campaigns)
+        {
+            var filtered = campaigns;
+
+            // Apply search filter
+            if (!string.IsNullOrWhiteSpace(searchBoxLbl.Text))
+            {
+                string searchTerm = searchBoxLbl.Text.ToLower();
+                filtered = filtered.Where(c =>
+                    c.Headline.ToLower().Contains(searchTerm) ||
+                    (!string.IsNullOrEmpty(c.PromoCode) && c.PromoCode.ToLower().Contains(searchTerm)) ||
+                    c.Description.ToLower().Contains(searchTerm)
+                ).ToList();
+            }
+
+            // Apply campaign type filter
+            if (filterComboBox.SelectedItem != null && filterComboBox.SelectedItem.ToString() != "Campaign Type")
+            {
+                string selectedType = filterComboBox.SelectedItem.ToString();
+                filtered = filtered.Where(c => c.Type == selectedType).ToList();
+            }
+
+            // Apply tag filter
+            if (comboBox1.SelectedItem != null && comboBox1.SelectedItem.ToString() != "Tags")
+            {
+                string selectedTag = comboBox1.SelectedItem.ToString();
+                filtered = filtered.Where(c => c.Tag == selectedTag).ToList();
+            }
+
+            return filtered;
         }
 
         private Panel CreateCampaignCard(CampaignData data, int yPosition)
