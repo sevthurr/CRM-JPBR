@@ -64,7 +64,7 @@
             time = new DataGridViewTextBoxColumn();
             checkOutsLbl = new Label();
             kryptonCustomPaletteBase1 = new Krypton.Toolkit.KryptonCustomPaletteBase(components);
-            panelCalendarHost = new Panel();
+            calendarPanel = new Panel();
             topNavBar1 = new TopNavBar();
             pictureBox1 = new PictureBox();
             crmLbl = new Label();
@@ -397,13 +397,13 @@
             // 
             kryptonCustomPaletteBase1.UseThemeFormChromeBorderWidth = Krypton.Toolkit.InheritBool.True;
             // 
-            // panelCalendarHost
+            // calendarPanel
             // 
-            panelCalendarHost.BackColor = SystemColors.ButtonHighlight;
-            panelCalendarHost.Location = new Point(75, 696);
-            panelCalendarHost.Name = "panelCalendarHost";
-            panelCalendarHost.Size = new Size(1772, 443);
-            panelCalendarHost.TabIndex = 11;
+            calendarPanel.BackColor = SystemColors.ButtonHighlight;
+            calendarPanel.Location = new Point(75, 705);
+            calendarPanel.Name = "calendarPanel";
+            calendarPanel.Size = new Size(1772, 605);
+            calendarPanel.TabIndex = 11;
             // 
             // topNavBar1
             // 
@@ -522,12 +522,12 @@
             contentPanel.Controls.Add(activeCampaignsPanel);
             contentPanel.Controls.Add(checkInsPanel);
             contentPanel.Controls.Add(checkOutPanel);
-            contentPanel.Controls.Add(panelCalendarHost);
+            contentPanel.Controls.Add(calendarPanel);
             contentPanel.Controls.Add(welcomeLbl);
             contentPanel.Dock = DockStyle.Fill;
             contentPanel.Location = new Point(0, 0);
             contentPanel.Name = "contentPanel";
-            contentPanel.Size = new Size(1924, 1055);
+            contentPanel.Size = new Size(1924, 1049);
             contentPanel.TabIndex = 13;
             // 
             // Dashboard
@@ -535,7 +535,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
-            ClientSize = new Size(1924, 1055);
+            ClientSize = new Size(1924, 1049);
             Controls.Add(contentPanel);
             Controls.Add(topNavBar1);
             Name = "Dashboard";
@@ -585,7 +585,7 @@
         private Panel checkOutPanel;
         private Label checkOutsLbl;
         private Krypton.Toolkit.KryptonCustomPaletteBase kryptonCustomPaletteBase1;
-        private Panel panelCalendarHost;
+        private Panel calendarPanel;
         private TopNavBar topNavBar1;
         private PictureBox pictureBox1;
         private Label crmLbl;
