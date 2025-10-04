@@ -20,19 +20,37 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             topNavBar1.SetActive("Dashboard");
             topNavBar1.Dock = DockStyle.Top;
 
-            panelCalendarHost.Size = new Size(1772, 589);
+            // Calculate the exact width and position of tables
+            int totalTablesWidth = checkInsPanel.Width + checkOutPanel.Width + (checkOutPanel.Left - (checkInsPanel.Left + checkInsPanel.Width));
+            int leftPosition = checkInsPanel.Left;
+            
+            // Set calendar panel dimensions
+            calendarPanel.Left = leftPosition;
+            calendarPanel.Width = totalTablesWidth;
+            calendarPanel.Height = 700; // Increased height to show circles properly
+            calendarPanel.Top = checkInsPanel.Bottom + 35;
 
+            // Ensure there's no padding that would affect alignment
+            calendarPanel.Padding = new Padding(0);
+            
+            // Create ElementHost to host WPF control that fills the entire calendarPanel
             var host = new ElementHost
             {
-                Size = new Size(773, 493),
-                Location = new Point(40, (panelCalendarHost.Height - 493) / 2),
-                Anchor = AnchorStyles.None
+                Dock = DockStyle.Fill,
+                BackColor = Color.White,
+                Margin = new Padding(0)
             };
 
-            // WPF UserControl
+            // WPF UserControl with the Booking Calendar
             var bookingCalendar = new BookingCalendar();
             host.Child = bookingCalendar;
-            panelCalendarHost.Controls.Add(host);
+            
+            // Clear any existing controls and add our ElementHost
+            calendarPanel.Controls.Clear();
+            calendarPanel.Controls.Add(host);
+            
+            // Force layout update
+            calendarPanel.PerformLayout();
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
