@@ -19,6 +19,51 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             topNavBar1.SetActive("BookingManagement");
             topNavBar1.Dock = DockStyle.Top;
             paymentHistoryBtn.Click += paymentHistoryBtn_Click;
+
+            // Wire edit button to open EditBooking dialog
+            editBtn.Click += EditBtn_Click;
+        }
+
+        private void EditBtn_Click(object? sender, EventArgs e)
+        {
+            // Try to gather current booking info from the info panel to prefill the editor
+            string guestName = guestNameLnkLbl?.Text ?? string.Empty;
+            DateTime? checkIn = null;
+            DateTime parsedDate;
+            if (DateTime.TryParse(checkInDateVal?.Text, out parsedDate)) checkIn = parsedDate;
+            DateTime? checkOut = null;
+            if (DateTime.TryParse(checkOutDateVal?.Text, out parsedDate)) checkOut = parsedDate;
+            int pax = 1;
+            if (int.TryParse(paxVal?.Text, out var parsedInt)) pax = parsedInt;
+            string packageName = packageVal?.Text ?? string.Empty;
+
+            using (var editForm = new EditBooking(guestName, checkIn, checkOut, pax, packageName))
+            {
+                editForm.StartPosition = FormStartPosition.CenterParent;
+                editForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+                editForm.ShowInTaskbar = false;
+                editForm.MaximizeBox = false;
+                editForm.MinimizeBox = true;
+
+                var dr = editForm.ShowDialog(this);
+                if (dr == DialogResult.OK)
+                {
+                    // Update info panel labels with returned values
+                    guestNameLnkLbl.Text = editForm.GuestFullName;
+                    checkInDateVal.Text = editForm.CheckIn.ToString("MM/dd/yyyy");
+                    checkOutDateVal.Text = editForm.CheckOut.ToString("MM/dd/yyyy");
+                    paxVal.Text = editForm.Pax.ToString();
+                    packageVal.Text = editForm.SelectedPackage;
+
+                    // If a row is selected in bookingsTable, update its Guest Name cell
+                    if (bookingsTable.SelectedRows.Count > 0)
+                    {
+                        var row = bookingsTable.SelectedRows[0];
+                        if (row.Cells.Count > 1)
+                            row.Cells[1].Value = editForm.GuestFullName;
+                    }
+                }
+            }
         }
 
         private void dashboardBtn_Click(object sender, EventArgs e)
