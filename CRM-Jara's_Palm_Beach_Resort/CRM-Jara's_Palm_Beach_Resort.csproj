@@ -17,6 +17,7 @@
     <PackageReference Include="MetroFramework" Version="1.2.0.3" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+    <PackageReference Include="ScottPlot.WinForms" Version="5.0.56" />
   </ItemGroup>
 
   <ItemGroup>

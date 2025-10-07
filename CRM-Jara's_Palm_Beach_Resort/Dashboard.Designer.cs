@@ -37,7 +37,6 @@
             bookingsPanel = new Panel();
             bookingsVal = new Label();
             monthLbl = new Label();
-            TotalBookingsLbl = new Label();
             repeatGuestsPanel = new Panel();
             repeatGuestsVal = new Label();
             repeatGuestsLbl = new Label();
@@ -76,6 +75,7 @@
             supportBtn = new Label();
             chevronDownBtn = new FontAwesome.Sharp.IconPictureBox();
             contentPanel = new Panel();
+            analyticsPanel = new Panel();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             bookingsPanel.SuspendLayout();
             repeatGuestsPanel.SuspendLayout();
@@ -85,6 +85,7 @@
             ((System.ComponentModel.ISupportInitialize)checkInTable).BeginInit();
             checkOutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)checkOutTable).BeginInit();
+            calendarPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)chevronDownBtn).BeginInit();
             contentPanel.SuspendLayout();
@@ -116,7 +117,6 @@
             bookingsPanel.BackColor = Color.White;
             bookingsPanel.Controls.Add(bookingsVal);
             bookingsPanel.Controls.Add(monthLbl);
-            bookingsPanel.Controls.Add(TotalBookingsLbl);
             bookingsPanel.Location = new Point(75, 107);
             bookingsPanel.Name = "bookingsPanel";
             bookingsPanel.Size = new Size(405, 101);
@@ -143,17 +143,6 @@
             monthLbl.TabIndex = 9;
             monthLbl.Text = "September";
             monthLbl.Click += label8_Click;
-            // 
-            // TotalBookingsLbl
-            // 
-            TotalBookingsLbl.AutoSize = true;
-            TotalBookingsLbl.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            TotalBookingsLbl.ForeColor = SystemColors.ControlDarkDark;
-            TotalBookingsLbl.Location = new Point(12, 13);
-            TotalBookingsLbl.Name = "TotalBookingsLbl";
-            TotalBookingsLbl.Size = new Size(147, 26);
-            TotalBookingsLbl.TabIndex = 8;
-            TotalBookingsLbl.Text = "Total Bookings for";
             // 
             // repeatGuestsPanel
             // 
@@ -405,6 +394,14 @@
             calendarPanel.Size = new Size(1772, 605);
             calendarPanel.TabIndex = 11;
             // 
+            // analyticsPanel
+            // 
+            analyticsPanel.BackColor = Color.White;
+            analyticsPanel.Location = new Point(75, 1345);
+            analyticsPanel.Name = "analyticsPanel";
+            analyticsPanel.Size = new Size(1772, 700);
+            analyticsPanel.TabIndex = 14;
+            // 
             // topNavBar1
             // 
             topNavBar1.Location = new Point(0, 0);
@@ -523,12 +520,21 @@
             contentPanel.Controls.Add(checkInsPanel);
             contentPanel.Controls.Add(checkOutPanel);
             contentPanel.Controls.Add(calendarPanel);
+            contentPanel.Controls.Add(analyticsPanel);
             contentPanel.Controls.Add(welcomeLbl);
             contentPanel.Dock = DockStyle.Fill;
             contentPanel.Location = new Point(0, 0);
             contentPanel.Name = "contentPanel";
             contentPanel.Size = new Size(1924, 1049);
             contentPanel.TabIndex = 13;
+            // 
+            // analyticsPanel
+            // 
+            analyticsPanel.BackColor = Color.White;
+            analyticsPanel.Location = new Point(75, 1345);
+            analyticsPanel.Name = "analyticsPanel";
+            analyticsPanel.Size = new Size(1772, 700);
+            analyticsPanel.TabIndex = 14;
             // 
             // Dashboard
             // 
@@ -556,6 +562,7 @@
             checkOutPanel.ResumeLayout(false);
             checkOutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)checkOutTable).EndInit();
+            calendarPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)chevronDownBtn).EndInit();
             contentPanel.ResumeLayout(false);
@@ -568,7 +575,6 @@
         private Label welcomeLbl;
         private Label userLbl;
         private Panel bookingsPanel;
-        private Label TotalBookingsLbl;
         private Panel repeatGuestsPanel;
         private Panel openTicketsPanel;
         private Panel activeCampaignsPanel;
@@ -609,5 +615,6 @@
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private DataGridViewTextBoxColumn checkOutDate;
         private DataGridViewTextBoxColumn time;
+        private Panel analyticsPanel;
     }
 }
