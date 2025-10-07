@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FontAwesome.Sharp;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using FontAwesome.Sharp;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace CRM_Jara_s_Palm_Beach_Resort
 {
@@ -40,18 +41,42 @@ namespace CRM_Jara_s_Palm_Beach_Resort
 
         private void EditBtn_Click(object? sender, EventArgs e)
         {
-            // Try to gather current booking info from the info panel to prefill the editor
-            string guestName = guestNameLnkLbl?.Text ?? string.Empty;
-            DateTime? checkIn = null;
-            DateTime parsedDate;
-            if (DateTime.TryParse(checkInDateVal?.Text, out parsedDate)) checkIn = parsedDate;
-            DateTime? checkOut = null;
-            if (DateTime.TryParse(checkOutDateVal?.Text, out parsedDate)) checkOut = parsedDate;
-            int pax = 1;
-            if (int.TryParse(paxVal?.Text, out var parsedInt)) pax = parsedInt;
-            string packageName = packageVal?.Text ?? string.Empty;
+            if (bookingsTable.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select a booking to edit.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-            using (var editForm = new EditBooking(guestName, checkIn, checkOut, pax, packageName))
+            // Get the booking ID from the selected row
+            int bookingID;
+            try
+            {
+                bookingID = Convert.ToInt32(bookingsTable.SelectedRows[0].Cells["BookingID"].Value);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Invalid booking ID: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Fetch fresh details from the database (this now includes Phone and Address)
+            var (success, details) = _accountManager.GetBookingDetails(bookingID);
+            if (!success || details == null)
+            {
+                MessageBox.Show("Could not load booking details for editing.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Parse values from details (safer than from labels)
+            string guestName = details.GuestName ?? string.Empty;
+            DateTime? checkIn = details.CheckInDate;
+            DateTime? checkOut = details.CheckOutDate;
+            int pax = details.Pax;  // Already an int—no parsing needed now
+            string packageName = details.Package ?? string.Empty;
+            string contact = details.Phone ?? string.Empty;
+            string address = details.Address ?? string.Empty;
+
+            using (var editForm = new EditBooking(guestName, checkIn, checkOut, pax, packageName, contact, address))
             {
                 editForm.StartPosition = FormStartPosition.CenterParent;
                 editForm.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -66,7 +91,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                     guestNameLnkLbl.Text = editForm.GuestFullName;
                     checkInDateVal.Text = editForm.CheckIn.ToString("MM/dd/yyyy");
                     checkOutDateVal.Text = editForm.CheckOut.ToString("MM/dd/yyyy");
-                    paxVal.Text = editForm.Pax.ToString();
+                    paxVal.Text = $"{editForm.Pax} guest{(editForm.Pax > 1 ? "s" : "")}";  // Keep the formatted string
                     packageVal.Text = editForm.SelectedPackage;
 
                     // If a row is selected in bookingsTable, update its Guest Name cell
@@ -76,6 +101,9 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                         if (row.Cells.Count > 1)
                             row.Cells[1].Value = editForm.GuestFullName;
                     }
+
+                    // Optional: Refresh the table to reflect any other changes (e.g., if you add saving logic later)
+                    RefreshBookingsTable();
                 }
             }
         }

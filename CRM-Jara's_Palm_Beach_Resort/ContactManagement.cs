@@ -61,21 +61,13 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             UpdateBookingInformationPanel(null);
         }
 
-
-            // Sample data
-            guestTable.Rows.Add("G001", "John Doe", "Family", "06-23-2025");
-            guestTable.Rows.Add("G002", "Jane Smith", "Group", "05-06-2025");
-            guestTable.Rows.Add("G003", "Alice Brown", "Couple", "05-01-2025");
-            guestTable.Rows.Add("G004", "Bob Lee", "Solo", "04-30-2025");
-        }
-
         private void EditGuestBtn_Click(object? sender, EventArgs e)
         {
             // Get current guest info from the guest information panel to prefill the editor
             string currentName = guestName?.Text ?? string.Empty;
-            string contactNumber = label1?.Text ?? string.Empty;
+            string currentContactNumber = contactNumber?.Text ?? string.Empty;
             string socialInfo = label2?.Text ?? string.Empty;
-            bool marketingConsent = radioButton1?.Checked ?? false;
+            bool marketingConsent = marketingConsentOnChkbx?.Checked ?? false;
 
             // Split name into parts (basic parsing)
             var nameParts = currentName.Split(' ', StringSplitOptions.RemoveEmptyEntries);
@@ -104,7 +96,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 }
             }
 
-            using (var editGuestForm = new EditGuest(firstName, lastName, string.Empty, contactNumber, socials, marketingConsent, tags))
+            using (var editGuestForm = new EditGuest(firstName, lastName, string.Empty, currentContactNumber, socials, marketingConsent, tags))
             {
                 editGuestForm.StartPosition = FormStartPosition.CenterParent;
                 editGuestForm.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -117,9 +109,9 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 {
                     // Update guest information panel with edited values
                     guestName.Text = editGuestForm.GuestFullName;
-                    label1.Text = editGuestForm.ContactNumber;
-                    radioButton1.Checked = editGuestForm.MarketingConsent;
-                    radioButton2.Checked = !editGuestForm.MarketingConsent;
+                    contactNumber.Text = editGuestForm.ContactNumber;
+                    marketingConsentOnChkbx.Checked = editGuestForm.MarketingConsent;
+                    marketingConsentOffChkbx.Checked = !editGuestForm.MarketingConsent;
 
                     // Update socials (show first social if any)
                     if (editGuestForm.Socials.Any())
@@ -248,7 +240,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         {
             if (e.RowIndex >= 0)
             {
-                currentSelectedGuestID = guestTable.Rows[e.RowIndex].Cells["GuestID"].Value.ToString(); // NEW: Track ID
+                currentSelectedGuestID = guestTable.Rows[e.RowIndex].Cells["GuestID"].Value?.ToString();
                 string guestID = currentSelectedGuestID;
                 AccountManager accountManager = new AccountManager();
                 GuestDetails details = accountManager.GetGuestDetails(guestID);
@@ -258,7 +250,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
 
         private void UpdateBookingInformationPanel(GuestDetails details)
         {
-            isUpdatingUI = true; // NEW: Set flag to suppress CheckedChanged
+            isUpdatingUI = true; // Set flag to suppress CheckedChanged
             try
             {
                 if (details == null)
@@ -282,13 +274,13 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             }
             finally
             {
-                isUpdatingUI = false; // NEW: Reset flag after UI update
+                isUpdatingUI = false; // Reset flag after UI update
             }
         }
 
         private void MarketingConsentRadio_CheckedChanged(object sender, EventArgs e)
         {
-            if (isUpdatingUI || currentSelectedGuestID == null) return; // NEW: Skip if updating UI or no guest selected
+            if (isUpdatingUI || currentSelectedGuestID == null) return; // Skip if updating UI or no guest selected
 
             if (marketingConsentOnChkbx.Checked || marketingConsentOffChkbx.Checked)
             {

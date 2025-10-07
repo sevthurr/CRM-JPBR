@@ -35,7 +35,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         }
 
         // Convenience constructor to pre-fill fields from an existing booking
-        public EditBooking(string guestFullName, DateTime? checkIn = null, DateTime? checkOut = null, int pax = 1, string packageName = "", string contact = "", string address = "") : this()
+        public EditBooking(string guestFullName, DateTime? checkIn = null, DateTime? checkOut = null, int pax = 1, string packageName = "", string contact = "", string address = "", string platform = "") : this()
         {
             if (!string.IsNullOrWhiteSpace(guestFullName))
             {
@@ -72,6 +72,10 @@ namespace CRM_Jara_s_Palm_Beach_Resort
 
             contactTb.Text = contact ?? string.Empty;
             addressTb.Text = address ?? string.Empty;
+
+            // Add this line to pre-fill the platform dropdown (e.g., "Facebook", "Instagram", etc.)
+            if (!string.IsNullOrWhiteSpace(platform))
+                platformCb.SelectedItem = platformCb.Items.Cast<object>().FirstOrDefault(item => item.ToString().Equals(platform, StringComparison.OrdinalIgnoreCase));
         }
 
         private void ProceedPaymentBtn_Click(object? sender, EventArgs e)

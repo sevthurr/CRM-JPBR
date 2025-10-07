@@ -289,7 +289,7 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             }
         }
 
-        public (bool Success, BookingDetailsData BookingDetails) GetBookingDetails(int bookingID)
+        public (bool Success, BookingDetailsData Details) GetBookingDetails(int bookingID)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -297,22 +297,23 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                 {
                     conn.Open();
                     string query = @"
-                SELECT 
-                    g.FName + ' ' + ISNULL(g.MName + ' ', '') + g.LName AS GuestName,
-                    bd.Package,
-                    bd.CheckInDate,
-                    bd.CheckOutDate,
-                    bd.Pax,
-                    ISNULL(bd.TotalDue, 0) AS TotalDue,  -- Handle NULL values
-                    SUM(pd.Amount) AS Amount
+                SELECT TOP 1
+                    g.FName + ' ' + COALESCE(g.MName, '') + ' ' + g.LName + COALESCE(' ' + g.Suffix, '') AS GuestName,
+                    g.Phone, 
+                    g.Address,
+                    bd.Package, 
+                    bd.CheckInDate, 
+                    bd.CheckOutDate, 
+                    bd.Pax, 
+                    bd.TotalDue, 
+                    pd.Amount
                 FROM [dbo].[Booking] b
-                JOIN [dbo].[Guest] g ON b.GuestID = g.GuestID
-                JOIN [dbo].[BookingDetails] bd ON b.BookingDetailsID = bd.BookingDetailsID
-                JOIN [dbo].[PaymentDetails] pd ON b.PaymentID = pd.PaymentID
-                WHERE b.BookingDetailsID = (SELECT BookingDetailsID FROM [dbo].[Booking] WHERE BookingID = @BookingID)
-                GROUP BY 
-                    g.FName, g.MName, g.LName, 
-                    bd.Package, bd.CheckInDate, bd.CheckOutDate, bd.Pax, bd.TotalDue";
+                INNER JOIN [dbo].[Guest] g ON b.GuestID = g.GuestID
+                INNER JOIN [dbo].[BookingDetails] bd ON b.BookingDetailsID = bd.BookingDetailsID
+                INNER JOIN [dbo].[PaymentDetails] pd ON b.PaymentID = pd.PaymentID
+                WHERE b.BookingID = @BookingID
+                ORDER BY pd.PaymentDate DESC;";  // Optional: Pick latest payment if multiples exist
+
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@BookingID", bookingID);
@@ -322,13 +323,22 @@ namespace CRM_Jara_s_Palm_Beach_Resort
                             {
                                 var details = new BookingDetailsData
                                 {
-                                    GuestName = reader["GuestName"].ToString(),
-                                    Package = reader["Package"].ToString(),
-                                    CheckInDate = Convert.ToDateTime(reader["CheckInDate"]),
-                                    CheckOutDate = Convert.ToDateTime(reader["CheckOutDate"]),
-                                    Pax = Convert.ToInt32(reader["Pax"]),
-                                    TotalDue = Convert.ToDecimal(reader["TotalDue"]),
-                                    Amount = Convert.ToDecimal(reader["Amount"])
+                                    // Strings: Safe by default
+                                    GuestName = reader["GuestName"]?.ToString() ?? "",
+                                    Phone = reader["Phone"]?.ToString() ?? "",
+                                    Address = reader["Address"]?.ToString() ?? "",
+                                    Package = reader["Package"]?.ToString() ?? "",
+
+                                    // Dates: Assume non-nullable, but check for DBNull and default if needed
+                                    CheckInDate = reader.IsDBNull("CheckInDate") ? DateTime.Today : (DateTime)reader["CheckInDate"],
+                                    CheckOutDate = reader.IsDBNull("CheckOutDate") ? DateTime.Today : (DateTime)reader["CheckOutDate"],
+
+                                    // Int: Safe cast with default
+                                    Pax = reader.IsDBNull("Pax") ? 1 : (int)reader["Pax"],  // Default to 1 guest
+
+                                    // Decimals: Safe cast with default to 0
+                                    TotalDue = reader.IsDBNull("TotalDue") ? 0m : (decimal)reader["TotalDue"],
+                                    Amount = reader.IsDBNull("Amount") ? 0m : (decimal)reader["Amount"]
                                 };
                                 return (true, details);
                             }
@@ -1196,6 +1206,41 @@ namespace CRM_Jara_s_Palm_Beach_Resort
             return checkOuts;
         }
 
+        public DataTable GetBookingCalendarData()
+        {
+            DataTable bookings = new DataTable();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = @"
+                SELECT 
+                    bd.CheckInDate,
+                    bd.CheckOutDate,
+                    bd.BookingStatus,
+                    bd.Package,
+                    bd.Pax,
+                    g.FName + ' ' + ISNULL(g.MName + ' ', '') + g.LName AS GuestName
+                FROM [dbo].[BookingDetails] bd
+                JOIN [dbo].[Booking] b ON bd.BookingDetailsID = b.BookingDetailsID
+                JOIN [dbo].[Guest] g ON b.GuestID = g.GuestID
+                WHERE bd.BookingStatus NOT IN ('Cancelled')
+                ORDER BY bd.CheckInDate";
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(query, conn))
+                    {
+                        adapter.Fill(bookings);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading calendar data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            return bookings;
+        }
+
         // Method for Account Information
         public UserDetails GetUserDetails(int userID)
         {
@@ -1602,6 +1647,9 @@ namespace CRM_Jara_s_Palm_Beach_Resort
         public int Pax { get; set; }
         public decimal TotalDue { get; set; }
         public decimal Amount { get; set; }
+        public string Phone { get; set; }
+        public string Address { get; set; }
+        public string Platform { get; set; }
     }
 
     public class GuestDetails
